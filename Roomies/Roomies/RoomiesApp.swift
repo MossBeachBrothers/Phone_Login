@@ -14,6 +14,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     FirebaseApp.configure()
     return true
   }
+    //MARK: Phone Auth Intialize Remote Notifications
+    func application(_application: UIApplication, didReceivedRemoteNotifcation userInfo: [AnyHashable: Any]) async ->
+    UIBackgroundFetchResult {
+        return .noData
+    }
 }
 
 
@@ -30,3 +35,8 @@ struct RoomiesApp: App {
         }
     }
 }
+
+
+
+
+

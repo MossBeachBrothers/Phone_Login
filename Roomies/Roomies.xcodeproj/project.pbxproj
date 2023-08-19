@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		031C29E02A90366F003CAE13 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29DF2A90366F003CAE13 /* CustomTextField.swift */; };
+		031C29E12A90366F003CAE13 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29DF2A90366F003CAE13 /* CustomTextField.swift */; };
+		031C29E22A90366F003CAE13 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29DF2A90366F003CAE13 /* CustomTextField.swift */; };
+		031C29E42A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
+		031C29E52A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
+		031C29E62A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
+		033227422A90320200AAE99A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033227412A90320200AAE99A /* Login.swift */; };
+		033227432A90320200AAE99A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033227412A90320200AAE99A /* Login.swift */; };
+		033227442A90320200AAE99A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033227412A90320200AAE99A /* Login.swift */; };
 		CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */; };
 		CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906D2A8FDEEF00E35B8C /* ContentView.swift */; };
 		CD2190702A8FDEEF00E35B8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD21906F2A8FDEEF00E35B8C /* Assets.xcassets */; };
@@ -50,6 +59,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		031C29DF2A90366F003CAE13 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		031C29E32A9038BA003CAE13 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		0332273C2A90309600AAE99A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0332273D2A90313800AAE99A /* Roomies.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Roomies.entitlements; sourceTree = "<group>"; };
+		033227412A90320200AAE99A /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		CD2190682A8FDEEF00E35B8C /* Roomies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roomies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomiesApp.swift; sourceTree = "<group>"; };
 		CD21906D2A8FDEEF00E35B8C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -101,6 +115,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0332273F2A9031DD00AAE99A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				033227412A90320200AAE99A /* Login.swift */,
+				031C29DF2A90366F003CAE13 /* CustomTextField.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		033227402A9031E900AAE99A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				031C29E32A9038BA003CAE13 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		CD21905F2A8FDEEF00E35B8C = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +155,10 @@
 		CD21906A2A8FDEEF00E35B8C /* Roomies */ = {
 			isa = PBXGroup;
 			children = (
+				033227402A9031E900AAE99A /* ViewModel */,
+				0332273F2A9031DD00AAE99A /* View */,
+				0332273D2A90313800AAE99A /* Roomies.entitlements */,
+				0332273C2A90309600AAE99A /* Info.plist */,
 				CD2190952A8FDF6E00E35B8C /* GoogleService-Info.plist */,
 				CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */,
 				CD21906D2A8FDEEF00E35B8C /* ContentView.swift */,
@@ -309,7 +344,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				031C29E02A90366F003CAE13 /* CustomTextField.swift in Sources */,
+				033227422A90320200AAE99A /* Login.swift in Sources */,
 				CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */,
+				031C29E42A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,7 +356,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				031C29E52A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				CD21907D2A8FDEF000E35B8C /* RoomiesTests.swift in Sources */,
+				033227432A90320200AAE99A /* Login.swift in Sources */,
+				031C29E12A90366F003CAE13 /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,7 +367,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				031C29E22A90366F003CAE13 /* CustomTextField.swift in Sources */,
+				033227442A90320200AAE99A /* Login.swift in Sources */,
 				CD2190872A8FDEF000E35B8C /* RoomiesUITests.swift in Sources */,
+				031C29E62A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				CD2190892A8FDEF000E35B8C /* RoomiesUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,11 +510,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Roomies/Roomies.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Roomies/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Roomies/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -494,11 +540,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Roomies/Roomies.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Roomies/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Roomies/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

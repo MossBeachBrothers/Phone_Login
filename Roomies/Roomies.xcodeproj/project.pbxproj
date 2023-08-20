@@ -16,6 +16,7 @@
 		033227422A90320200AAE99A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033227412A90320200AAE99A /* Login.swift */; };
 		033227432A90320200AAE99A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033227412A90320200AAE99A /* Login.swift */; };
 		033227442A90320200AAE99A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033227412A90320200AAE99A /* Login.swift */; };
+		039FAFB62A91853000F0360C /* LoginEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039FAFB52A91853000F0360C /* LoginEmail.swift */; };
 		CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */; };
 		CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906D2A8FDEEF00E35B8C /* ContentView.swift */; };
 		CD2190702A8FDEEF00E35B8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD21906F2A8FDEEF00E35B8C /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 		0332273C2A90309600AAE99A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0332273D2A90313800AAE99A /* Roomies.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Roomies.entitlements; sourceTree = "<group>"; };
 		033227412A90320200AAE99A /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		039FAFB52A91853000F0360C /* LoginEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmail.swift; sourceTree = "<group>"; };
 		CD2190682A8FDEEF00E35B8C /* Roomies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roomies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomiesApp.swift; sourceTree = "<group>"; };
 		CD21906D2A8FDEEF00E35B8C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				033227412A90320200AAE99A /* Login.swift */,
 				031C29DF2A90366F003CAE13 /* CustomTextField.swift */,
+				039FAFB52A91853000F0360C /* LoginEmail.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 			files = (
 				031C29E02A90366F003CAE13 /* CustomTextField.swift in Sources */,
 				033227422A90320200AAE99A /* Login.swift in Sources */,
+				039FAFB62A91853000F0360C /* LoginEmail.swift in Sources */,
 				CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */,
 				031C29E42A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */,

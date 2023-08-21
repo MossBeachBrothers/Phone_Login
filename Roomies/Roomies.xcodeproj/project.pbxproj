@@ -13,10 +13,18 @@
 		031C29E42A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
 		031C29E52A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
 		031C29E62A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
-		033227422A90320200AAE99A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033227412A90320200AAE99A /* Login.swift */; };
-		033227432A90320200AAE99A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033227412A90320200AAE99A /* Login.swift */; };
-		033227442A90320200AAE99A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033227412A90320200AAE99A /* Login.swift */; };
 		039FAFB62A91853000F0360C /* LoginEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039FAFB52A91853000F0360C /* LoginEmail.swift */; };
+		039FAFB82A919C3900F0360C /* CreateEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039FAFB72A919C3900F0360C /* CreateEmailView.swift */; };
+		03B1B3912A928B34004B6962 /* LoginPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B3902A928B34004B6962 /* LoginPhoneNumber.swift */; };
+		03B1B3922A928B34004B6962 /* LoginPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B3902A928B34004B6962 /* LoginPhoneNumber.swift */; };
+		03B1B3932A928B34004B6962 /* LoginPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B3902A928B34004B6962 /* LoginPhoneNumber.swift */; };
+		03B1B3972A92DBE9004B6962 /* SignInBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B3962A92DBE9004B6962 /* SignInBox.swift */; };
+		03B1B3992A92DE05004B6962 /* ShadowBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B3982A92DE05004B6962 /* ShadowBox.swift */; };
+		03B1B39D2A92F73B004B6962 /* SignInPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B39C2A92F73B004B6962 /* SignInPage.swift */; };
+		03B1B39F2A92F769004B6962 /* SignUpPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B39E2A92F769004B6962 /* SignUpPage.swift */; };
+		03B1B3A22A930960004B6962 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 03B1B3A12A930960004B6962 /* GoogleSignIn */; };
+		03B1B3A42A930960004B6962 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03B1B3A32A930960004B6962 /* GoogleSignInSwift */; };
+		03B1B3A62A931224004B6962 /* ForgotPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B3A52A931224004B6962 /* ForgotPasswordPage.swift */; };
 		CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */; };
 		CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906D2A8FDEEF00E35B8C /* ContentView.swift */; };
 		CD2190702A8FDEEF00E35B8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD21906F2A8FDEEF00E35B8C /* Assets.xcassets */; };
@@ -64,8 +72,14 @@
 		031C29E32A9038BA003CAE13 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0332273C2A90309600AAE99A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0332273D2A90313800AAE99A /* Roomies.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Roomies.entitlements; sourceTree = "<group>"; };
-		033227412A90320200AAE99A /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		039FAFB52A91853000F0360C /* LoginEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmail.swift; sourceTree = "<group>"; };
+		039FAFB72A919C3900F0360C /* CreateEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEmailView.swift; sourceTree = "<group>"; };
+		03B1B3902A928B34004B6962 /* LoginPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneNumber.swift; sourceTree = "<group>"; };
+		03B1B3962A92DBE9004B6962 /* SignInBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInBox.swift; sourceTree = "<group>"; };
+		03B1B3982A92DE05004B6962 /* ShadowBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowBox.swift; sourceTree = "<group>"; };
+		03B1B39C2A92F73B004B6962 /* SignInPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPage.swift; sourceTree = "<group>"; };
+		03B1B39E2A92F769004B6962 /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
+		03B1B3A52A931224004B6962 /* ForgotPasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage.swift; sourceTree = "<group>"; };
 		CD2190682A8FDEEF00E35B8C /* Roomies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roomies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomiesApp.swift; sourceTree = "<group>"; };
 		CD21906D2A8FDEEF00E35B8C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -84,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03B1B3A42A930960004B6962 /* GoogleSignInSwift in Frameworks */,
 				CD2190AF2A8FE00800E35B8C /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
 				CD2190A12A8FE00800E35B8C /* FirebaseDatabaseSwift in Frameworks */,
 				CD21909F2A8FE00800E35B8C /* FirebaseDatabase in Frameworks */,
@@ -97,6 +112,7 @@
 				CD2190A32A8FE00800E35B8C /* FirebaseFirestore in Frameworks */,
 				CD21909D2A8FE00800E35B8C /* FirebaseAuth in Frameworks */,
 				CD2190AD2A8FE00800E35B8C /* FirebaseInAppMessaging-Beta in Frameworks */,
+				03B1B3A22A930960004B6962 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,9 +136,15 @@
 		0332273F2A9031DD00AAE99A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				033227412A90320200AAE99A /* Login.swift */,
+				03B1B3982A92DE05004B6962 /* ShadowBox.swift */,
+				03B1B39C2A92F73B004B6962 /* SignInPage.swift */,
+				03B1B39E2A92F769004B6962 /* SignUpPage.swift */,
 				031C29DF2A90366F003CAE13 /* CustomTextField.swift */,
+				03B1B3A52A931224004B6962 /* ForgotPasswordPage.swift */,
 				039FAFB52A91853000F0360C /* LoginEmail.swift */,
+				039FAFB72A919C3900F0360C /* CreateEmailView.swift */,
+				03B1B3902A928B34004B6962 /* LoginPhoneNumber.swift */,
+				03B1B3962A92DBE9004B6962 /* SignInBox.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -226,6 +248,8 @@
 				CD2190AE2A8FE00800E35B8C /* FirebaseInAppMessagingSwift-Beta */,
 				CD2190B02A8FE00800E35B8C /* FirebaseStorage */,
 				CD2190B22A8FE00800E35B8C /* FirebaseStorageCombine-Community */,
+				03B1B3A12A930960004B6962 /* GoogleSignIn */,
+				03B1B3A32A930960004B6962 /* GoogleSignInSwift */,
 			);
 			productName = Roomies;
 			productReference = CD2190682A8FDEEF00E35B8C /* Roomies.app */;
@@ -301,6 +325,7 @@
 			mainGroup = CD21905F2A8FDEEF00E35B8C;
 			packageReferences = (
 				CD2190992A8FE00800E35B8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				03B1B3A02A930960004B6962 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = CD2190692A8FDEEF00E35B8C /* Products */;
 			projectDirPath = "";
@@ -348,10 +373,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				031C29E02A90366F003CAE13 /* CustomTextField.swift in Sources */,
-				033227422A90320200AAE99A /* Login.swift in Sources */,
+				03B1B39F2A92F769004B6962 /* SignUpPage.swift in Sources */,
 				039FAFB62A91853000F0360C /* LoginEmail.swift in Sources */,
+				03B1B3992A92DE05004B6962 /* ShadowBox.swift in Sources */,
+				03B1B3A62A931224004B6962 /* ForgotPasswordPage.swift in Sources */,
 				CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */,
+				03B1B3972A92DBE9004B6962 /* SignInBox.swift in Sources */,
+				03B1B39D2A92F73B004B6962 /* SignInPage.swift in Sources */,
 				031C29E42A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
+				03B1B3912A928B34004B6962 /* LoginPhoneNumber.swift in Sources */,
+				039FAFB82A919C3900F0360C /* CreateEmailView.swift in Sources */,
 				CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,7 +393,7 @@
 			files = (
 				031C29E52A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				CD21907D2A8FDEF000E35B8C /* RoomiesTests.swift in Sources */,
-				033227432A90320200AAE99A /* Login.swift in Sources */,
+				03B1B3922A928B34004B6962 /* LoginPhoneNumber.swift in Sources */,
 				031C29E12A90366F003CAE13 /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,7 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				031C29E22A90366F003CAE13 /* CustomTextField.swift in Sources */,
-				033227442A90320200AAE99A /* Login.swift in Sources */,
+				03B1B3932A928B34004B6962 /* LoginPhoneNumber.swift in Sources */,
 				CD2190872A8FDEF000E35B8C /* RoomiesUITests.swift in Sources */,
 				031C29E62A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				CD2190892A8FDEF000E35B8C /* RoomiesUITestsLaunchTests.swift in Sources */,
@@ -683,6 +714,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		03B1B3A02A930960004B6962 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		CD2190992A8FE00800E35B8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -694,6 +733,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		03B1B3A12A930960004B6962 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03B1B3A02A930960004B6962 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		03B1B3A32A930960004B6962 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03B1B3A02A930960004B6962 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		CD21909A2A8FE00800E35B8C /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CD2190992A8FE00800E35B8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

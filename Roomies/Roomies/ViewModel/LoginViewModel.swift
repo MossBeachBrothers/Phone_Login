@@ -5,6 +5,8 @@
 //  Created by Akhi Nair on 8/18/23.
 //
 
+/*
+
 import SwiftUI
 import Firebase
 
@@ -77,3 +79,5 @@ extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from : nil, for: nil)
     }
 }
+
+*/

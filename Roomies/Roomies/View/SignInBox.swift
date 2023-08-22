@@ -17,12 +17,27 @@ struct SignInBox : View {
     @State private var email_or_phone : String = ""
     @State private var password : String = ""
     @State private var isPasswordVisible: Bool = false
-    let authHandler = AuthHandler()
+    @EnvironmentObject var authViewModel: AuthViewModel
     //Whether Email or Phone is chosen
     enum InputType {
         case email
         case phone
     }
+    
+    // MARK: Function to Sign Users in with Email and Password
+    func signInUserWithEmail() {
+        authViewModel.signInWithEmail(email: email_or_phone, password: password) { error in
+            if let error = error {
+                print("Sign-in error: \(error.localizedDescription)")
+            } else {
+                print("User signed in successfully")
+                // Navigate to the next screen or perform additional actions upon successful sign-in
+            }
+        }
+    }
+
+
+    
     
     @State private var input_type : InputType = .email
     
@@ -45,7 +60,12 @@ struct SignInBox : View {
                                destination: ForgotPasswordPage())
             }
 
-             Button(action: {/* Handle sign-in action here//Firebase Authentication for Email*/}) {
+             Button(action: {
+                 /* Handle sign-in action here//Firebase Authentication for Sign In*/
+                signInUserWithEmail()
+                 
+                 
+             }) {
                 
                  
                 Text("Sign In")

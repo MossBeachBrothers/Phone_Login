@@ -14,7 +14,7 @@ struct SignUpBox : View {
     
     @State private var first_name : String = ""
     @State private var last_name : String = ""
-    
+    @EnvironmentObject var authViewModel: AuthViewModel
     //Whether Email or Phone is chosen
     enum InputType {
         case email
@@ -53,7 +53,7 @@ struct SignUpBox : View {
             PasswordField(hint: "Repeat Password", password: $repeat_password)
             
 
-            Button(action: {}) {
+            Button(action: signUpWithEmail) {
                  
                 Text("Sign Up")
                      .font(.headline)
@@ -125,6 +125,29 @@ struct SignUpBox : View {
         
     }
     
+    func signUpWithEmail() {
+        // MARK: Function to Sign Up User Using Email
+        
+        // Create a Roomies user object with provided information
+        let newUser = RoomiesUser(
+            uid: "",
+            email: email_or_phone,
+            firstName: first_name,
+            lastName: last_name,
+            phoneNumber: ""
+        )
+        
+        // Use Firebase API to create an account using the provided user information
+        authViewModel.createEmailAccount(email: email_or_phone, password: password, user: newUser) { error in
+            if let error = error {
+                print("Sign up error: \(error.localizedDescription)")
+            } else {
+                print("User signed up successfully")
+            }
+        }
+    }
+
+    
     func signInWithGoogle(){
         /*
          Signs the User in with Google
@@ -137,7 +160,7 @@ struct SignUpBox : View {
 struct SignUpBox_Preview : PreviewProvider {
     
     static var previews: some View {
-        
         ContentView()
+            .environmentObject(AuthViewModel()) // Inject an instance of AuthViewModel for preview
     }
 }

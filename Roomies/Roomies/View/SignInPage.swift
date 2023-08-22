@@ -12,7 +12,6 @@ struct SignInPage: View {
     //@State private var currentPage: String? = "Login"
     
     //@State private var currentPage: Int? = nil // To manage navigation
-    
     var body: some View {
         
         NavigationView {

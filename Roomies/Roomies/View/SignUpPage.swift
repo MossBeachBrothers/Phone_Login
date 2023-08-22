@@ -10,7 +10,6 @@ import SwiftUI
 struct SignUpPage: View {
     
     @State private var currentPage: String? = "Login"
-    
     var body: some View {
         
         NavigationView {
@@ -33,5 +32,11 @@ struct SignUpPage: View {
             }
                 
         }
+    }
+}
+
+struct SignUpPage_Previews: PreviewProvider {
+    static var previews: some View {
+        SignUpPage()
     }
 }

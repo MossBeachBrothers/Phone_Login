@@ -8,17 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
+        NavigationView {
+            
+            
+            if (authViewModel.isLoggedIn){
+                Home()
+            } else {
+                SignInPage()
+            }
+            
+            
+        }
         
-        SignInPage()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
-        
-        ContentView()
-    }
+            ContentView()
+                .environmentObject(AuthViewModel()) // Inject an instance of AuthViewModel for preview
+        }
 }

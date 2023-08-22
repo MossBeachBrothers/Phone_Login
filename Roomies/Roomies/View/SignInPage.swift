@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignInPage: View {
     
-    @State private var currentPage: String? = "Login"
+    //@State private var currentPage: String? = "Login"
     
     //@State private var currentPage: Int? = nil // To manage navigation
     
@@ -22,7 +22,7 @@ struct SignInPage: View {
                 //.font(.system(size: 30))
                 //.foregroundColor(.indigo)
             
-            VStack(alignment: .center, spacing: 5) { // Increased spacing between title texts
+            VStack(alignment: .center) {
                 
                 Text("Roomies")
                     .foregroundColor(.pink)
@@ -36,7 +36,7 @@ struct SignInPage: View {
                 
                 //Shadowed box containing Sign in entry fields
                 ShadowBox(content: SignInBox(),
-                          width: 250,
+                          width: 300,
                           height: 450)
                 
                 

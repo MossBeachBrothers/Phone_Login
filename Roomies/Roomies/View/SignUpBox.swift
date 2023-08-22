@@ -1,8 +1,8 @@
 //
-//  SignInBox.swift
+//  SignUpBox.swift
 //  Roomies
 //
-//  Created by Akhi Nair on 8/20/23.
+//  Created by Akhi Nair on 8/21/23.
 //
 
 import SwiftUI
@@ -10,14 +10,11 @@ import FirebaseAuth
 import FirebaseCore
 import GoogleSignIn
 
-
-
-struct SignInBox : View {
+struct SignUpBox : View {
     
-    @State private var email_or_phone : String = ""
-    @State private var password : String = ""
-    @State private var isPasswordVisible: Bool = false
-    let authHandler = AuthHandler()
+    @State private var first_name : String = ""
+    @State private var last_name : String = ""
+    
     //Whether Email or Phone is chosen
     enum InputType {
         case email
@@ -26,29 +23,39 @@ struct SignInBox : View {
     
     @State private var input_type : InputType = .email
     
+    @State private var email_or_phone : String = ""
+    
+    @State private var password : String = ""
+    @State private var repeat_password : String = ""
+    
+    @State private var isPasswordVisible: Bool = false
+    
     var body: some View {
         
         VStack(alignment: .center) {
             
-            Text("Sign In")
+            Text("Sign Up")
             
                 .foregroundColor(.gray)
                 .font(.title)
                 .fontWeight(.semibold)
             
+            CustomTextField(hint: "First Name", text: $first_name)
+            
+            CustomTextField(hint: "Last Name", text: $last_name)
+            
             CustomTextField(hint: "Email or Phone", text: $email_or_phone)
             
             PasswordField(hint: "Password", password: $password)
             
-            VStack(alignment: .trailing){
-                NavigationLink("Forgot Password?",
-                               destination: ForgotPasswordPage())
-            }
 
-             Button(action: {/* Handle sign-in action here//Firebase Authentication for Email*/}) {
-                
+            
+            PasswordField(hint: "Repeat Password", password: $repeat_password)
+            
+
+            Button(action: {}) {
                  
-                Text("Sign In")
+                Text("Sign Up")
                      .font(.headline)
 
              }
@@ -72,7 +79,7 @@ struct SignInBox : View {
             
             
             //Sign in with Google Button
-            Button(action: {/* */}) {
+            Button(action: {}) {
                 
                 HStack {
                     
@@ -80,7 +87,7 @@ struct SignInBox : View {
                         .resizable()
                         .frame(width: 40, height: 40)
                     
-                    Text("Sign in with Google")
+                    Text("Sign Up with Google")
                         .foregroundColor(.white)
                         .padding()
                 }
@@ -95,13 +102,42 @@ struct SignInBox : View {
         .padding()
         
     }
+    
+    func passwordsMatch() -> Bool{
+        /*
+         Check if the two passwords match each other
+         */
+        if (password == repeat_password){
+            print("Passwords match")
+            return true
+        }
+        print("Passwords do NOT match")
+        return false
+        
+    }
+    
+    
+    func send_email_code() {
+        
+    }
+    
+    func send_phone_code() {
+        
+    }
+    
+    func signInWithGoogle(){
+        /*
+         Signs the User in with Google
+         */
+        
+    }
 }
 
 
-struct SignInBox_Preview : PreviewProvider {
+struct SignUpBox_Preview : PreviewProvider {
     
     static var previews: some View {
         
-        SignInPage()
+        ContentView()
     }
 }

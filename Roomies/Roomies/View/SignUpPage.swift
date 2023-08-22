@@ -15,11 +15,6 @@ struct SignUpPage: View {
         
         NavigationView {
             
-                
-            //Image(systemName: "square")
-                //.font(.system(size: 30))
-                //.foregroundColor(.indigo)
-            
             VStack(alignment: .center, spacing: 5) { // Increased spacing between title texts
                 
                 Text("Roomies")
@@ -32,9 +27,9 @@ struct SignUpPage: View {
                     .font(.title)
                     .fontWeight(.semibold)
                 
-                ShadowBox(content: SignInBox(),
-                          width: 250,
-                          height: 450)
+                ShadowBox(content: SignUpBox(),
+                          width: 300,
+                          height: 550)
             }
                 
         }

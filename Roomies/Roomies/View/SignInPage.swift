@@ -28,7 +28,7 @@ struct SignInPage: View {
                     .font(.title)
                     .fontWeight(.semibold)
                 
-                Text("Share Group Expenses")
+                Text("Share Group signin")
                     .foregroundColor(.gray)
                     .font(.title)
                     .fontWeight(.semibold)
@@ -50,8 +50,11 @@ struct SignInPage: View {
                                 
             
             }
+            
+            
                 
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

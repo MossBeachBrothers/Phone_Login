@@ -113,6 +113,7 @@ struct SignInBox : View {
             )
         }
         .padding()
+        .navigationBarBackButtonHidden(true)
         
     }
 }

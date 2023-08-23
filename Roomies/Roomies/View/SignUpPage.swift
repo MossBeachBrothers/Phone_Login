@@ -21,7 +21,7 @@ struct SignUpPage: View {
                     .font(.title)
                     .fontWeight(.semibold)
                 
-                Text("Share Group Expenses")
+                Text("Share Group signup")
                     .foregroundColor(.gray)
                     .font(.title)
                     .fontWeight(.semibold)

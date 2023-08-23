@@ -9,14 +9,26 @@ import SwiftUI
 
 struct ForgotPasswordPage : View {
     
-    /*
-     
-     Page containing UI for resetting user's password
-     */
-    
+    @EnvironmentObject var authViewModel: AuthViewModel
     var body: some View {
-        
-        Text("Reset your password")
+        NavigationView {
+            VStack(alignment: .center, spacing: 5) { // Increased spacing between title texts
+                
+                Text("Roomies")
+                    .foregroundColor(.pink)
+                    .font(.title)
+                    .fontWeight(.semibold)
+                
+                Text("Share Group forgotpass")
+                    .foregroundColor(.gray)
+                    .font(.title)
+                    .fontWeight(.semibold)
+                
+                ShadowBox(content: ResetPasswordBox(),
+                          width: 300,
+                          height: 550)
+            }
+        }
     }
 }
 

@@ -103,4 +103,19 @@ class AuthViewModel: ObservableObject {
                 }
             }
         }
+    
+    
+    //MARK: Function for Resetting User Password
+    func resetUserPassword(email: String) {
+            Auth.auth().sendPasswordReset(withEmail: email) { error in
+                if let error = error {
+                    // Handle the error here
+                    print("Error resetting password: \(error.localizedDescription)")
+                    // You can display an alert or some UI to inform the user about the error
+                } else {
+                    // Reset password email sent successfully
+                    // Update the state to indicate that the code has been sent
+                }
+            }
+    }
 }

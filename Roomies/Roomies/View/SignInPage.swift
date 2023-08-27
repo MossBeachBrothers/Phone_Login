@@ -28,15 +28,17 @@ struct SignInPage: View {
                     .font(.title)
                     .fontWeight(.semibold)
                 
-                Text("Share Group signin")
+                Text("Share Group Expenses")
                     .foregroundColor(.gray)
                     .font(.title)
                     .fontWeight(.semibold)
                 
+                Spacer().frame(height: 10)
+                
                 //Shadowed box containing Sign in entry fields
                 ShadowBox(content: SignInBox(),
                           width: 300,
-                          height: 450)
+                          height: 500)
                 
                 
                 // For new users, directs to create account page
@@ -45,6 +47,8 @@ struct SignInPage: View {
                         .font(.subheadline)
                     //Spacer()
                     NavigationLink("Sign Up", destination: SignUpPage())
+                    
+                    
                 }
                 .padding()
                                 

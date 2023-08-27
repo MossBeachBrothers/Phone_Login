@@ -85,8 +85,8 @@ public class AuthHandler : ObservableObject {
         let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
         
         return phonePredicate.evaluate(with: phone)
-
     }
+    
     
     static func isValidEmail(email : String) -> Bool{
         /*
@@ -98,10 +98,10 @@ public class AuthHandler : ObservableObject {
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         
         return emailPredicate.evaluate(with: email)
-
     }
     
-    static func createUserEmail(email: String, password: String){
+    
+    static func signUpEmail(email: String, password: String){
         /*
          Uses a firebase command to create the database log of the
          new user account with the email and password information
@@ -116,7 +116,7 @@ public class AuthHandler : ObservableObject {
         }
     }
     
-    static func signInUserEmail(email: String, password: String){
+    static func signInEmail(email: String, password: String){
         
         //Function to sign in with Email with Firebase APIs
         

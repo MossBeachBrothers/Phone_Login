@@ -10,6 +10,7 @@ import SwiftUI
 
 
 struct ResetPasswordBox: View {
+    
     @State private var emailOrPhone = ""
     @State private var isCodeSent = false
     @State private var verificationCode = ""
@@ -39,25 +40,28 @@ struct ResetPasswordBox: View {
                     Text("Get a Code")
                         .font(.headline)
                 }
-                .roomiesButtonStyle()
+                //.roomiesButtonStyle()
                 .padding(.top, 10) // Add some spacing between the button and text field
             } else {
-                Text(maskedEmail) // Display the masked email text
-                    .font(.subheadline)
-                    .padding(.bottom, 10)
+//                Text(maskedEmail) // Display the masked email text
+//                    .font(.subheadline)
+//                    .padding(.bottom, 10)
                 
                 PasswordField(hint: "Verification Code", password: $verificationCode)
                 PasswordField(hint: "Password", password: $password)
                 PasswordField(hint: "Repeat Password", password: $repeatPassword)
                 
                 NavigationLink(destination: SignInPage()) {
+                    /*
+                     Button to Reset Password, then go back to Sign Up
+                     */
                     Button(action: {
                         resetPassword()
                     }) {
                         Text("Reset Password")
                             .font(.headline)
                     }
-                    .roomiesButtonStyle()
+                    //.roomiesButtonStyle()
                     .padding(.top, 10) // Add some spacing between the button and text field
                 }
             }

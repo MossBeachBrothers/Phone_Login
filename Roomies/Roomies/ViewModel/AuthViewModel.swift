@@ -49,19 +49,34 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    // MARK: Function to sign in user with email and password
-    func signInWithEmail(email: String, password: String, completion: @escaping (Error?) -> Void) {
+    static func signInWithEmail(email: String, password: String) {
+        
+        // completion: @escaping (Bool) -> Void
+        /*
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
-                completion(error)
+                print("Sign-in error: \(error.localizedDescription)")
+                completion(false)
             } else {
-                completion(nil)
+                completion(true)
             }
         }
+         */
+        Auth.auth().signIn(withEmail: email, password: password)
     }
     
-    // MARK: Function to create user account with email and password
-    func createEmailAccount(email: String, password: String, user: RoomiesUser, completion: @escaping (Error?) -> Void) {
+    
+    static func signInWithPhoneNumber(phone: String, password: String) {
+        
+        // completion: @escaping (Bool) -> Void
+        
+    }
+
+    
+    static func signUpWithEmail(email: String, password: String, user: RoomiesUser){
+    
+        //completion: @escaping (Error?) -> Void) {
+        /*
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 completion(error)
@@ -82,10 +97,28 @@ class AuthViewModel: ObservableObject {
                 }
             }
         }
+         */
+        //Auth.auth().createUser(withEmail: email, password: password)
+        print("Signing up with Email")
     }
     
-    //MARK: Function to Fetch User Data
+    static func signUpWithPhoneNumber(phone: String, password: String, user: RoomiesUser) {
+        
+        // completion: @escaping (Bool) -> Void
+        print("Signing up with Phone Number")
+    }
+    
+    static func sendOTPCodeEmail(email : String, code: Int32){
+        print("Sending OTP Through Email")
+    }
+    
+    static func sendOTPCodePhone(phone : String, code: Int32){
+        print("Sending OTP Through Phone")
+    }
+    
+
     func fetchUserData(for uid: String, completion: @escaping (Result<RoomiesUser, Error>) -> Void) {
+        
             Firestore.firestore().collection("users").document(uid).getDocument { snapshot, error in
                 if let error = error {
                     completion(.failure(error))
@@ -105,8 +138,9 @@ class AuthViewModel: ObservableObject {
         }
     
     
-    //MARK: Function for Resetting User Password
+
     func resetUserPassword(email: String) {
+        
             Auth.auth().sendPasswordReset(withEmail: email) { error in
                 if let error = error {
                     // Handle the error here
@@ -117,5 +151,30 @@ class AuthViewModel: ObservableObject {
                     // Update the state to indicate that the code has been sent
                 }
             }
+    }
+    
+    func isValidPhoneNumber(phone : String) -> Bool{
+        /*
+         Checks if the text within the email or phone field is a phone number
+         */
+        
+        let phoneRegex = "^\\d{10}$" // Assumes a 10-digit number format
+
+        let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        
+        return phonePredicate.evaluate(with: phone)
+    }
+    
+    
+    func isValidEmail(email : String) -> Bool{
+        /*
+         Checks if the text within the email or phone field is an email
+         */
+        
+        let emailRegex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        
+        return emailPredicate.evaluate(with: email)
     }
 }

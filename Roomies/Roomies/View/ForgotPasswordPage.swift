@@ -19,7 +19,7 @@ struct ForgotPasswordPage : View {
                     .font(.title)
                     .fontWeight(.semibold)
                 
-                Text("Share Group forgotpass")
+                Text("Share Group Expenses")
                     .foregroundColor(.gray)
                     .font(.title)
                     .fontWeight(.semibold)

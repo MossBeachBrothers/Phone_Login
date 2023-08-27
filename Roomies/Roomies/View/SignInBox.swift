@@ -26,14 +26,26 @@ struct SignInBox : View {
     
     // MARK: Function to Sign Users in with Email and Password
     func signInUserWithEmail() {
-        authViewModel.signInWithEmail(email: email_or_phone, password: password) { error in
-            if let error = error {
-                print("Sign-in error: \(error.localizedDescription)")
-            } else {
-                print("User signed in successfully")
-                // Navigate to the next screen or perform additional actions upon successful sign-in
-            }
+        if email_or_phone == "" || password == "" {
+            print("Empty email or password")
+            return
         }
+
+        do {
+            try AuthViewModel.signInWithEmail(email: email_or_phone, password: password)
+            /*
+            { success in
+                if success {
+                    // Navigate to the next screen or perform additional actions upon successful sign-in
+                } else {
+                    // Handle the case where sign-in was not successful
+                }
+            }
+             */
+        } catch {
+            print("An error occurred while signing in: \(error.localizedDescription)")
+        }
+
     }
 
 
@@ -72,7 +84,8 @@ struct SignInBox : View {
                      .font(.headline)
 
              }
-             .roomiesButtonStyle()
+             //.frame(maxWidth: .infinity)
+            .buttonStyle(RoomiesButtonStyle(color: Color.pink))
             
             
             HStack {
@@ -105,12 +118,8 @@ struct SignInBox : View {
                         .padding()
                 }
             }
-            .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.blue)
-                    .shadow(color: Color.blue.opacity(0.5), radius: 5, x: 0, y: 2)
-            )
+            .buttonStyle(RoomiesButtonStyle(color: Color.blue, pad_top: 0,
+                            pad_bottom : 0, pad_left : 0, pad_right : 0))
         }
         .padding()
         .navigationBarBackButtonHidden(true)

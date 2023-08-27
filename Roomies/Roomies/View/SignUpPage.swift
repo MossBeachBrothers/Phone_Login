@@ -21,10 +21,12 @@ struct SignUpPage: View {
                     .font(.title)
                     .fontWeight(.semibold)
                 
-                Text("Share Group signup")
+                Text("Share Group Expenses")
                     .foregroundColor(.gray)
                     .font(.title)
                     .fontWeight(.semibold)
+                
+                Spacer().frame(height: 10)
                 
                 ShadowBox(content: SignUpBox(),
                           width: 300,

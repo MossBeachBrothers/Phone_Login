@@ -16,15 +16,11 @@ struct CustomTextField: View {
 
     var body: some View {
         
-        HStack() {
-            
-            TextField(hint, text: $text)
-                .padding()
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(10)
-                .autocapitalization(.none)
-        }
-
+        TextField(hint, text: $text)
+            .padding()
+            .background(Color.gray.opacity(0.1))
+            .cornerRadius(10)
+            .autocapitalization(.none)
     }
 }
 

@@ -10,16 +10,17 @@ import FirebaseAuth
 import FirebaseCore
 import GoogleSignIn
 
+enum InputType {
+    case email
+    case phone
+}
+
 struct SignUpBox : View {
+    
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     @State private var first_name : String = ""
     @State private var last_name : String = ""
-    @EnvironmentObject var authViewModel: AuthViewModel
-    //Whether Email or Phone is chosen
-    enum InputType {
-        case email
-        case phone
-    }
     
     @State private var input_type : InputType = .email
     
@@ -28,86 +29,141 @@ struct SignUpBox : View {
     @State private var password : String = ""
     @State private var repeat_password : String = ""
     
-    @State private var isPasswordVisible: Bool = false
+    @State var isPasswordValid : Bool = false
+    
+    @State private var errorMessage : String = ""
+    @State private var highlightedFields: Set<Int> = []
+    
+    @State private var isPasswordVisible : Bool = false
+    
+    @State private var verifyCode : Bool = false
+        
     
     var body: some View {
         
-        VStack(alignment: .center) {
-            
-            Text("Sign Up")
-            
-                .foregroundColor(.gray)
-                .font(.title)
-                .fontWeight(.semibold)
-            
-            CustomTextField(hint: "First Name", text: $first_name)
-            
-            CustomTextField(hint: "Last Name", text: $last_name)
-            
-            CustomTextField(hint: "Email or Phone", text: $email_or_phone)
-            
-            PasswordField(hint: "Password", password: $password)
-            
-
-            
-            PasswordField(hint: "Repeat Password", password: $repeat_password)
-            
-
-            Button(action: signUpWithEmail) {
-                 
-                Text("Sign Up")
-                     .font(.headline)
-
-             }
-             .roomiesButtonStyle()
-            
-            
-            HStack {
-                
-                Rectangle()
-                    .fill(Color.gray)
-                    .frame(maxWidth: .infinity, maxHeight: 1)
-                
-                Text("or")
-                    .foregroundColor(.gray)
-                
-                Rectangle()
-                    .fill(Color.gray)
-                    .frame(maxWidth: .infinity, maxHeight: 1)
-            }
-            .padding(.horizontal)
-            
-            
-            //Sign in with Google Button
-            Button(action: {}) {
-                
-                HStack {
-                    
-                    Image("btn_google_dark_normal_ios")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                    
-                    Text("Sign Up with Google")
-                        .foregroundColor(.white)
-                        .padding()
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.blue)
-                    .shadow(color: Color.blue.opacity(0.5), radius: 5, x: 0, y: 2)
-            )
+        var isPasswordValid : Bool {
+            PasswordReqView(password: $password).isPasswordValid()
         }
-        .padding()
         
+        if !verifyCode{
+            
+            ScrollView(showsIndicators: true){
+                
+                VStack(alignment: .center) {
+                    
+                    Text("Sign Up")
+                        .foregroundColor(.gray)
+                        .font(GlobalFonts.titleFont)
+                        .fontWeight(.semibold)
+                    
+                    CustomTextField(hint: "First Name", text: $first_name)
+                        .modifier(HighlightModifier(index: 0,
+                                                    errorMessage : $errorMessage,
+                                                    highlightedFields: $highlightedFields))
+                    
+                    CustomTextField(hint: "Last Name", text: $last_name)
+                        .modifier(HighlightModifier(index: 1,
+                                                    errorMessage : $errorMessage,
+                                                    highlightedFields: $highlightedFields))
+                    
+                    
+                    CustomTextField(hint: "Email or Phone", text: $email_or_phone)
+                        .modifier(HighlightModifier(index: 2,
+                                                    errorMessage : $errorMessage,
+                                                    highlightedFields: $highlightedFields))
+                    
+                    PasswordField(hint: "Password", password: $password)
+                        .modifier(HighlightModifier(index: 3,
+                                                    errorMessage : $errorMessage,
+                                                    highlightedFields: $highlightedFields))
+                    
+                    PasswordReqView(password : $password)
+                    
+                    PasswordField(hint: "Repeat Password", password: $repeat_password)
+                        .modifier(HighlightModifier(index: 4,
+                                                    errorMessage : $errorMessage,
+                                                    highlightedFields: $highlightedFields))
+                    
+                    HStack(spacing: 4) {
+                        Text("- Passwords match")
+                            .foregroundColor(passwordsMatch() ? .green : .red)
+                            .font(GlobalFonts.captionFont)
+                        
+                        Spacer()
+                    }
+                    
+                    //Spacer()
+                    VStack {
+                        
+                        Text(errorMessage)
+                            .font(GlobalFonts.captionFont)
+                            .foregroundColor(Color.red)
+                        
+                        Spacer().frame(height: 10)
+                        
+                        Button (action: {validateFields(validpassword: isPasswordValid)}){
+                            
+                            Text("Sign Up")
+                                .font(GlobalFonts.bodyFont)
+                            
+                        }
+                        .buttonStyle(RoomiesButtonStyle())
+                        
+                        
+                        HStack{
+                            
+                            Rectangle()
+                                .fill(Color.gray)
+                                .frame(maxWidth: .infinity, maxHeight: 1)
+                            
+                            Text("or")
+                                .foregroundColor(.gray)
+                            
+                            Rectangle()
+                                .fill(Color.gray)
+                                .frame(maxWidth: .infinity, maxHeight: 1)
+                        }
+                        .padding(.horizontal)
+                        
+                        
+                        //Sign in with Google Button
+                        
+                        Button (action: {}) {
+                            
+                            HStack {
+                                
+                                Image("btn_google_dark_normal_ios")
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                
+                                Text("Sign Up with Google")
+                                    .font(GlobalFonts.bodyFont)
+                                    .foregroundColor(.white)
+                                    .padding()
+                            }
+                        }
+                        .buttonStyle(RoomiesButtonStyle(color: Color.blue, pad_top: 0,
+                                                        pad_bottom : 0, pad_left : 0, pad_right : 0))
+                    }
+                }
+                .padding()
+                
+            }
+        }
+        
+        else {
+                        
+            GetCodeBox(input_type : input_type,
+                       email_or_phone: email_or_phone,
+                       exitFunc: signUpUser)
+        }
     }
     
     func passwordsMatch() -> Bool{
         /*
          Check if the two passwords match each other
          */
-        if (password == repeat_password){
+        if (password == repeat_password) && !password.isEmpty{
             print("Passwords match")
             return true
         }
@@ -116,19 +172,69 @@ struct SignUpBox : View {
         
     }
     
-    
-    func send_email_code() {
+    func isValidEmailOrPhone() -> Bool {
+        /*
+         Determine if thei nput is a valid email or phone
+         */
+        
+        // Input is a valid email
+        if authViewModel.isValidEmail(email: email_or_phone){
+            input_type = .email
+            return true
+        }
+        
+        // Input is a valid phone
+        else if authViewModel.isValidPhoneNumber(phone: email_or_phone){
+            input_type = .phone
+            return true
+        }
+        
+        // Input is neither a valid email or phone
+        return false
         
     }
     
-    func send_phone_code() {
+    
+    func validateFields(validpassword : Bool) {
         
+        var invalid_fields : Bool = false
+        
+        if first_name.isEmpty {
+            highlightedFields.insert(0)
+            invalid_fields = true
+        }
+        if last_name.isEmpty {
+            highlightedFields.insert(1)
+            invalid_fields = true
+        }
+        if !isValidEmailOrPhone() {
+            highlightedFields.insert(2)
+            invalid_fields = true
+        }
+        if !validpassword {
+            highlightedFields.insert(3)
+            invalid_fields = true
+        }
+        if !passwordsMatch() {
+            highlightedFields.insert(4)
+            invalid_fields = true
+        }
+                  
+        if invalid_fields{
+            errorMessage = "Please fix the highlighted fields"
+            return
+        }
+        
+        //If all fields are correct, send code and move to the verification code screen
+        
+        verifyCode = true
     }
     
-    func signUpWithEmail() {
-        // MARK: Function to Sign Up User Using Email
+    func signUpUser(){
         
-        // Create a Roomies user object with provided information
+        print("Signing in with Email")
+        return
+        
         let newUser = RoomiesUser(
             uid: "",
             email: email_or_phone,
@@ -137,16 +243,18 @@ struct SignUpBox : View {
             phoneNumber: ""
         )
         
-        // Use Firebase API to create an account using the provided user information
-        authViewModel.createEmailAccount(email: email_or_phone, password: password, user: newUser) { error in
-            if let error = error {
-                print("Sign up error: \(error.localizedDescription)")
-            } else {
-                print("User signed up successfully")
-            }
+        if input_type == .email{
+            AuthViewModel.signUpWithEmail(email: email_or_phone,
+                                        password: password,
+                                        user: newUser)
         }
+        else if input_type == .phone{
+            AuthViewModel.signUpWithPhoneNumber(phone: email_or_phone,
+                                            password: password,
+                                            user: newUser)
+        }
+        
     }
-
     
     func signInWithGoogle(){
         /*
@@ -154,10 +262,29 @@ struct SignUpBox : View {
          */
         
     }
+        
 }
 
 
-struct SignUpBox_Preview : PreviewProvider {
+// Modifier to handle highlighting
+struct HighlightModifier: ViewModifier {
+    
+    let index: Int
+    @Binding var errorMessage : String
+    @Binding var highlightedFields: Set<Int>
+    
+    func body(content: Content) -> some View {
+        content
+            .border(highlightedFields.contains(index) ? Color.red : Color.clear)
+            .onTapGesture {
+                highlightedFields.remove(index) // Remove highlighting on tap
+                errorMessage = ""
+            }
+    }
+}
+
+
+struct  SignUpBox_Preview : PreviewProvider {
     
     static var previews: some View {
         ContentView()

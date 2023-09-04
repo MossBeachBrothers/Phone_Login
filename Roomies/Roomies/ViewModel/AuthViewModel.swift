@@ -6,6 +6,9 @@
 //
 import Foundation
 import Firebase
+import FirebaseAuth
+import GoogleSignIn
+
 
 class AuthViewModel: ObservableObject {
     // Published property to track the currently logged-in user
@@ -49,20 +52,132 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    static func signInWithEmail(email: String, password: String) {
+    
+    func signInWithGoogle(completion : @escaping (Error?) -> Void){
+       
+    }
+    
+    
+    // Fetch users and groups functions
+       // ...
+
+    func addFriend(userID: String) {
+           // Add a friend to the user's friends subcollection
+//           Firestore.firestore().collection("users").document(userID).collection("friends").document().setData(["status": "accepted", "timestamp": FieldValue.serverTimestamp()])
+//
+//
+        Firestore.firestore().collection("users").document(currentUser?.uid ?? "").collection("friends").document().setData(["friendID": userID, "status": "accepted", "timestamp": FieldValue.serverTimestamp()])
+
+    }
+
+    func reconcileGroup(){
+        //set all debts to zero
+        
+    }
+    
+    func confirmRequest(){
+        //confirm request
+    }
+    
+    func sendRequest(){
+        //send Request
+        
+    }
+    
+    
+
+    func createGroup(adminID: String, memberIDs: [String], groupName: String) {
+           let groupData: [String: Any] = [
+               "groupName": groupName,
+               "adminID": adminID
+           ]
+           
+           Firestore.firestore().collection("groups").addDocument(data: groupData) { error in
+               if let error = error {
+                   print("Error creating group: \(error.localizedDescription)")
+               } else {
+                   print("Group created successfully!")
+                   self.fetchNewlyCreatedGroupID(adminID: adminID, memberIDs: memberIDs, groupName: groupName)
+               }
+           }
+    }
+
+    private func fetchNewlyCreatedGroupID(adminID: String, memberIDs: [String], groupName: String) {
+           Firestore.firestore().collection("groups").whereField("groupName", isEqualTo: groupName).getDocuments { snapshot, error in
+               if let error = error {
+                   print("Error fetching group ID: \(error.localizedDescription)")
+               } else {
+                   guard let document = snapshot?.documents.first else {
+                       print("Group document not found")
+                       return
+                   }
+                   
+                   let groupID = document.documentID
+                   print("Fetched group ID: \(groupID)")
+                   self.addMembersToGroup(adminID: adminID, groupID: groupID, memberIDs: memberIDs)
+               }
+           }
+       }
+
+    private func addMembersToGroup(adminID: String, groupID: String, memberIDs: [String]) {
+           var batch = Firestore.firestore().batch()
+           
+           // Add the admin as a member with the "admin" role
+           let adminMemberRef = Firestore.firestore().collection("groups").document(groupID).collection("members").document(adminID)
+           batch.setData(["role": "admin", "timestamp": FieldValue.serverTimestamp()], forDocument: adminMemberRef)
+           
+           // Add other members with the "member" role
+           for memberID in memberIDs {
+               let memberRef = Firestore.firestore().collection("groups").document(groupID).collection("members").document(memberID)
+               batch.setData(["role": "member", "timestamp": FieldValue.serverTimestamp()], forDocument: memberRef)
+               
+           // Add a reference to the group in the user's "groups" subcollection
+           let userGroupsRef = Firestore.firestore().collection("users").document(memberID).collection("groups").document(groupID)
+           batch.setData(["groupID": groupID], forDocument: userGroupsRef)
+               
+           }
+           
+           batch.commit { error in
+               if let error = error {
+                   print("Error adding members to group: \(error.localizedDescription)")
+               } else {
+                   print("Members added to group successfully!")
+               }
+           }
+       }
+
+    func sendGroupRequest(groupID: String, senderID: String, receiverID: String) {
+           let requestData: [String: Any] = [
+               "groupID": groupID,
+               "senderID": senderID,
+               "receiverID": receiverID,
+               "status": "pending",
+               "timestamp": FieldValue.serverTimestamp()
+           ]
+           
+           Firestore.firestore().collection("groups").document(groupID).collection("requests").addDocument(data: requestData) { error in
+               if let error = error {
+                   print("Error sending request: \(error.localizedDescription)")
+               } else {
+                   print("Request sent successfully!")
+               }
+           }
+    }
+    
+    static func signInWithEmail(email: String, password: String, completion: @escaping (Error?) -> Void) {
         
         // completion: @escaping (Bool) -> Void
-        /*
+        
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
-                print("Sign-in error: \(error.localizedDescription)")
-                completion(false)
+                completion(error)
+                
             } else {
-                completion(true)
+                print("Sucesss")
             }
         }
-         */
-        Auth.auth().signIn(withEmail: email, password: password)
+         
+        //Auth.auth().signIn(withEmail: email, password: password)
     }
     
     
@@ -73,10 +188,14 @@ class AuthViewModel: ObservableObject {
     }
 
     
-    static func signUpWithEmail(email: String, password: String, user: RoomiesUser){
+    static func signUpWithEmail(email: String, password: String, user: RoomiesUser, completion: @escaping (Error?) -> Void){
+        
     
         //completion: @escaping (Error?) -> Void) {
-        /*
+        
+        print("Signing up with Email")
+         
+        
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 completion(error)
@@ -97,14 +216,12 @@ class AuthViewModel: ObservableObject {
                 }
             }
         }
-         */
+        
         //Auth.auth().createUser(withEmail: email, password: password)
-        print("Signing up with Email")
     }
     
-    static func signUpWithPhoneNumber(phone: String, password: String, user: RoomiesUser) {
+    static func signUpWithPhoneNumber(phone: String, password: String, user: RoomiesUser, completion: @escaping (Error?) -> Void) {
         
-        // completion: @escaping (Bool) -> Void
         print("Signing up with Phone Number")
     }
     
@@ -137,6 +254,28 @@ class AuthViewModel: ObservableObject {
             }
         }
     
+    func createGroup(){
+        
+    }
+    
+    
+    func checkIfUserExists(email: String = "", phone: String = "", completion: @escaping (Bool) -> Void) {
+        
+        if !email.isEmpty{
+            Auth.auth().fetchSignInMethods(forEmail: email) { signInMethods, error in
+                if let error = error {
+                    print("Error checking user existence: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                
+                // If signInMethods is not empty, a user with the given email already exists
+                let userExists = signInMethods != nil && !signInMethods!.isEmpty
+                completion(userExists)
+            }
+        }
+    }
+    
     
 
     func resetUserPassword(email: String) {
@@ -162,6 +301,7 @@ class AuthViewModel: ObservableObject {
 
         let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
         
+        
         return phonePredicate.evaluate(with: phone)
     }
     
@@ -175,6 +315,9 @@ class AuthViewModel: ObservableObject {
 
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         
+        
         return emailPredicate.evaluate(with: email)
     }
+    
+    
 }

@@ -27,10 +27,11 @@
 		0385A45D2A956C5B003E7475 /* ResetPasswordBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0385A45A2A956C5B003E7475 /* ResetPasswordBox.swift */; };
 		0385A45F2A96E88D003E7475 /* PasswordReqView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0385A45E2A96E88D003E7475 /* PasswordReqView.swift */; };
 		0385A4632A9A9F73003E7475 /* GetCodeBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0385A4622A9A9F73003E7475 /* GetCodeBox.swift */; };
+		03A46EFB2AA6546100AF1070 /* LogoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFA2AA6546100AF1070 /* LogoBox.swift */; };
+		03A7B8AC2AA4F37B0091AB0A /* GroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B8AB2AA4F37B0091AB0A /* GroupBox.swift */; };
 		03A9D4F12A93E34800A9407F /* RoomiesStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9D4F02A93E34800A9407F /* RoomiesStyle.swift */; };
 		03A9D4F32A93F0CB00A9407F /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9D4F22A93F0CB00A9407F /* PasswordField.swift */; };
 		03A9D4F52A9408C800A9407F /* SignUpBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9D4F42A9408C800A9407F /* SignUpBox.swift */; };
-		03A9D4F72A941A0900A9407F /* AuthHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9D4F62A941A0900A9407F /* AuthHandler.swift */; };
 		03B1B3972A92DBE9004B6962 /* SignInBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B3962A92DBE9004B6962 /* SignInBox.swift */; };
 		03B1B3992A92DE05004B6962 /* ShadowBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B3982A92DE05004B6962 /* ShadowBox.swift */; };
 		03B1B39D2A92F73B004B6962 /* SignInPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B39C2A92F73B004B6962 /* SignInPage.swift */; };
@@ -91,10 +92,11 @@
 		0385A45A2A956C5B003E7475 /* ResetPasswordBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordBox.swift; sourceTree = "<group>"; };
 		0385A45E2A96E88D003E7475 /* PasswordReqView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordReqView.swift; sourceTree = "<group>"; };
 		0385A4622A9A9F73003E7475 /* GetCodeBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCodeBox.swift; sourceTree = "<group>"; };
+		03A46EFA2AA6546100AF1070 /* LogoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoBox.swift; sourceTree = "<group>"; };
+		03A7B8AB2AA4F37B0091AB0A /* GroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBox.swift; sourceTree = "<group>"; };
 		03A9D4F02A93E34800A9407F /* RoomiesStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomiesStyle.swift; sourceTree = "<group>"; };
 		03A9D4F22A93F0CB00A9407F /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 		03A9D4F42A9408C800A9407F /* SignUpBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpBox.swift; sourceTree = "<group>"; };
-		03A9D4F62A941A0900A9407F /* AuthHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHandler.swift; sourceTree = "<group>"; };
 		03B1B3962A92DBE9004B6962 /* SignInBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInBox.swift; sourceTree = "<group>"; };
 		03B1B3982A92DE05004B6962 /* ShadowBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowBox.swift; sourceTree = "<group>"; };
 		03B1B39C2A92F73B004B6962 /* SignInPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPage.swift; sourceTree = "<group>"; };
@@ -159,8 +161,8 @@
 				03B1B3982A92DE05004B6962 /* ShadowBox.swift */,
 				03B1B39C2A92F73B004B6962 /* SignInPage.swift */,
 				03A9D4F22A93F0CB00A9407F /* PasswordField.swift */,
+				03A46EFA2AA6546100AF1070 /* LogoBox.swift */,
 				03A9D4F02A93E34800A9407F /* RoomiesStyle.swift */,
-				03A9D4F62A941A0900A9407F /* AuthHandler.swift */,
 				03B1B39E2A92F769004B6962 /* SignUpPage.swift */,
 				03A9D4F42A9408C800A9407F /* SignUpBox.swift */,
 				0385A45E2A96E88D003E7475 /* PasswordReqView.swift */,
@@ -170,6 +172,7 @@
 				0385A44E2A9533ED003E7475 /* Home.swift */,
 				0385A45A2A956C5B003E7475 /* ResetPasswordBox.swift */,
 				0385A4622A9A9F73003E7475 /* GetCodeBox.swift */,
+				03A7B8AB2AA4F37B0091AB0A /* GroupBox.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0385A45F2A96E88D003E7475 /* PasswordReqView.swift in Sources */,
+				03A7B8AC2AA4F37B0091AB0A /* GroupBox.swift in Sources */,
 				031C29E02A90366F003CAE13 /* CustomTextField.swift in Sources */,
 				0385A45B2A956C5B003E7475 /* ResetPasswordBox.swift in Sources */,
 				03B1B39F2A92F769004B6962 /* SignUpPage.swift in Sources */,
@@ -408,12 +412,12 @@
 				03B1B3A62A931224004B6962 /* ForgotPasswordPage.swift in Sources */,
 				CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */,
 				03B1B3972A92DBE9004B6962 /* SignInBox.swift in Sources */,
+				03A46EFB2AA6546100AF1070 /* LogoBox.swift in Sources */,
 				0385A44B2A95205D003E7475 /* AuthViewModel.swift in Sources */,
 				03B1B39D2A92F73B004B6962 /* SignInPage.swift in Sources */,
 				031C29E42A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				03A9D4F52A9408C800A9407F /* SignUpBox.swift in Sources */,
 				03A9D4F12A93E34800A9407F /* RoomiesStyle.swift in Sources */,
-				03A9D4F72A941A0900A9407F /* AuthHandler.swift in Sources */,
 				0385A4632A9A9F73003E7475 /* GetCodeBox.swift in Sources */,
 				03A9D4F32A93F0CB00A9407F /* PasswordField.swift in Sources */,
 				CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */,

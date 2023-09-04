@@ -23,15 +23,7 @@ struct SignInPage: View {
             
             VStack(alignment: .center) {
                 
-                Text("Roomies")
-                    .foregroundColor(.pink)
-                    .font(.title)
-                    .fontWeight(.semibold)
-                
-                Text("Share Group Expenses")
-                    .foregroundColor(.gray)
-                    .font(.title)
-                    .fontWeight(.semibold)
+                LogoBox()
                 
                 Spacer().frame(height: 10)
                 

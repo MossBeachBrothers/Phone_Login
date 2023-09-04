@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import GoogleSignIn
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
@@ -14,10 +15,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     FirebaseApp.configure()
     return true
   }
-    //MARK: Phone Auth Intialize Remote Notifications
-    func application(_application: UIApplication, didReceivedRemoteNotifcation userInfo: [AnyHashable: Any]) async ->
-    UIBackgroundFetchResult {
-        return .noData
+    //MARK: Google Auth Sign In URL
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+      return GIDSignIn.sharedInstance.handle(url)
     }
 }
 

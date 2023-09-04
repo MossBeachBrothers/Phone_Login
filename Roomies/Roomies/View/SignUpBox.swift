@@ -32,6 +32,7 @@ struct SignUpBox : View {
     @State var isPasswordValid : Bool = false
     
     @State private var errorMessage : String = ""
+    @State private var emailPhoneErrorMessage : String = ""
     @State private var highlightedFields: Set<Int> = []
     
     @State private var isPasswordVisible : Bool = false
@@ -58,30 +59,34 @@ struct SignUpBox : View {
                     
                     CustomTextField(hint: "First Name", text: $first_name)
                         .modifier(HighlightModifier(index: 0,
-                                                    errorMessage : $errorMessage,
+                                                    errorMessages : [$errorMessage],
                                                     highlightedFields: $highlightedFields))
                     
                     CustomTextField(hint: "Last Name", text: $last_name)
                         .modifier(HighlightModifier(index: 1,
-                                                    errorMessage : $errorMessage,
+                                                    errorMessages : [$errorMessage],
                                                     highlightedFields: $highlightedFields))
                     
                     
                     CustomTextField(hint: "Email or Phone", text: $email_or_phone)
                         .modifier(HighlightModifier(index: 2,
-                                                    errorMessage : $errorMessage,
+                                                    errorMessages: [$errorMessage, $emailPhoneErrorMessage],
+                                                    
                                                     highlightedFields: $highlightedFields))
+                    Text(emailPhoneErrorMessage)
+                        .font(GlobalFonts.captionFont)
+                        .foregroundColor(Color.red)
                     
                     PasswordField(hint: "Password", password: $password)
                         .modifier(HighlightModifier(index: 3,
-                                                    errorMessage : $errorMessage,
+                                                    errorMessages : [$errorMessage],
                                                     highlightedFields: $highlightedFields))
                     
                     PasswordReqView(password : $password)
                     
                     PasswordField(hint: "Repeat Password", password: $repeat_password)
                         .modifier(HighlightModifier(index: 4,
-                                                    errorMessage : $errorMessage,
+                                                    errorMessages : [$errorMessage],
                                                     highlightedFields: $highlightedFields))
                     
                     HStack(spacing: 4) {
@@ -174,7 +179,7 @@ struct SignUpBox : View {
     
     func isValidEmailOrPhone() -> Bool {
         /*
-         Determine if thei nput is a valid email or phone
+         Determine if the input is a valid email or phone
          */
         
         // Input is a valid email
@@ -197,6 +202,9 @@ struct SignUpBox : View {
     
     func validateFields(validpassword : Bool) {
         
+        errorMessage = ""
+        emailPhoneErrorMessage = ""
+        
         var invalid_fields : Bool = false
         
         if first_name.isEmpty {
@@ -209,12 +217,23 @@ struct SignUpBox : View {
         }
         if !isValidEmailOrPhone() {
             highlightedFields.insert(2)
+            emailPhoneErrorMessage = "Invalid Email or Phone Number"
             invalid_fields = true
         }
+        
+        authViewModel.checkIfUserExists(email: email_or_phone){ exists in
+            if exists {
+                highlightedFields.insert(2)
+                emailPhoneErrorMessage = "Email already in use"
+            }
+        }
+        
+        
         if !validpassword {
             highlightedFields.insert(3)
             invalid_fields = true
         }
+        
         if !passwordsMatch() {
             highlightedFields.insert(4)
             invalid_fields = true
@@ -232,8 +251,6 @@ struct SignUpBox : View {
     
     func signUpUser(){
         
-        print("Signing in with Email")
-        return
         
         let newUser = RoomiesUser(
             uid: "",
@@ -244,14 +261,35 @@ struct SignUpBox : View {
         )
         
         if input_type == .email{
+            
+            print("Signing Up with Email")
+            
             AuthViewModel.signUpWithEmail(email: email_or_phone,
                                         password: password,
-                                        user: newUser)
+                                          user: newUser){ result in
+                if let result = result {
+                    print(result.localizedDescription)
+                    switch result.localizedDescription {
+                            case "The email address is already in use by another account.":
+                                emailPhoneErrorMessage = "Email already in use"
+                            
+                            default:
+                                print("default")
+                        
+                    }
+                } else {
+                    print("Success")
+                }
+                                          }
         }
         else if input_type == .phone{
+            
+            print("Signing in with Phone")
+            
             AuthViewModel.signUpWithPhoneNumber(phone: email_or_phone,
                                             password: password,
-                                            user: newUser)
+                                            user: newUser){ result in
+                                            print(result)}
         }
         
     }
@@ -270,15 +308,21 @@ struct SignUpBox : View {
 struct HighlightModifier: ViewModifier {
     
     let index: Int
-    @Binding var errorMessage : String
+    
+    @State var errorMessages : [Binding<String>]
     @Binding var highlightedFields: Set<Int>
     
     func body(content: Content) -> some View {
+            
         content
             .border(highlightedFields.contains(index) ? Color.red : Color.clear)
             .onTapGesture {
                 highlightedFields.remove(index) // Remove highlighting on tap
-                errorMessage = ""
+                
+                for index in errorMessages.indices {
+                    errorMessages[index].wrappedValue = ""
+                }
+                
             }
     }
 }

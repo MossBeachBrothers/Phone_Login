@@ -18,38 +18,9 @@ struct SignInBox : View {
     @State private var password : String = ""
     @State private var isPasswordVisible: Bool = false
     @EnvironmentObject var authViewModel: AuthViewModel
-    //Whether Email or Phone is chosen
-    enum InputType {
-        case email
-        case phone
-    }
     
-    // MARK: Function to Sign Users in with Email and Password
-    func signInUserWithEmail() {
-        if email_or_phone == "" || password == "" {
-            print("Empty email or password")
-            return
-        }
-
-        do {
-            try AuthViewModel.signInWithEmail(email: email_or_phone, password: password)
-            /*
-            { success in
-                if success {
-                    // Navigate to the next screen or perform additional actions upon successful sign-in
-                } else {
-                    // Handle the case where sign-in was not successful
-                }
-            }
-             */
-        } catch {
-            print("An error occurred while signing in: \(error.localizedDescription)")
-        }
-
-    }
-
-
-    
+    @State private var emailPhoneErrorMessage : String = ""
+    @State private var passwordErrorMessage : String = ""
     
     @State private var input_type : InputType = .email
     
@@ -64,27 +35,37 @@ struct SignInBox : View {
                 .fontWeight(.semibold)
             
             CustomTextField(hint: "Email or Phone", text: $email_or_phone)
+                .onTapGesture {
+                    emailPhoneErrorMessage = ""
+                }
+            
+            Text(emailPhoneErrorMessage)
+                .font(GlobalFonts.captionFont)
+                .foregroundColor(Color.red)
             
             PasswordField(hint: "Password", password: $password)
+                .onTapGesture {
+                    passwordErrorMessage = ""
+                }
             
-            VStack(alignment: .trailing){
+            Text(passwordErrorMessage)
+                .font(GlobalFonts.captionFont)
+                .foregroundColor(Color.red)
+            
+            HStack{
+                
+                Spacer()
+                
                 NavigationLink("Forgot Password?",
                                destination: ForgotPasswordPage())
+                .font(GlobalFonts.captionFont)
             }
 
-             Button(action: {
-                 /* Handle sign-in action here//Firebase Authentication for Sign In*/
-                signInUserWithEmail()
-                 
-                 
-             }) {
+             Button(action: {signInUser()}) {
                 
-                 
                 Text("Sign In")
                      .font(.headline)
-
              }
-             //.frame(maxWidth: .infinity)
             .buttonStyle(RoomiesButtonStyle(color: Color.pink))
             
             
@@ -125,6 +106,79 @@ struct SignInBox : View {
         .navigationBarBackButtonHidden(true)
         
     }
+    
+    func signInUser(){
+        
+        emailPhoneErrorMessage = ""
+        passwordErrorMessage = ""
+        
+        let email = authViewModel.isValidEmail(email: email_or_phone)
+        let phone = authViewModel.isValidPhoneNumber(phone: email_or_phone)
+        
+        if email_or_phone.isEmpty{
+            emailPhoneErrorMessage = "Please enter an email or phone number"
+        }
+        
+        else if !email && !phone{
+            emailPhoneErrorMessage = "Invalid Email or Phone"
+            return
+        }
+        
+        
+        if password.isEmpty{
+            passwordErrorMessage = "Please enter a password"
+            return
+        }
+        
+        //if email{
+        authViewModel.checkIfUserExists(email: email_or_phone){ exists in
+            if (!exists && email){
+                emailPhoneErrorMessage = "Email is not associated with an account"
+            }
+            
+            else if (!exists && phone){
+                emailPhoneErrorMessage = "Email is not associated with an account"
+            }
+
+            else{
+                signInUserWithEmail()
+            }
+        }
+        //}
+        /*
+        else if phone{
+            authViewModel.checkIfUserExists(phone: email_or_phone){ exists in
+                if (!exists && phone){
+                    emailPhoneErrorMessage = "Phone number is not associated with an account"
+                }
+                else{
+                    signInUserWithEmail()
+                }
+            }
+        }
+        */
+    }
+    
+    func signInUserWithEmail() {
+        
+        do{
+            AuthViewModel.signInWithEmail(email: email_or_phone, password: password) {error in
+                if let error = error {
+                    if error.localizedDescription.contains("The password is invalid"){
+                        passwordErrorMessage = "Incorrect password"
+                    }
+                    print(error.localizedDescription)
+                } else {
+                    print("Success")
+                }
+            }
+        }
+        
+        catch {
+            print("An error occurred while signing in: \(error.localizedDescription)")
+        }
+
+    }
 }
 
 
@@ -132,6 +186,7 @@ struct SignInBox_Preview : PreviewProvider {
     
     static var previews: some View {
         
-        SignInPage()
+        ContentView()
+            .environmentObject(AuthViewModel())
     }
 }

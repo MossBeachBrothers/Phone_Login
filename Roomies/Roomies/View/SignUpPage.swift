@@ -16,15 +16,7 @@ struct SignUpPage: View {
             
             VStack(alignment: .center, spacing: 5) { // Increased spacing between title texts
                 
-                Text("Roomies")
-                    .foregroundColor(.pink)
-                    .font(.title)
-                    .fontWeight(.semibold)
-                
-                Text("Share Group Expenses")
-                    .foregroundColor(.gray)
-                    .font(.title)
-                    .fontWeight(.semibold)
+                LogoBox()
                 
                 Spacer().frame(height: 10)
                 

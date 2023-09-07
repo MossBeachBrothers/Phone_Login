@@ -44,11 +44,9 @@ struct SignInPage: View {
                 }
                 .padding()
                                 
-            
             }
-            
-            
-                
+            .padding()
+        
         }
         .navigationBarBackButtonHidden(true)
     }

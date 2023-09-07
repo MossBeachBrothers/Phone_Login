@@ -24,6 +24,7 @@ struct SignUpPage: View {
                           width: 300,
                           height: 550)
             }
+            .padding()
                 
         }
     }

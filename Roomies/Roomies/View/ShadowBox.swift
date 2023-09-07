@@ -28,6 +28,7 @@ struct ShadowBox<Content: View>: View {
         RoundedRectangle(cornerRadius: 10) // Use any corner radius you prefer
             .fill(Color.white)
             .frame(width: CGFloat(width), height: CGFloat(height))
+            //.frame(maxWidth: .infinity, maxHeight: .infinity)
             .shadow(color: Color.gray.opacity(1), radius: 10, x: 0, y: 0)
             .overlay(content)
     }

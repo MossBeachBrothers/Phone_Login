@@ -12,13 +12,19 @@ import FirebaseFirestore
 
 struct GroupBox: View {
     
+    @State var text : String
     
     var body : some View{
         
-        VStack(){
+        Button(action: {/* */}) {
             
-            Text("Hi")
+            Text(text)
+                .font(GlobalFonts.titleFont)
+                .foregroundColor(.white)
+                .padding()
         }
+        .buttonStyle(RoomiesButtonStyle(color: Color.pink, pad_top: 0,
+                        pad_bottom : 0, pad_left : 0, pad_right : 0))
     }
     /*
     @EnvironmentObject var authViewModel: AuthViewModel
@@ -64,7 +70,8 @@ struct GroupBox: View {
 struct GroupBox_Previews: PreviewProvider {
     
     static var previews: some View {
-        GroupBox()
+        Home()
+        //GroupBox()
         //ContentView().environmentObject(AuthViewModel())
     }
 }

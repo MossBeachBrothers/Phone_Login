@@ -28,6 +28,8 @@
 		0385A45F2A96E88D003E7475 /* PasswordReqView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0385A45E2A96E88D003E7475 /* PasswordReqView.swift */; };
 		0385A4632A9A9F73003E7475 /* GetCodeBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0385A4622A9A9F73003E7475 /* GetCodeBox.swift */; };
 		03A46EFB2AA6546100AF1070 /* LogoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFA2AA6546100AF1070 /* LogoBox.swift */; };
+		03A46EFD2AA67F4600AF1070 /* HomeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFC2AA67F4600AF1070 /* HomeScrollView.swift */; };
+		03A46EFF2AA684E900AF1070 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFE2AA684E900AF1070 /* SearchBar.swift */; };
 		03A7B8AC2AA4F37B0091AB0A /* GroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B8AB2AA4F37B0091AB0A /* GroupBox.swift */; };
 		03A9D4F12A93E34800A9407F /* RoomiesStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9D4F02A93E34800A9407F /* RoomiesStyle.swift */; };
 		03A9D4F32A93F0CB00A9407F /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9D4F22A93F0CB00A9407F /* PasswordField.swift */; };
@@ -93,6 +95,9 @@
 		0385A45E2A96E88D003E7475 /* PasswordReqView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordReqView.swift; sourceTree = "<group>"; };
 		0385A4622A9A9F73003E7475 /* GetCodeBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCodeBox.swift; sourceTree = "<group>"; };
 		03A46EFA2AA6546100AF1070 /* LogoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoBox.swift; sourceTree = "<group>"; };
+		03A46EFC2AA67F4600AF1070 /* HomeScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScrollView.swift; sourceTree = "<group>"; };
+		03A46EFE2AA684E900AF1070 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		03A46F002AA68C5600AF1070 /* editorconfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = editorconfig.xcconfig; sourceTree = "<group>"; };
 		03A7B8AB2AA4F37B0091AB0A /* GroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBox.swift; sourceTree = "<group>"; };
 		03A9D4F02A93E34800A9407F /* RoomiesStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomiesStyle.swift; sourceTree = "<group>"; };
 		03A9D4F22A93F0CB00A9407F /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
@@ -162,6 +167,7 @@
 				03B1B39C2A92F73B004B6962 /* SignInPage.swift */,
 				03A9D4F22A93F0CB00A9407F /* PasswordField.swift */,
 				03A46EFA2AA6546100AF1070 /* LogoBox.swift */,
+				03A46EFC2AA67F4600AF1070 /* HomeScrollView.swift */,
 				03A9D4F02A93E34800A9407F /* RoomiesStyle.swift */,
 				03B1B39E2A92F769004B6962 /* SignUpPage.swift */,
 				03A9D4F42A9408C800A9407F /* SignUpBox.swift */,
@@ -170,6 +176,7 @@
 				03B1B3A52A931224004B6962 /* ForgotPasswordPage.swift */,
 				03B1B3962A92DBE9004B6962 /* SignInBox.swift */,
 				0385A44E2A9533ED003E7475 /* Home.swift */,
+				03A46EFE2AA684E900AF1070 /* SearchBar.swift */,
 				0385A45A2A956C5B003E7475 /* ResetPasswordBox.swift */,
 				0385A4622A9A9F73003E7475 /* GetCodeBox.swift */,
 				03A7B8AB2AA4F37B0091AB0A /* GroupBox.swift */,
@@ -219,6 +226,7 @@
 				CD21906D2A8FDEEF00E35B8C /* ContentView.swift */,
 				CD21906F2A8FDEEF00E35B8C /* Assets.xcassets */,
 				CD2190712A8FDEEF00E35B8C /* Preview Content */,
+				03A46F002AA68C5600AF1070 /* editorconfig.xcconfig */,
 			);
 			path = Roomies;
 			sourceTree = "<group>";
@@ -406,10 +414,12 @@
 				03A7B8AC2AA4F37B0091AB0A /* GroupBox.swift in Sources */,
 				031C29E02A90366F003CAE13 /* CustomTextField.swift in Sources */,
 				0385A45B2A956C5B003E7475 /* ResetPasswordBox.swift in Sources */,
+				03A46EFD2AA67F4600AF1070 /* HomeScrollView.swift in Sources */,
 				03B1B39F2A92F769004B6962 /* SignUpPage.swift in Sources */,
 				03B1B3992A92DE05004B6962 /* ShadowBox.swift in Sources */,
 				0385A44F2A9533ED003E7475 /* Home.swift in Sources */,
 				03B1B3A62A931224004B6962 /* ForgotPasswordPage.swift in Sources */,
+				03A46EFF2AA684E900AF1070 /* SearchBar.swift in Sources */,
 				CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */,
 				03B1B3972A92DBE9004B6962 /* SignInBox.swift in Sources */,
 				03A46EFB2AA6546100AF1070 /* LogoBox.swift in Sources */,
@@ -472,6 +482,7 @@
 /* Begin XCBuildConfiguration section */
 		CD21908A2A8FDEF000E35B8C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03A46F002AA68C5600AF1070 /* editorconfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -532,6 +543,7 @@
 		};
 		CD21908B2A8FDEF000E35B8C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03A46F002AA68C5600AF1070 /* editorconfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -586,6 +598,7 @@
 		};
 		CD21908D2A8FDEF000E35B8C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03A46F002AA68C5600AF1070 /* editorconfig.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -616,6 +629,7 @@
 		};
 		CD21908E2A8FDEF000E35B8C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03A46F002AA68C5600AF1070 /* editorconfig.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -646,6 +660,7 @@
 		};
 		CD2190902A8FDEF000E35B8C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03A46F002AA68C5600AF1070 /* editorconfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -665,6 +680,7 @@
 		};
 		CD2190912A8FDEF000E35B8C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03A46F002AA68C5600AF1070 /* editorconfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -684,6 +700,7 @@
 		};
 		CD2190932A8FDEF000E35B8C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03A46F002AA68C5600AF1070 /* editorconfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -701,6 +718,7 @@
 		};
 		CD2190942A8FDEF000E35B8C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03A46F002AA68C5600AF1070 /* editorconfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

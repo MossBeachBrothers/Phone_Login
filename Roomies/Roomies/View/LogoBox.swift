@@ -9,6 +9,8 @@ import SwiftUI
 
 
 struct LogoBox : View{
+  
+  @State var subtitle : Bool = true
     
     var body: some View{
         
@@ -19,10 +21,12 @@ struct LogoBox : View{
                 .font(.title)
                 .fontWeight(.semibold)
             
+          if subtitle{
             Text("Share Group Expenses")
                 .foregroundColor(.gray)
                 .font(.title)
                 .fontWeight(.semibold)
+          }
             
         }
     }

@@ -221,11 +221,17 @@ struct SignUpBox : View {
             invalid_fields = true
         }
         
+        print("Checking if email is already in use")
         authViewModel.checkIfUserExists(email: email_or_phone){ exists in
             if exists {
                 highlightedFields.insert(2)
                 emailPhoneErrorMessage = "Email already in use"
+                invalid_fields = true
+              print("email is already in use")
             }
+          else{
+            print("email is NNOOOTTT already in use")
+          }
         }
         
         
@@ -240,9 +246,13 @@ struct SignUpBox : View {
         }
                   
         if invalid_fields{
+          
             errorMessage = "Please fix the highlighted fields"
             return
         }
+      else{
+        print("all the fields are invalid")
+      }
         
         //If all fields are correct, send code and move to the verification code screen
         
@@ -257,7 +267,9 @@ struct SignUpBox : View {
             email: email_or_phone,
             firstName: first_name,
             lastName: last_name,
-            phoneNumber: ""
+            phoneNumber: "",
+            friends: [],
+            groups: []
         )
         
         if input_type == .email{
@@ -269,14 +281,6 @@ struct SignUpBox : View {
                                           user: newUser){ result in
                 if let result = result {
                     print(result.localizedDescription)
-                    switch result.localizedDescription {
-                            case "The email address is already in use by another account.":
-                                emailPhoneErrorMessage = "Email already in use"
-                            
-                            default:
-                                print("default")
-                        
-                    }
                 } else {
                     print("Success")
                 }

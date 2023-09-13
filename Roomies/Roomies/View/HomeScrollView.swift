@@ -9,34 +9,62 @@ import SwiftUI
 
 
 struct HomeScrollView : View{
-    
-    @Binding var searchText : String
-    @State var groups : [String] = ["Group1", "hello", "players",
-                                    "Team5", "Brothers", "hikers"]
   
-    var filteredGroups: [String] {
-        if searchText.isEmpty {
-            return groups
-        } else {
-            return groups.filter { $0.localizedCaseInsensitiveContains(searchText) }
-        }
-    }
+  var SidID : String = "9328ad87fisadjh23jht32"
+  var AkhiID : String = "81h13g13jfkasdkjasdfj1"
+  var GroupID : String = "9ads9f0ah09dahisiovjkasg"
     
-    var body: some View{
-        
-        ScrollView{
-            
-            VStack{
-                
-                ForEach(filteredGroups, id: \.self) { groupName in
-                    
-                    GroupBox(text: groupName)
-                }
-            }
-            .padding()
-        }
-        
+  @Binding var searchText : String
+  
+  var groups : [Group] = []
+  var groupIDs : [String] = []
+  
+  var filteredGroups: [Group] {
+
+    if searchText.isEmpty{
+      return groups
+    } else{
+      return groups.filter { $0.groupName.localizedCaseInsensitiveContains(searchText)}
     }
+  }
+  
+  init(searchText: Binding<String>){
+    
+    _searchText = searchText // Initialize the binding here
+    
+    groups = [
+      
+      Group(groupID: GroupID,
+            adminID : AkhiID,
+            groupName : "Brothers",
+            groupImg : false,
+            groupTotalsUnconfirmed: [SidID: 0, AkhiID : 0],
+            groupTotalsConfirmed : [SidID : 0, AkhiID : 0],
+            
+            members : [SidID : ["Role" : "Member", "Timestmap" : "00:00:00", "Name" : "Sid"],
+                      AkhiID : ["Role" : "Creator", "Timestmap" : "00:00:00", "Name" : "Akhi"]],
+            
+            timestamp : "00:00:00",
+            debtRequests : []
+           )
+    ]
+  }
+    
+  var body: some View{
+      
+    ScrollView{
+        
+      VStack{
+          
+        ForEach(filteredGroups, id: \.self) { group in
+                        GroupPreviewBox(group: group)
+                    }
+        
+      }
+      .padding()
+    }
+      
+  }
 }
 
 

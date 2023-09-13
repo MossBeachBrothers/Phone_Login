@@ -22,7 +22,13 @@ class AuthViewModel: ObservableObject {
         
         // If a user is already logged in, initialize the currentUser property
         if let user = Auth.auth().currentUser {
-            self.currentUser = RoomiesUser(uid: user.uid,email: user.email ?? "", firstName: "", lastName: "", phoneNumber: "")
+          self.currentUser = RoomiesUser(uid: user.uid,
+                                         email: user.email ?? "",
+                                         firstName: "",
+                                         lastName: "",
+                                         phoneNumber: "",
+                                         friends: [],
+                                         groups : [])
         }
         
         // Add a listener to track changes in the authentication state
@@ -32,12 +38,20 @@ class AuthViewModel: ObservableObject {
             
             // Update currentUser based on the authentication state
             if let user = user {
-                self.currentUser = RoomiesUser(uid: user.uid, email: user.email ?? "", firstName: "", lastName: "", phoneNumber: "")
+              self.currentUser = RoomiesUser(uid: user.uid,
+                                             email: user.email ?? "",
+                                             firstName: "",
+                                             lastName: "",
+                                             phoneNumber: "",
+                                             friends: [],
+                                             groups : [])
             } else {
                 self.currentUser = nil
             }
         }
     }
+  
+  
     
     // MARK: Function to log out the user
     func logOut() {
@@ -51,6 +65,9 @@ class AuthViewModel: ObservableObject {
             print("Error signing out: \(error.localizedDescription)")
         }
     }
+  
+  // Firestore references and collections
+  
     
     
     func signInWithGoogle(completion : @escaping (Error?) -> Void){
@@ -73,16 +90,112 @@ class AuthViewModel: ObservableObject {
     func reconcileGroup(){
         //set all debts to zero
         
-    }
+   }
     
-    func confirmRequest(){
-        //confirm request
-    }
+  func confirmDebtRequest(
+      for user_id: String,
+      debtRequest_id: String,
+      group_id: String,
+      completion: @escaping (Result<Void, Error>) -> Void
+  ) {
+      let db = Firestore.firestore()
+      let groupRef = db.collection("Groups").document(group_id)
+      let requestRef = groupRef.collection("DebtRequests").document(debtRequest_id)
+      
+      db.runTransaction({ (transaction, errorPointer) -> Any? in
+          do {
+              // Step 1: Update confirmationStatus in DebtRequest document
+              let requestDoc = try transaction.getDocument(requestRef)
+              var confirmationStatus = requestDoc.data()?["confirmationStatus"] as? [String: Bool] ?? [:]
+              confirmationStatus[user_id] = true
+              transaction.updateData(["confirmationStatus": confirmationStatus], forDocument: requestRef)
+              
+              // Step 2: Check if all users have confirmed
+              let allConfirmed = confirmationStatus.values.allSatisfy { $0 }
+              transaction.updateData(["allConfirmed": allConfirmed], forDocument: requestRef)
+              
+              // Step 3: Update groupTotalsConfirmed in Group document
+              if allConfirmed {
+                  // Fetch the DebtRequest document data
+                  let requestData = requestDoc.data()
+                  
+                  if let amount = requestData?["amount"] as? Double {
+                      // Update groupTotalsConfirmed based on the confirmed request
+                      let groupTotalsConfirmedKey = "groupTotalsConfirmed.\(user_id)" // User-specific key
+                      transaction.updateData([groupTotalsConfirmedKey: FieldValue.increment(Int64(amount))], forDocument: groupRef)
+                  }
+              }
+              
+              return nil
+          } catch {
+              // Convert Swift Error to NSError for Firestore
+              let nsError = error as NSError
+              errorPointer?.pointee = nsError
+              return nil
+          }
+      }) { (_, error) in
+          if let error = error {
+              // Convert NSError back to Swift Error
+              let swiftError = error as Error
+              completion(.failure(swiftError))
+          } else {
+              completion(.success(()))
+          }
+      }
+  }
     
-    func sendRequest(){
-        //send Request
-        
-    }
+  
+  func addDebtRequest(
+      senderUserID: String,
+      groupID: String,
+      receiverUserIDs: [String],
+      amount: Double,
+      requestDescription: String,
+      completion: @escaping (Result<Void, Error>) -> Void
+  ) {
+      var confirmationStatus: [String: Bool] = [:]
+      for userID in receiverUserIDs {
+          // Initialize confirmation status for each receiver as false
+          confirmationStatus[userID] = false
+      }
+
+      var newDebtRequest = DebtRequest(
+          senderUserID: senderUserID,
+          groupID: groupID,
+          receiverUserIDs: receiverUserIDs,
+          amount: amount,
+          requestDescription: requestDescription
+      )
+
+      // Add the debt request to the global requests collection
+      let globalRequestsRef = Firestore.firestore().collection("requests")
+      globalRequestsRef.addDocument(data: newDebtRequest.toFirestoreData()) { error in
+          if let error = error {
+              //handle error in completion
+              completion(.failure(error))
+          } else {
+              // Add the same request to the group's requests collection
+              let groupRequestsRef = Firestore.firestore().collection("groups").document(groupID).collection("requests")
+              groupRequestsRef.addDocument(data: newDebtRequest.toFirestoreData()) { error in
+                  if let error = error {
+                    //handle error in completion
+                      completion(.failure(error))
+                  } else {
+                      // Update allConfirmed if all confirmationStatus values are true
+                      if confirmationStatus.values.allSatisfy({ $0 == true }) {
+                          newDebtRequest.allConfirmed = true
+                      }
+
+                      // Update the allConfirmed field in Firestore
+                      groupRequestsRef.document(newDebtRequest.id ?? "").updateData(["allConfirmed": newDebtRequest.allConfirmed])
+                      
+                      //handle success in completion
+                      completion(.success(()))
+                  }
+              }
+          }
+      }
+  }
     
     
 
@@ -117,7 +230,7 @@ class AuthViewModel: ObservableObject {
                    self.addMembersToGroup(adminID: adminID, groupID: groupID, memberIDs: memberIDs)
                }
            }
-       }
+    }
 
     private func addMembersToGroup(adminID: String, groupID: String, memberIDs: [String]) {
            var batch = Firestore.firestore().batch()
@@ -144,25 +257,9 @@ class AuthViewModel: ObservableObject {
                    print("Members added to group successfully!")
                }
            }
-       }
+  }
 
-    func sendGroupRequest(groupID: String, senderID: String, receiverID: String) {
-           let requestData: [String: Any] = [
-               "groupID": groupID,
-               "senderID": senderID,
-               "receiverID": receiverID,
-               "status": "pending",
-               "timestamp": FieldValue.serverTimestamp()
-           ]
-           
-           Firestore.firestore().collection("groups").document(groupID).collection("requests").addDocument(data: requestData) { error in
-               if let error = error {
-                   print("Error sending request: \(error.localizedDescription)")
-               } else {
-                   print("Request sent successfully!")
-               }
-           }
-    }
+
     
     static func signInWithEmail(email: String, password: String, completion: @escaping (Error?) -> Void) {
         
@@ -246,7 +343,9 @@ class AuthViewModel: ObservableObject {
                                                  email: data["email"] as? String ?? "",
                                                  firstName: firstName,
                                                  lastName: lastName,
-                                                 phoneNumber: data["phoneNumber"] as? String ?? "")
+                                                 phoneNumber: data["phoneNumber"] as? String ?? "",
+                                                  friends: [],
+                                                  groups : [])
                     completion(.success(fetchedUser))
                 } else {
                     completion(.failure(NSError(domain: "Firestore", code: 0, userInfo: nil)))
@@ -258,7 +357,7 @@ class AuthViewModel: ObservableObject {
         
     }
     
-    
+
     func checkIfUserExists(email: String = "", phone: String = "", completion: @escaping (Bool) -> Void) {
         
         if !email.isEmpty{
@@ -275,7 +374,6 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-    
     
 
     func resetUserPassword(email: String) {

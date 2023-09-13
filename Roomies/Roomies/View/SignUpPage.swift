@@ -9,13 +9,15 @@ import SwiftUI
 
 struct SignUpPage: View {
     
-    @State private var currentPage: String? = "Login"
+    @State private var currentPage: String = "Login"
+    @State private var search: Bool = false
+    
     var body: some View {
         
         NavigationView {
-            
+          
             VStack(alignment: .center, spacing: 5) { // Increased spacing between title texts
-                
+              
                 LogoBox()
                 
                 Spacer().frame(height: 10)

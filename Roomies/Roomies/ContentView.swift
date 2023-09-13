@@ -14,15 +14,16 @@ struct ContentView: View {
       
         NavigationView {
             
-            /*
+            Home()
+          /*
             if (authViewModel.isLoggedIn){
                 Home()
             } else {
                 SignInPage()
             }
-            */
-            SignInPage()
             
+            SignInPage()
+            */
         }
         
     }

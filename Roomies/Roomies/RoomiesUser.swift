@@ -10,9 +10,14 @@
 import Foundation
 //MARK: Struct for User Data
 struct RoomiesUser {
-    let uid: String
-    let email: String
-    let firstName: String
-    let lastName: String
-    let phoneNumber: String
+  
+  var uid: String
+  var email: String
+  var firstName: String
+  var lastName: String
+  var phoneNumber: String
+  
+  var friends : [Friend]
+  
+  var groups : [Group]
 }

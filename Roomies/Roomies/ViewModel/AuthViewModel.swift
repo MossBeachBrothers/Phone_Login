@@ -92,12 +92,12 @@ class AuthViewModel: ObservableObject {
         
    }
     
-  func confirmDebtRequest(
-      for user_id: String,
-      debtRequest_id: String,
-      group_id: String,
-      completion: @escaping (Result<Void, Error>) -> Void
-  ) {
+    func confirmDebtRequest(
+        for user_id: String,
+        debtRequest_id: String,
+        group_id: String,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
       let db = Firestore.firestore()
       let groupRef = db.collection("Groups").document(group_id)
       let requestRef = groupRef.collection("DebtRequests").document(debtRequest_id)
@@ -199,21 +199,71 @@ class AuthViewModel: ObservableObject {
     
     
 
-    func createGroup(adminID: String, memberIDs: [String], groupName: String) {
-           let groupData: [String: Any] = [
-               "groupName": groupName,
-               "adminID": adminID
-           ]
-           
-           Firestore.firestore().collection("groups").addDocument(data: groupData) { error in
-               if let error = error {
-                   print("Error creating group: \(error.localizedDescription)")
-               } else {
-                   print("Group created successfully!")
-                   self.fetchNewlyCreatedGroupID(adminID: adminID, memberIDs: memberIDs, groupName: groupName)
-               }
-           }
+  func createGroup(adminID: String, memberIDs: [String], groupName: String) {
+      // Create a reference to the "groups" collection
+      
+      let timestamp: Timestamp = Timestamp()
+      let totalsUnconfirmed: [String] = ["Total 1"]
+      let totalsConfirmed: [String] = ["Total 2"]
+      let members: [String] = ["Member 1", "Member 2"]
+      var debtRequest: [DebtRequest] = []
+      // Define your new group data
+      var groupData: [String: Any] = [
+          "adminID": adminID,
+          "groupName": groupName,
+          "groupImg": false,
+          "groupTotalsUnconfirmed": totalsUnconfirmed,
+          "groupTotalsConfirmed": totalsConfirmed,
+          "members": members,
+          "timestamp": timestamp,
+          "debtRequests": debtRequest
+      ]
+      
+    var groupRef: DocumentReference? = nil
+      groupRef = Firestore.firestore().collection("groups").addDocument(data: groupData) { err in
+        if let err = err {
+            print("Error adding document: \(err)")
+        } else {
+            print("Document added with ID: \(groupRef!.documentID)")
+        }
     }
+
+    
+    
+  
+      // Add the group to the "groups" collection
+//      let newGroupRef = groupsCollection.addDocument(data: groupData) { (error) in
+//          if let error = error {
+//              print("Error creating group: \(error.localizedDescription)")
+//          } else {
+//              print("Group created successfully!")
+//              // Get the ID of the newly created group
+//          }
+//      }
+      
+//      if !newGroupRef.documentID.isEmpty {
+//          let groupID = newGroupRef.documentID
+//          self.addGroupIDToUser(adminID: adminID, groupID: groupID)
+//      } else {
+//          // Handle the case when newGroupRef.documentID is empty
+//      }
+  }
+
+  func addGroupIDToUser(adminID: String, groupID: String) {
+      // Create a reference to the user's document in the "users" collection
+      let userDocument = Firestore.firestore().collection("users").document(adminID)
+      
+      // Update the "groups" array field to add the new group ID
+      userDocument.updateData([
+          "groups": FieldValue.arrayUnion([groupID])
+      ]) { error in
+          if let error = error {
+              print("Error adding group ID to user: \(error.localizedDescription)")
+          } else {
+              print("Group ID added to the user's document successfully!")
+          }
+      }
+  }
 
     private func fetchNewlyCreatedGroupID(adminID: String, memberIDs: [String], groupName: String) {
            Firestore.firestore().collection("groups").whereField("groupName", isEqualTo: groupName).getDocuments { snapshot, error in
@@ -258,6 +308,47 @@ class AuthViewModel: ObservableObject {
                }
            }
   }
+
+  
+  func fetchGroupsForCurrentUser() async throws -> [Group] {
+      guard let currentUser = currentUser else {
+          throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "User not available."])
+      }
+
+      let groupRef = Firestore.firestore().collection("Users").document(currentUser.uid).collection("Groups")
+
+      let snapshot = try await groupRef.getDocuments()
+
+      var fetchedGroups: [Group] = []
+
+      for document in snapshot.documents {
+          if let groupData = document.data() as? [String: Any],
+             let groupID = document.documentID as? String,
+             let groupName = groupData["groupName"] as? String,
+             let adminID = groupData["adminID"] as? String {
+              // Handle other optional fields as needed
+              let group = Group(
+                  groupID: groupID,
+                  adminID: adminID,
+                  groupName: groupName,
+                  groupImg: false, // Adjust based on your structure
+                  groupTotalsUnconfirmed: [:], // Initialize as needed
+                  groupTotalsConfirmed: [:], // Initialize as needed
+                  members: [:], // Initialize as needed
+                  timestamp: "", // Initialize as needed
+                  debtRequests: [] // Initialize as needed
+              )
+              fetchedGroups.append(group)
+          } else {
+              // Handle the case where required data is missing
+              print("Missing data for document with ID: \(document.documentID)")
+              // You can choose to skip or log the missing documents
+          }
+      }
+
+      return fetchedGroups
+  }
+
 
 
     
@@ -306,7 +397,7 @@ class AuthViewModel: ObservableObject {
                         "phoneNumber": user.phoneNumber
                     ]
                     
-                    // Save user data to Firestore
+//                     Save user data to Firestore
                     Firestore.firestore().collection("users").document(uid).setData(userData) { error in
                         completion(error)
                     }
@@ -315,6 +406,35 @@ class AuthViewModel: ObservableObject {
         }
         
         //Auth.auth().createUser(withEmail: email, password: password)
+    }
+  
+    func getAllGroupMetaData(completion: @escaping ([GroupMetaData]?, Error?) -> Void) {
+        Firestore.firestore().collection("groups").getDocuments { snapshot, error in
+            if let error = error {
+                completion(nil, error)
+            } else {
+                var groupMetaDataList: [GroupMetaData] = []
+
+                for document in snapshot?.documents ?? [] {
+                    let data = document.data()
+                    let group_id = document.documentID
+                    let group_name = data["groupName"] as? String ?? ""
+                    let group_members = data["members"] as? [String] ?? []
+                    let last_request = data["lastRequest"] as? String ?? ""
+                    let timestamp = data["timestamp"] as? String ?? ""
+
+                    let groupMetaData = GroupMetaData(group_id: group_id,
+                                                      group_name: group_name,
+                                                      group_members: group_members,
+                                                      last_request: last_request,
+                                                      timestamp: timestamp)
+
+                    groupMetaDataList.append(groupMetaData)
+                }
+
+                completion(groupMetaDataList, nil)
+            }
+        }
     }
     
     static func signUpWithPhoneNumber(phone: String, password: String, user: RoomiesUser, completion: @escaping (Error?) -> Void) {

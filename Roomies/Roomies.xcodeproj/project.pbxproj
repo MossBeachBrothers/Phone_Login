@@ -27,6 +27,12 @@
 		0385A45D2A956C5B003E7475 /* ResetPasswordBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0385A45A2A956C5B003E7475 /* ResetPasswordBox.swift */; };
 		0385A45F2A96E88D003E7475 /* PasswordReqView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0385A45E2A96E88D003E7475 /* PasswordReqView.swift */; };
 		0385A4632A9A9F73003E7475 /* GetCodeBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0385A4622A9A9F73003E7475 /* GetCodeBox.swift */; };
+		03A3D8052AEAB8A600412875 /* CreateNewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D8042AEAB8A600412875 /* CreateNewPage.swift */; };
+		03A3D8072AEAF6EE00412875 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D8062AEAF6EE00412875 /* CustomTabBar.swift */; };
+		03A3D8092AEB230A00412875 /* NavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D8082AEB230A00412875 /* NavView.swift */; };
+		03A3D80B2AEB2AFC00412875 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D80A2AEB2AFC00412875 /* Settings.swift */; };
+		03A3D80D2AEB2D1600412875 /* FriendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D80C2AEB2D1600412875 /* FriendsPage.swift */; };
+		03A3D80F2AEB2D6400412875 /* ActiveRequestsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D80E2AEB2D6400412875 /* ActiveRequestsPage.swift */; };
 		03A46EFB2AA6546100AF1070 /* LogoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFA2AA6546100AF1070 /* LogoBox.swift */; };
 		03A46EFD2AA67F4600AF1070 /* HomeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFC2AA67F4600AF1070 /* HomeScrollView.swift */; };
 		03A46EFF2AA684E900AF1070 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFE2AA684E900AF1070 /* SearchBar.swift */; };
@@ -98,6 +104,12 @@
 		0385A45A2A956C5B003E7475 /* ResetPasswordBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordBox.swift; sourceTree = "<group>"; };
 		0385A45E2A96E88D003E7475 /* PasswordReqView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordReqView.swift; sourceTree = "<group>"; };
 		0385A4622A9A9F73003E7475 /* GetCodeBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCodeBox.swift; sourceTree = "<group>"; };
+		03A3D8042AEAB8A600412875 /* CreateNewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewPage.swift; sourceTree = "<group>"; };
+		03A3D8062AEAF6EE00412875 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		03A3D8082AEB230A00412875 /* NavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavView.swift; sourceTree = "<group>"; };
+		03A3D80A2AEB2AFC00412875 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		03A3D80C2AEB2D1600412875 /* FriendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPage.swift; sourceTree = "<group>"; };
+		03A3D80E2AEB2D6400412875 /* ActiveRequestsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveRequestsPage.swift; sourceTree = "<group>"; };
 		03A46EFA2AA6546100AF1070 /* LogoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoBox.swift; sourceTree = "<group>"; };
 		03A46EFC2AA67F4600AF1070 /* HomeScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScrollView.swift; sourceTree = "<group>"; };
 		03A46EFE2AA684E900AF1070 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -191,6 +203,12 @@
 				0385A4622A9A9F73003E7475 /* GetCodeBox.swift */,
 				0385A44E2A9533ED003E7475 /* Home.swift */,
 				03A7B8AB2AA4F37B0091AB0A /* GroupBox.swift */,
+				03A3D8042AEAB8A600412875 /* CreateNewPage.swift */,
+				03A3D8062AEAF6EE00412875 /* CustomTabBar.swift */,
+				03A3D8082AEB230A00412875 /* NavView.swift */,
+				03A3D80A2AEB2AFC00412875 /* Settings.swift */,
+				03A3D80C2AEB2D1600412875 /* FriendsPage.swift */,
+				03A3D80E2AEB2D6400412875 /* ActiveRequestsPage.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -422,6 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03A3D8092AEB230A00412875 /* NavView.swift in Sources */,
 				0385A45F2A96E88D003E7475 /* PasswordReqView.swift in Sources */,
 				03A7B8AC2AA4F37B0091AB0A /* GroupBox.swift in Sources */,
 				03A46F022AAA405A00AF1070 /* DebtRequest.swift in Sources */,
@@ -429,21 +448,26 @@
 				031C29E02A90366F003CAE13 /* CustomTextField.swift in Sources */,
 				0385A45B2A956C5B003E7475 /* ResetPasswordBox.swift in Sources */,
 				03A46EFD2AA67F4600AF1070 /* HomeScrollView.swift in Sources */,
+				03A3D80F2AEB2D6400412875 /* ActiveRequestsPage.swift in Sources */,
 				03B1B39F2A92F769004B6962 /* SignUpPage.swift in Sources */,
 				03B1B3992A92DE05004B6962 /* ShadowBox.swift in Sources */,
 				0385A44F2A9533ED003E7475 /* Home.swift in Sources */,
 				03B1B3A62A931224004B6962 /* ForgotPasswordPage.swift in Sources */,
 				03A46F082AAFBD9C00AF1070 /* Friend.swift in Sources */,
+				03A3D8052AEAB8A600412875 /* CreateNewPage.swift in Sources */,
 				03A46EFF2AA684E900AF1070 /* SearchBar.swift in Sources */,
 				CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */,
 				03B1B3972A92DBE9004B6962 /* SignInBox.swift in Sources */,
+				03A3D8072AEAF6EE00412875 /* CustomTabBar.swift in Sources */,
 				03A46EFB2AA6546100AF1070 /* LogoBox.swift in Sources */,
 				0385A44B2A95205D003E7475 /* AuthViewModel.swift in Sources */,
 				03B1B39D2A92F73B004B6962 /* SignInPage.swift in Sources */,
 				031C29E42A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				03A9D4F52A9408C800A9407F /* SignUpBox.swift in Sources */,
 				03A9D4F12A93E34800A9407F /* RoomiesStyle.swift in Sources */,
+				03A3D80B2AEB2AFC00412875 /* Settings.swift in Sources */,
 				0385A4632A9A9F73003E7475 /* GetCodeBox.swift in Sources */,
+				03A3D80D2AEB2D1600412875 /* FriendsPage.swift in Sources */,
 				03A46F042AAE6CD200AF1070 /* GroupMetaData.swift in Sources */,
 				03A9D4F32A93F0CB00A9407F /* PasswordField.swift in Sources */,
 				CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */,

@@ -14,29 +14,32 @@ struct Home: View {
 
 @State private var searchText: String = ""
 @State private var isSearching: Bool = false
-
+@EnvironmentObject var authViewModel: AuthViewModel
   var body: some View{
 
     VStack{
 
       HStack{
-
+        
         LogoBox(subtitle: false)
 
 
           
         Spacer()
         
-
-        Button(action: {
-        // Handle settings button tap
-        }) {
-          Image(systemName: "line.horizontal.3")
-          .imageScale(.large)
-          .font(Font.system(size: 30).weight(.semibold))
-          .foregroundColor(.pink)
+        NavigationLink(destination: CreateNewPage()){
+          Button(action: {
+            authViewModel.logOut()
+          }) {
+            Image(systemName: "line.horizontal.3")
+            .imageScale(.large)
+            .font(Font.system(size: 30).weight(.semibold))
+            .foregroundColor(.pink)
+          }
+          .padding(.trailing, 20)
+          
         }
-        .padding(.trailing, 20)
+        
         
       }
 
@@ -49,7 +52,14 @@ struct Home: View {
                   height: 550)
       
       Button(action: {
-      // Handle settings button tap
+//       Handle settings button tap
+        if let user = authViewModel.currentUser {
+          print(user.uid)
+          authViewModel.createGroup(adminID: user.uid, memberIDs: [], groupName: "TestGroup")
+        } else {
+          print("Error in creating a group")
+        }
+        
       }) {
         Image(systemName: "plus.circle")
         .imageScale(.large)
@@ -80,10 +90,10 @@ struct SettingsView: View {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
+
+        ContentView()
+            .environmentObject(AuthViewModel()) // Inject an instance of AuthViewModel for preview
         
-        Home()
-        //ContentView()
-            //.environmentObject(AuthViewModel()) // Inject an instance of AuthViewModel for preview
     }
 }
 

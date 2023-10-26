@@ -39,7 +39,9 @@ struct GroupPreviewBox: View {
 
   var body : some View{
       
-    Button(action: {/* */}) {
+    Button(action: {/* */
+      
+    }) {
       
       VStack(alignment:.leading){
         

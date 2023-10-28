@@ -18,55 +18,38 @@ struct Home: View {
   var body: some View{
 
     VStack{
-
-      HStack{
-        
-        LogoBox(subtitle: false)
-
-
-          
-        Spacer()
-        
-        NavigationLink(destination: CreateNewPage()){
+      HStack {
+          // Left side: "Edit" text as a button to perform an action
           Button(action: {
-            authViewModel.logOut()
+              // Your action here
+              print("Edit button tapped")
           }) {
-            Image(systemName: "line.horizontal.3")
-            .imageScale(.large)
-            .font(Font.system(size: 30).weight(.semibold))
-            .foregroundColor(.pink)
+              Text("Edit")
+                  .foregroundColor(.blue) // Color to indicate interactivity
           }
-          .padding(.trailing, 20)
+          .padding(.leading, 8) // Adjust padding as needed
           
-        }
-        
-        
+          Spacer() // To push items to opposite sides
+          
+          // Right side: Image as a button to perform an action
+          Button(action: {
+              // Your action here
+              print("Image button tapped")
+          }) {
+              Image(systemName: "arrow.backward")
+                  .foregroundColor(.black)  // Customize color as needed
+          }
+          .padding(.trailing, 8)  // Adjust padding as needed
       }
-
-      SearchBar(text: $searchText, isSearching: $isSearching)
-
+      SearchBar(text: $searchText, isSearching: $isSearching, startingText: "Search Groups")
+        .padding(.bottom, 25)
       Spacer()
 
       ShadowBox(content: HomeScrollView(searchText: $searchText),
                   width: 300,
                   height: 550)
       
-      Button(action: {
-//       Handle settings button tap
-        if let user = authViewModel.currentUser {
-          print(user.uid)
-          authViewModel.createGroup(adminID: user.uid, memberIDs: [], groupName: "TestGroup")
-        } else {
-          print("Error in creating a group")
-        }
-        
-      }) {
-        Image(systemName: "plus.circle")
-        .imageScale(.large)
-        .font(Font.system(size: 30).weight(.semibold))
-        .foregroundColor(.pink)
-      }
-      .padding(.trailing, 20)
+     Spacer()
 
     }
     .padding()

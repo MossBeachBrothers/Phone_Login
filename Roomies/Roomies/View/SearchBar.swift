@@ -11,12 +11,12 @@ struct SearchBar: View {
     
     @Binding var text: String 
     @Binding var isSearching: Bool
-
+    @State var startingText: String
     var body: some View {
         
         HStack {
             
-            TextField("Search", text: $text)
+            TextField(startingText, text: $text)
                 .padding(.leading, 24)
                 .onChange(of: text) { newValue in
                     isSearching = !text.isEmpty

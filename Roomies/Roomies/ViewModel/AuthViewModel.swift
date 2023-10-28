@@ -51,9 +51,9 @@ class AuthViewModel: ObservableObject {
         }
     }
   
-  
+      
     
-    // MARK: Function to log out the user
+    //MARK: Log Out
     func logOut() {
         do {
             try Auth.auth().signOut()
@@ -69,7 +69,7 @@ class AuthViewModel: ObservableObject {
   // Firestore references and collections
   
     
-    
+    //MARK: Sign in With Google
     func signInWithGoogle(completion : @escaping (Error?) -> Void){
        
     }
@@ -77,7 +77,7 @@ class AuthViewModel: ObservableObject {
     
     // Fetch users and groups functions
        // ...
-
+       //MARK: Add a Friend
     func addFriend(userID: String) {
            // Add a friend to the user's friends subcollection
 //           Firestore.firestore().collection("users").document(userID).collection("friends").document().setData(["status": "accepted", "timestamp": FieldValue.serverTimestamp()])
@@ -86,12 +86,14 @@ class AuthViewModel: ObservableObject {
         Firestore.firestore().collection("users").document(currentUser?.uid ?? "").collection("friends").document().setData(["friendID": userID, "status": "accepted", "timestamp": FieldValue.serverTimestamp()])
 
     }
-
+    
+  //MARK: Reconcile Group
     func reconcileGroup(){
         //set all debts to zero
         
    }
     
+  //MARK: Confirm Debt Request
     func confirmDebtRequest(
         for user_id: String,
         debtRequest_id: String,
@@ -144,7 +146,7 @@ class AuthViewModel: ObservableObject {
       }
   }
     
-  
+  //MARK: Add Debt Request
   func addDebtRequest(
       senderUserID: String,
       groupID: String,
@@ -198,7 +200,7 @@ class AuthViewModel: ObservableObject {
   }
     
     
-
+  //MARK: Create Group
   func createGroup(adminID: String, memberIDs: [String], groupName: String) {
       // Create a reference to the "groups" collection
       
@@ -249,6 +251,7 @@ class AuthViewModel: ObservableObject {
 //      }
   }
 
+  //MARK: Add Group ID to User
   func addGroupIDToUser(adminID: String, groupID: String) {
       // Create a reference to the user's document in the "users" collection
       let userDocument = Firestore.firestore().collection("users").document(adminID)
@@ -265,6 +268,7 @@ class AuthViewModel: ObservableObject {
       }
   }
 
+    //MARK: Fetch Newly Created Group ID
     private func fetchNewlyCreatedGroupID(adminID: String, memberIDs: [String], groupName: String) {
            Firestore.firestore().collection("groups").whereField("groupName", isEqualTo: groupName).getDocuments { snapshot, error in
                if let error = error {
@@ -282,6 +286,7 @@ class AuthViewModel: ObservableObject {
            }
     }
 
+    //MARK: Add Members to Group
     private func addMembersToGroup(adminID: String, groupID: String, memberIDs: [String]) {
            var batch = Firestore.firestore().batch()
            
@@ -309,7 +314,7 @@ class AuthViewModel: ObservableObject {
            }
   }
 
-  
+  //MARK: Fetch Groups for Current User
   func fetchGroupsForCurrentUser() async throws -> [Group] {
       guard let currentUser = currentUser else {
           throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "User not available."])
@@ -351,7 +356,7 @@ class AuthViewModel: ObservableObject {
 
 
 
-    
+  //MARK:  Sign In With Email
     static func signInWithEmail(email: String, password: String, completion: @escaping (Error?) -> Void) {
         
         // completion: @escaping (Bool) -> Void
@@ -368,14 +373,14 @@ class AuthViewModel: ObservableObject {
         //Auth.auth().signIn(withEmail: email, password: password)
     }
     
-    
+  //MARK: Sign in with Phone Number
     static func signInWithPhoneNumber(phone: String, password: String) {
         
         // completion: @escaping (Bool) -> Void
         
     }
 
-    
+  //MARK: Sign up with Email
     static func signUpWithEmail(email: String, password: String, user: RoomiesUser, completion: @escaping (Error?) -> Void){
         
     
@@ -408,6 +413,7 @@ class AuthViewModel: ObservableObject {
         //Auth.auth().createUser(withEmail: email, password: password)
     }
   
+    //MARK: Get all Group Meta Deta
     func getAllGroupMetaData(completion: @escaping ([GroupMetaData]?, Error?) -> Void) {
         Firestore.firestore().collection("groups").getDocuments { snapshot, error in
             if let error = error {
@@ -436,6 +442,7 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
+  
     
     static func signUpWithPhoneNumber(phone: String, password: String, user: RoomiesUser, completion: @escaping (Error?) -> Void) {
         

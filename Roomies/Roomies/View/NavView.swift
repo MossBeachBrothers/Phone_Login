@@ -29,6 +29,8 @@ struct NavView: View {
                         .tag(Tab.plus)
                     RecentRequests()
                     .tag(Tab.dollarsign)
+                    PendingRequests()
+                    .tag(Tab.people)
                 }
                 .padding(.bottom, hideNavBar ? 0 : 50)
                 .padding(.top, 0)

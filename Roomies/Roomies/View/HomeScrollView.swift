@@ -10,13 +10,13 @@ import SwiftUI
 struct HomeScrollView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @Binding var searchText: String
-    @State private var groups: [Group] = []
+    @State private var userGroups: [Group] = []
 
     var filteredGroups: [Group] {
         if searchText.isEmpty {
-            return groups
+            return userGroups
         } else {
-            return groups.filter { $0.groupName.localizedCaseInsensitiveContains(searchText) }
+            return userGroups.filter { $0.groupName.localizedCaseInsensitiveContains(searchText) }
         }
     }
 
@@ -30,25 +30,36 @@ struct HomeScrollView: View {
                 ForEach(filteredGroups, id: \.self) { group in
                     GroupPreviewBox(group: group)
                 }
+              Button(action: {
+                fetchGroups()
+              }, label: {
+                Text("Fetch Groups")
+              })
             }
             .padding()
         }
-        .onAppear {
-            // Fetch the user's groups and store them in the groups array
-            fetchGroups()
-        }
+
     }
   
   
-      private func fetchGroups() {
-//        Task {
-//          do {
-//            groups = try await authViewModel.fetchGroupsForCurrentUser()
-//          } catch {
-//            print("Error fetching groups: \(error.localizedDescription)")
-//          }
-//        }
+  private func fetchGroups() {
+      if let currentUser = authViewModel.currentUser {
+          authViewModel.getAllGroupsForUser(userID: currentUser.uid) { (groups) in
+              if let groups = groups {
+                
+                if groups.isEmpty {
+                  print("No Groups")
+                }
+                  for group in groups {
+                      print("Group ID: \(group.documentID), Group Data: \(group.data() ?? [:])")
+                    userGroups.append(group.data())
+                  }
+              }
+          }
+      } else {
+          print("No current user found.")
       }
+  }
         
 
         

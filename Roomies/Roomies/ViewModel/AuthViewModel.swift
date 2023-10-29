@@ -203,7 +203,7 @@ class AuthViewModel: ObservableObject {
   //MARK: Create Group
   func createGroup(adminID: String, memberIDs: [String], groupName: String) {
       // Create a reference to the "groups" collection
-      
+      let db = Firestore.firestore()
       let timestamp: Timestamp = Timestamp()
       let totalsUnconfirmed: [String] = ["Total 1"]
       let totalsConfirmed: [String] = ["Total 2"]
@@ -222,14 +222,38 @@ class AuthViewModel: ObservableObject {
       ]
       
     var groupRef: DocumentReference? = nil
-      groupRef = Firestore.firestore().collection("groups").addDocument(data: groupData) { err in
-        if let err = err {
-            print("Error adding document: \(err)")
-        } else {
-            print("Document added with ID: \(groupRef!.documentID)")
-        }
-    }
-
+       groupRef = db.collection("groups").addDocument(data: groupData) { err in
+           if let err = err {
+               print("Error adding document: \(err)")
+           } else if let groupID = groupRef?.documentID {
+               print("Document added with ID: \(groupID)")
+               
+               // Adding the admin to the memberIDs array
+               var allMemberIDs = memberIDs
+               allMemberIDs.append(adminID)
+               
+               for userID in allMemberIDs {
+                   // Determine the role
+                   let role = (userID == adminID) ? "admin" : "member"
+                   
+                   // Define the user group data
+                   let userGroupData: [String: Any] = [
+                       "GroupID": groupID,
+                       "Role": role,
+                       "Timestamp": timestamp
+                   ]
+                   
+                   // Add the group info to each user's Groups sub-collection
+                   db.collection("Users").document(userID).collection("Groups").document(groupID).setData(userGroupData) { err in
+                       if let err = err {
+                           print("Error adding group to user's groups: \(err)")
+                       } else {
+                           print("Successfully added group to user's groups.")
+                       }
+                   }
+               }
+           }
+       }
     
     
   
@@ -315,44 +339,53 @@ class AuthViewModel: ObservableObject {
   }
 
   //MARK: Fetch Groups for Current User
-  func fetchGroupsForCurrentUser() async throws -> [Group] {
-      guard let currentUser = currentUser else {
-          throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "User not available."])
-      }
+  func getAllGroupsForUser(userID: String, completion: @escaping ([DocumentSnapshot]?) -> Void) {
+      // Create a reference to the Firestore database
+      let db = Firestore.firestore()
 
-      let groupRef = Firestore.firestore().collection("Users").document(currentUser.uid).collection("Groups")
+      // Create a reference to the user's groups collection
+      let userGroupsRef = db.collection("Users").document(userID).collection("Groups")
 
-      let snapshot = try await groupRef.getDocuments()
+      // Fetch the groups the user is a part of
+      userGroupsRef.getDocuments { (userGroupsSnapshot, error) in
+          if let error = error {
+              print("Error getting user groups: \(error)")
+              completion(nil)
+              return
+          }
 
-      var fetchedGroups: [Group] = []
+          // Array to store the group details
+          var groupDetailsArray: [DocumentSnapshot] = []
 
-      for document in snapshot.documents {
-          if let groupData = document.data() as? [String: Any],
-             let groupID = document.documentID as? String,
-             let groupName = groupData["groupName"] as? String,
-             let adminID = groupData["adminID"] as? String {
-              // Handle other optional fields as needed
-              let group = Group(
-                  groupID: groupID,
-                  adminID: adminID,
-                  groupName: groupName,
-                  groupImg: false, // Adjust based on your structure
-                  groupTotalsUnconfirmed: [:], // Initialize as needed
-                  groupTotalsConfirmed: [:], // Initialize as needed
-                  members: [:], // Initialize as needed
-                  timestamp: "", // Initialize as needed
-                  debtRequests: [] // Initialize as needed
-              )
-              fetchedGroups.append(group)
+          // If the user is part of groups, fetch the details of each group
+          if let userGroupsDocuments = userGroupsSnapshot?.documents, !userGroupsDocuments.isEmpty {
+              let groupIDs = userGroupsDocuments.map { $0.documentID }
+
+              // Reference to the groups collection
+              let groupsRef = db.collection("Groups")
+
+              // Fetch the details of each group
+              for groupID in groupIDs {
+                  groupsRef.document(groupID).getDocument { (groupSnapshot, error) in
+                      if let error = error {
+                          print("Error getting group details: \(error)")
+                      } else if let groupSnapshot = groupSnapshot {
+                          groupDetailsArray.append(groupSnapshot)
+
+                          // Call the completion handler when all group details have been fetched
+                          if groupDetailsArray.count == groupIDs.count {
+                              completion(groupDetailsArray)
+                          }
+                      }
+                  }
+              }
           } else {
-              // Handle the case where required data is missing
-              print("Missing data for document with ID: \(document.documentID)")
-              // You can choose to skip or log the missing documents
+              // User is not part of any groups
+              completion([])
           }
       }
-
-      return fetchedGroups
   }
+
 
 
 

@@ -8,8 +8,8 @@
 import SwiftUI
 
 
-struct FriendsPage : View {
+struct PendingRequests : View {
   var body: some View {
-    Text("Friends")
+    Text("Requests")
   }
 }

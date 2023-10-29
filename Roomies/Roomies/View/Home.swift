@@ -22,7 +22,9 @@ struct Home: View {
           // Left side: "Edit" text as a button to perform an action
           Button(action: {
               // Your action here
-              print("Edit button tapped")
+            if let currentUser = authViewModel.currentUser {
+              authViewModel.createGroup(adminID: currentUser.uid, memberIDs: ["Member 1", "Member 2"], groupName: "Test Group")
+            }
           }) {
               Text("Edit")
                   .foregroundColor(.blue) // Color to indicate interactivity
@@ -73,7 +75,7 @@ struct SettingsView: View {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-
+    
         ContentView()
             .environmentObject(AuthViewModel()) // Inject an instance of AuthViewModel for preview
         

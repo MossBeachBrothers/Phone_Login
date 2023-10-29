@@ -31,7 +31,7 @@
 		03A3D8072AEAF6EE00412875 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D8062AEAF6EE00412875 /* CustomTabBar.swift */; };
 		03A3D8092AEB230A00412875 /* NavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D8082AEB230A00412875 /* NavView.swift */; };
 		03A3D80B2AEB2AFC00412875 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D80A2AEB2AFC00412875 /* Settings.swift */; };
-		03A3D80D2AEB2D1600412875 /* FriendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D80C2AEB2D1600412875 /* FriendsPage.swift */; };
+		03A3D80D2AEB2D1600412875 /* PendingRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D80C2AEB2D1600412875 /* PendingRequests.swift */; };
 		03A3D80F2AEB2D6400412875 /* ActiveRequestsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D80E2AEB2D6400412875 /* ActiveRequestsPage.swift */; };
 		03A3D8112AED94CA00412875 /* RecentRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D8102AED94CA00412875 /* RecentRequests.swift */; };
 		03A46EFB2AA6546100AF1070 /* LogoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFA2AA6546100AF1070 /* LogoBox.swift */; };
@@ -109,7 +109,7 @@
 		03A3D8062AEAF6EE00412875 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		03A3D8082AEB230A00412875 /* NavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavView.swift; sourceTree = "<group>"; };
 		03A3D80A2AEB2AFC00412875 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		03A3D80C2AEB2D1600412875 /* FriendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPage.swift; sourceTree = "<group>"; };
+		03A3D80C2AEB2D1600412875 /* PendingRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingRequests.swift; sourceTree = "<group>"; };
 		03A3D80E2AEB2D6400412875 /* ActiveRequestsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveRequestsPage.swift; sourceTree = "<group>"; };
 		03A3D8102AED94CA00412875 /* RecentRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRequests.swift; sourceTree = "<group>"; };
 		03A46EFA2AA6546100AF1070 /* LogoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoBox.swift; sourceTree = "<group>"; };
@@ -209,7 +209,7 @@
 				03A3D8062AEAF6EE00412875 /* CustomTabBar.swift */,
 				03A3D8082AEB230A00412875 /* NavView.swift */,
 				03A3D80A2AEB2AFC00412875 /* Settings.swift */,
-				03A3D80C2AEB2D1600412875 /* FriendsPage.swift */,
+				03A3D80C2AEB2D1600412875 /* PendingRequests.swift */,
 				03A3D80E2AEB2D6400412875 /* ActiveRequestsPage.swift */,
 				03A3D8102AED94CA00412875 /* RecentRequests.swift */,
 			);
@@ -471,7 +471,7 @@
 				03A9D4F12A93E34800A9407F /* RoomiesStyle.swift in Sources */,
 				03A3D80B2AEB2AFC00412875 /* Settings.swift in Sources */,
 				0385A4632A9A9F73003E7475 /* GetCodeBox.swift in Sources */,
-				03A3D80D2AEB2D1600412875 /* FriendsPage.swift in Sources */,
+				03A3D80D2AEB2D1600412875 /* PendingRequests.swift in Sources */,
 				03A46F042AAE6CD200AF1070 /* GroupMetaData.swift in Sources */,
 				03A9D4F32A93F0CB00A9407F /* PasswordField.swift in Sources */,
 				CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */,

@@ -34,9 +34,9 @@ enum Tab: String, CaseIterable {
       case .createGroup:
         return "Create Group"
       case .dollarsign:
-        return "Recent"
+        return "Get Money"
       case .people:
-        return "Friends"
+        return "Pending"
     }
   }
 }

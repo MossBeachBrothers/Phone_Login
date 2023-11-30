@@ -18,43 +18,47 @@ struct NavView: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                TabView(selection: $selectedTab) {
-                    Settings()
-                        .tag(Tab.person)
-                    Home()
-                        .tag(Tab.message)
-                    CreateNewPage(selectedTab: $selectedTab)
-                        .tag(Tab.plus)
-                    RecentRequests()
-                    .tag(Tab.dollarsign)
-                    PendingRequests()
-                    .tag(Tab.people)
-                }
-                .padding(.bottom, hideNavBar ? 0 : 50)
-                .padding(.top, 0)
-                .onChange(of: selectedTab) { newValue in
-                    hideNavBar = newValue == .plus // Add conditions for other tabs as needed
-                }
-                
-                if !hideNavBar {
-                    VStack {
-                        Spacer()  // Pushes the next view (CustomTabBar) to the bottom
-                        CustomTabBar(selectedTab: $selectedTab)
-                            .padding(.top, 50) // Custom tab bar for navigation
-                    }
+      NavigationView {
+        ZStack {
+            TabView(selection: $selectedTab) {
+                Settings()
+                    .tag(Tab.person)
+                Home()
+                    .tag(Tab.message)
+                CreateNewPage(selectedTab: $selectedTab)
+                    .tag(Tab.plus)
+                RecentRequests()
+                .tag(Tab.dollarsign)
+                PendingRequests()
+                .tag(Tab.people)
+                  
+
+            }
+            .padding(.bottom, hideNavBar ? 0 : 50)
+            .padding(.top, 0)
+            .onChange(of: selectedTab) { newValue in
+                hideNavBar = newValue == .plus // Add conditions for other tabs as needed
+            }
+            
+            if !hideNavBar {
+                VStack {
+                    Spacer()  // Pushes the next view (CustomTabBar) to the bottom
+                    CustomTabBar(selectedTab: $selectedTab)
+                        .padding(.top, 50) // Custom tab bar for navigation
                 }
             }
-            .ignoresSafeArea(.keyboard, edges: .bottom)  // Ensures keyboard does not overlay content
+        }
+        .ignoresSafeArea(.keyboard, edges: .bottom)  // Ensures keyboard does not overlay content
+        .navigationViewStyle(StackNavigationViewStyle())
+      }
         }
     }
-}
 
 // Preview for the SwiftUI canvas
 struct NavView_Previews: PreviewProvider {
     static var previews: some View {
-        NavView()
+        ContentView()
+        .environmentObject(AuthViewModel())
     }
 }
 

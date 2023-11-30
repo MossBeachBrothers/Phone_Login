@@ -34,6 +34,7 @@
 		03A3D80D2AEB2D1600412875 /* PendingRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D80C2AEB2D1600412875 /* PendingRequests.swift */; };
 		03A3D80F2AEB2D6400412875 /* ActiveRequestsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D80E2AEB2D6400412875 /* ActiveRequestsPage.swift */; };
 		03A3D8112AED94CA00412875 /* RecentRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D8102AED94CA00412875 /* RecentRequests.swift */; };
+		03A3D8132AF026D400412875 /* GroupChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3D8122AF026D400412875 /* GroupChatView.swift */; };
 		03A46EFB2AA6546100AF1070 /* LogoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFA2AA6546100AF1070 /* LogoBox.swift */; };
 		03A46EFD2AA67F4600AF1070 /* HomeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFC2AA67F4600AF1070 /* HomeScrollView.swift */; };
 		03A46EFF2AA684E900AF1070 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFE2AA684E900AF1070 /* SearchBar.swift */; };
@@ -52,6 +53,7 @@
 		03B1B3A22A930960004B6962 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 03B1B3A12A930960004B6962 /* GoogleSignIn */; };
 		03B1B3A42A930960004B6962 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03B1B3A32A930960004B6962 /* GoogleSignInSwift */; };
 		03B1B3A62A931224004B6962 /* ForgotPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B3A52A931224004B6962 /* ForgotPasswordPage.swift */; };
+		03C77B5C2B184B7400EA0932 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C77B5B2B184B7400EA0932 /* TabBarView.swift */; };
 		CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */; };
 		CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906D2A8FDEEF00E35B8C /* ContentView.swift */; };
 		CD2190702A8FDEEF00E35B8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD21906F2A8FDEEF00E35B8C /* Assets.xcassets */; };
@@ -112,6 +114,7 @@
 		03A3D80C2AEB2D1600412875 /* PendingRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingRequests.swift; sourceTree = "<group>"; };
 		03A3D80E2AEB2D6400412875 /* ActiveRequestsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveRequestsPage.swift; sourceTree = "<group>"; };
 		03A3D8102AED94CA00412875 /* RecentRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRequests.swift; sourceTree = "<group>"; };
+		03A3D8122AF026D400412875 /* GroupChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatView.swift; sourceTree = "<group>"; };
 		03A46EFA2AA6546100AF1070 /* LogoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoBox.swift; sourceTree = "<group>"; };
 		03A46EFC2AA67F4600AF1070 /* HomeScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScrollView.swift; sourceTree = "<group>"; };
 		03A46EFE2AA684E900AF1070 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 		03B1B39C2A92F73B004B6962 /* SignInPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPage.swift; sourceTree = "<group>"; };
 		03B1B39E2A92F769004B6962 /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
 		03B1B3A52A931224004B6962 /* ForgotPasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage.swift; sourceTree = "<group>"; };
+		03C77B5B2B184B7400EA0932 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		CD2190682A8FDEEF00E35B8C /* Roomies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roomies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomiesApp.swift; sourceTree = "<group>"; };
 		CD21906D2A8FDEEF00E35B8C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -212,6 +216,8 @@
 				03A3D80C2AEB2D1600412875 /* PendingRequests.swift */,
 				03A3D80E2AEB2D6400412875 /* ActiveRequestsPage.swift */,
 				03A3D8102AED94CA00412875 /* RecentRequests.swift */,
+				03A3D8122AF026D400412875 /* GroupChatView.swift */,
+				03C77B5B2B184B7400EA0932 /* TabBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -453,6 +459,7 @@
 				0385A45B2A956C5B003E7475 /* ResetPasswordBox.swift in Sources */,
 				03A46EFD2AA67F4600AF1070 /* HomeScrollView.swift in Sources */,
 				03A3D80F2AEB2D6400412875 /* ActiveRequestsPage.swift in Sources */,
+				03A3D8132AF026D400412875 /* GroupChatView.swift in Sources */,
 				03B1B39F2A92F769004B6962 /* SignUpPage.swift in Sources */,
 				03B1B3992A92DE05004B6962 /* ShadowBox.swift in Sources */,
 				0385A44F2A9533ED003E7475 /* Home.swift in Sources */,
@@ -465,6 +472,7 @@
 				03A3D8072AEAF6EE00412875 /* CustomTabBar.swift in Sources */,
 				03A46EFB2AA6546100AF1070 /* LogoBox.swift in Sources */,
 				0385A44B2A95205D003E7475 /* AuthViewModel.swift in Sources */,
+				03C77B5C2B184B7400EA0932 /* TabBarView.swift in Sources */,
 				03B1B39D2A92F73B004B6962 /* SignInPage.swift in Sources */,
 				031C29E42A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				03A9D4F52A9408C800A9407F /* SignUpBox.swift in Sources */,

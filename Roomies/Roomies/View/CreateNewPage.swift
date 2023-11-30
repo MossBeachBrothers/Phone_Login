@@ -20,7 +20,7 @@ struct CreateNewPage: View {
             HStack {
                 Button(action: {
                     withAnimation {
-                        selectedTab = .person // Or any default tab you want to return to
+                      selectedTab = .message // Or any default tab you want to return to
                     }
                 }) {
                     Image(systemName: "arrow.backward")
@@ -35,7 +35,7 @@ struct CreateNewPage: View {
             
             Spacer()
             
-            ShadowBox(content: HomeScrollView(searchText: $searchText),
+            ShadowBox(content: EmptyView(),
                       width: 300,
                       height: 550)
             

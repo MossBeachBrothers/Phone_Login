@@ -12,17 +12,13 @@ struct ContentView: View {
     
     var body: some View {
       
-        NavigationView {
-            
+
             if (authViewModel.isLoggedIn){
                 NavView()
                 Spacer()  
             } else {
                 SignInPage()
             }
-
-
-        }
         
     }
 }
@@ -30,7 +26,9 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
+          NavigationView {
             ContentView()
                 .environmentObject(AuthViewModel()) // Inject an instance of AuthViewModel for preview
-        }
+            }
+    }
 }

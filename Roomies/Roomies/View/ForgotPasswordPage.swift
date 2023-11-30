@@ -11,7 +11,6 @@ struct ForgotPasswordPage : View {
     
     @EnvironmentObject var authViewModel: AuthViewModel
     var body: some View {
-        NavigationView {
             VStack(alignment: .center, spacing: 5) { // Increased spacing between title texts
                 
                 Text("Roomies")
@@ -28,7 +27,6 @@ struct ForgotPasswordPage : View {
                           width: 300,
                           height: 550)
             }
-        }
     }
 }
 

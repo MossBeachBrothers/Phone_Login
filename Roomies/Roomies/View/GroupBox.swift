@@ -10,7 +10,7 @@ import Firebase
 import FirebaseCore
 import FirebaseFirestore
 
-struct GroupPreviewBox: View {
+struct GroupBox: View {
       
   @State var group : Group
   @State var membersString : String
@@ -65,12 +65,12 @@ struct GroupPreviewBox: View {
 
 
 
-struct GroupPreviewBox_Previews: PreviewProvider {
+struct GroupBox_Previews: PreviewProvider {
     
   static var previews: some View {
-    
-    Home()
-    //GroupBox()
+    // You should create a Group instance here
+      ContentView().environmentObject(AuthViewModel())
+    }
     //ContentView().environmentObject(AuthViewModel())
   }
-}
+

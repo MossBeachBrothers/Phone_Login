@@ -13,9 +13,7 @@ struct SignInPage: View {
     
     //@State private var currentPage: Int? = nil // To manage navigation
     var body: some View {
-        
-        NavigationView {
-            
+
                 
             //Image(systemName: "square")
                 //.font(.system(size: 30))
@@ -46,9 +44,7 @@ struct SignInPage: View {
                                 
             }
             .padding()
-        
-        }
-        .navigationBarBackButtonHidden(true)
+            .navigationBarBackButtonHidden(true)
     }
 }
 

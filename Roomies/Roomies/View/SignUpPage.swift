@@ -13,9 +13,7 @@ struct SignUpPage: View {
     @State private var search: Bool = false
     
     var body: some View {
-        
-        NavigationView {
-          
+
             VStack(alignment: .center, spacing: 5) { // Increased spacing between title texts
               
                 LogoBox()
@@ -29,7 +27,6 @@ struct SignUpPage: View {
             .padding()
                 
         }
-    }
 }
 
 struct SignUpPage_Previews: PreviewProvider {

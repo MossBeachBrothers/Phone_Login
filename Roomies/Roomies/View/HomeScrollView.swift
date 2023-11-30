@@ -1,16 +1,11 @@
-//
-//  HomeScrollView.swift
-//  Roomies
-//
-//  Created by Akhi Nair on 9/4/23.
-//
-
 import SwiftUI
 
 struct HomeScrollView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @Binding var searchText: String
     @State private var userGroups: [Group] = []
+    @State private var selectedGroup: Group?
+    @State private var isGroupSelected = false
 
     var filteredGroups: [Group] {
         if searchText.isEmpty {
@@ -26,51 +21,63 @@ struct HomeScrollView: View {
 
     var body: some View {
         ScrollView {
-            VStack {
+            LazyVStack {
+                Button(action: {
+                    if let currentUser = authViewModel.currentUser {
+                        authViewModel.createGroup(adminID: currentUser.uid, memberIDs: [], groupName: "Test Group")
+                    }
+                }, label: {
+                    Text("Create Group")
+                })
+
                 ForEach(filteredGroups, id: \.self) { group in
-                    GroupPreviewBox(group: group)
+                    GroupBox(group: group)
+                        .onTapGesture {
+                            self.selectedGroup = group
+                            self.isGroupSelected = true
+                        }
                 }
-              Button(action: {
-                fetchGroups()
-              }, label: {
-                Text("Fetch Groups")
-              })
             }
             .padding()
+
+            // Invisible NavigationLink that triggers navigation when isGroupSelected is true.
+            if let selectedGroup = selectedGroup {
+                NavigationLink(destination: GroupChatView(group: selectedGroup), isActive: $isGroupSelected) {
+                    EmptyView()
+                }
+                .hidden()
+            }
+        }
+        .onAppear(perform: fetchGroups)
+    }
+
+    private func fetchGroups() {
+        guard let currentUser = authViewModel.currentUser else {
+            print("No current user found.")
+            return
         }
 
-    }
-  
-  
-  private func fetchGroups() {
-      if let currentUser = authViewModel.currentUser {
-          authViewModel.getAllGroupsForUser(userID: currentUser.uid) { (groups) in
-              if let groups = groups {
-                
-                if groups.isEmpty {
-                  print("No Groups")
-                }
-                  for group in groups {
-                      print("Group ID: \(group.documentID), Group Data: \(group.data() ?? [:])")
-                    userGroups.append(group.data())
-                  }
-              }
-          }
-      } else {
-          print("No current user found.")
-      }
-  }
-        
+        authViewModel.getAllGroupsForUser(userID: currentUser.uid) { (groupSnapshots) in
+            guard let groupSnapshots = groupSnapshots else {
+                print("No groups found.")
+                return
+            }
 
-        
-      }
-
-
-struct Home1_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        Home()
-        //ContentView()
-            //.environmentObject(AuthViewModel()) // Inject an instance of AuthViewModel for preview
+            self.userGroups = groupSnapshots.compactMap { snapshot in
+                guard let groupData = snapshot.data() else { return nil }
+                return Group(dictionary: groupData, id: snapshot.documentID)
+            }
+        }
     }
 }
+
+
+struct HomeScrollView_Previews: PreviewProvider {
+    static var previews: some View {
+        // Provide necessary environment objects or bindings for the preview
+        HomeScrollView(searchText: .constant(""))
+            .environmentObject(AuthViewModel())
+    }
+}
+
+// Make sure to define the Group model and AuthViewModel according to your implementation.

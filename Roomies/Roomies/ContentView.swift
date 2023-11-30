@@ -26,9 +26,8 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
-          NavigationView {
+
             ContentView()
-                .environmentObject(AuthViewModel()) // Inject an instance of AuthViewModel for preview
-            }
+                .environmentObject(AuthViewModel()) // Inject an instance of 
     }
 }

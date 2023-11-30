@@ -11,24 +11,13 @@ import FirebaseAuth
 import FirebaseCore
 
 struct CreateNewPage: View {
-    @Binding var selectedTab: Tab  // A binding to manage the selected tab externally
+
     @State private var searchText: String = ""
     @State private var isSearching: Bool = false
     
     var body: some View {
         VStack{
             HStack {
-                Button(action: {
-                    withAnimation {
-                      selectedTab = .message // Or any default tab you want to return to
-                    }
-                }) {
-                    Image(systemName: "arrow.backward")
-                        .foregroundColor(.black)  // Customize color as needed
-                }
-                .padding(.trailing, 8)  // Adjust padding as needed
-                
-                // Other elements (e.g., SearchBar) can go here
                 
                 SearchBar(text: $searchText, isSearching: $isSearching, startingText: "Name, @username, email, phone")
             }
@@ -42,7 +31,7 @@ struct CreateNewPage: View {
             Spacer()
         }
         .padding()
-        .animation(.easeInOut(duration: 0.5), value: selectedTab) // Applying an animation for appearance
+        
     }
 }
 

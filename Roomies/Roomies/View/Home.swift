@@ -11,7 +11,7 @@ import FirebaseCore
 import FirebaseFirestore
 
 struct Home: View {
-
+  @Binding var path: [HomeNavigation]
 @State private var searchText: String = ""
 @State private var isSearching: Bool = false
 @EnvironmentObject var authViewModel: AuthViewModel
@@ -49,7 +49,6 @@ struct Home: View {
         SearchBar(text: $searchText, isSearching: $isSearching, startingText: "Search Groups")
           .padding(.bottom, 25)
         Spacer()
-
         ShadowBox(content: HomeScrollView(searchText: $searchText),
                     width: 300,
                     height: 550)

@@ -54,6 +54,7 @@
 		03B1B3A42A930960004B6962 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03B1B3A32A930960004B6962 /* GoogleSignInSwift */; };
 		03B1B3A62A931224004B6962 /* ForgotPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B3A52A931224004B6962 /* ForgotPasswordPage.swift */; };
 		03C77B5C2B184B7400EA0932 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C77B5B2B184B7400EA0932 /* TabBarView.swift */; };
+		03C77B5F2B19169C00EA0932 /* NavigationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C77B5E2B19169C00EA0932 /* NavigationEnums.swift */; };
 		CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */; };
 		CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906D2A8FDEEF00E35B8C /* ContentView.swift */; };
 		CD2190702A8FDEEF00E35B8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD21906F2A8FDEEF00E35B8C /* Assets.xcassets */; };
@@ -133,6 +134,7 @@
 		03B1B39E2A92F769004B6962 /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
 		03B1B3A52A931224004B6962 /* ForgotPasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage.swift; sourceTree = "<group>"; };
 		03C77B5B2B184B7400EA0932 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		03C77B5E2B19169C00EA0932 /* NavigationEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationEnums.swift; sourceTree = "<group>"; };
 		CD2190682A8FDEEF00E35B8C /* Roomies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roomies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomiesApp.swift; sourceTree = "<group>"; };
 		CD21906D2A8FDEEF00E35B8C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -231,6 +233,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		03C77B5D2B19168300EA0932 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				03C77B5E2B19169C00EA0932 /* NavigationEnums.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		CD21905F2A8FDEEF00E35B8C = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +264,7 @@
 		CD21906A2A8FDEEF00E35B8C /* Roomies */ = {
 			isa = PBXGroup;
 			children = (
+				03C77B5D2B19168300EA0932 /* Enum */,
 				03A46F012AAA405A00AF1070 /* DebtRequest.swift */,
 				0385A4522A954C20003E7475 /* RoomiesUser.swift */,
 				033227402A9031E900AAE99A /* ViewModel */,
@@ -453,6 +464,7 @@
 				03A3D8112AED94CA00412875 /* RecentRequests.swift in Sources */,
 				0385A45F2A96E88D003E7475 /* PasswordReqView.swift in Sources */,
 				03A7B8AC2AA4F37B0091AB0A /* GroupBox.swift in Sources */,
+				03C77B5F2B19169C00EA0932 /* NavigationEnums.swift in Sources */,
 				03A46F022AAA405A00AF1070 /* DebtRequest.swift in Sources */,
 				03A46F062AAE756E00AF1070 /* Group.swift in Sources */,
 				031C29E02A90366F003CAE13 /* CustomTextField.swift in Sources */,

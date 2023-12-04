@@ -15,7 +15,7 @@ struct ContentView: View {
 
             if (authViewModel.isLoggedIn){
                 NavView()
-                Spacer()  
+                Spacer()
             } else {
                 SignInPage()
             }

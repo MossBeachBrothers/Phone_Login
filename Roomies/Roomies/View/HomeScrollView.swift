@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct HomeScrollView: View {
+    @Binding var path: NavigationPath
     @EnvironmentObject var authViewModel: AuthViewModel
     @Binding var searchText: String
     @State private var userGroups: [Group] = []
@@ -15,40 +16,38 @@ struct HomeScrollView: View {
         }
     }
 
-    init(searchText: Binding<String>) {
+  init(searchText: Binding<String>, path: Binding<NavigationPath>) {
         _searchText = searchText
+        _path = path
     }
 
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                Button(action: {
-                    if let currentUser = authViewModel.currentUser {
-                        authViewModel.createGroup(adminID: currentUser.uid, memberIDs: [], groupName: "Test Group")
+      ScrollView {
+          LazyVStack {
+              Button(action: {
+                  if let currentUser = authViewModel.currentUser {
+                      authViewModel.createGroup(adminID: currentUser.uid, memberIDs: [], groupName: "Test Group")
+                  }
+              }, label: {
+                  Text("Create Group")
+              })
+
+              ForEach(filteredGroups, id: \.self) { group in
+                    NavigationLink(value: group) {
+                        GroupBox(group: group)
                     }
-                }, label: {
-                    Text("Create Group")
-                })
 
-                ForEach(filteredGroups, id: \.self) { group in
-                    GroupBox(group: group)
-                        .onTapGesture {
-                            self.selectedGroup = group
-                            self.isGroupSelected = true
-                        }
-                }
-            }
-            .padding()
+              }
+          }
+          .padding()
 
-            // Invisible NavigationLink that triggers navigation when isGroupSelected is true.
-            if let selectedGroup = selectedGroup {
-                NavigationLink(destination: GroupChatView(group: selectedGroup), isActive: $isGroupSelected) {
-                    EmptyView()
-                }
-                .hidden()
-            }
-        }
-        .onAppear(perform: fetchGroups)
+      }
+      .onAppear(perform: fetchGroups)
+      .navigationDestination(for: Group.self) { group in
+          GroupChatView(group: group, path: $path)
+            .toolbar(.hidden, for: .tabBar)
+      }
+
     }
 
     private func fetchGroups() {
@@ -74,10 +73,12 @@ struct HomeScrollView: View {
 
 struct HomeScrollView_Previews: PreviewProvider {
     static var previews: some View {
+      ContentView()
+        .environmentObject(AuthViewModel())
         // Provide necessary environment objects or bindings for the preview
-        HomeScrollView(searchText: .constant(""))
-            .environmentObject(AuthViewModel())
+      
+//      HomeScrollView(searchText: .constant(""))
+//            .environmentObject(AuthViewModel())
     }
 }
 
-// Make sure to define the Group model and AuthViewModel according to your implementation.

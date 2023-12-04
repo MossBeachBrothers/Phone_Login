@@ -13,7 +13,7 @@ import Foundation
 struct DebtRequest: Identifiable, Codable, Hashable {
   
     var id: String? // Firebase-generated document ID
-    var senderUserID: String // ID of the sender who made the request
+    var senderUserIDs: [String] // ID of the sender who made the request
     var groupID: String // ID of the group associated with the request
     var receiverUserIDs: [String] // User IDs of the receivers of the request
     var confirmationStatus: [String: Bool] // Stores whether each user has confirmed or not
@@ -23,13 +23,13 @@ struct DebtRequest: Identifiable, Codable, Hashable {
     var timestamp: Date // Timestamp for when the request was created
 
     init(
-        senderUserID: String,
+        senderUserIDs: [String],
         groupID: String,
         receiverUserIDs: [String],
         amount: Double,
         requestDescription: String
     ) {
-        self.senderUserID = senderUserID
+        self.senderUserIDs = senderUserIDs
         self.groupID = groupID
         self.receiverUserIDs = receiverUserIDs
         self.confirmationStatus = [:] // Initialize confirmation status
@@ -43,7 +43,7 @@ struct DebtRequest: Identifiable, Codable, Hashable {
     func toFirestoreData() -> [String: Any] {
         var data: [String: Any] = [:]
         data["id"] = id // Include the id if it's not nil
-        data["senderUserID"] = senderUserID
+        data["senderUserIDs"] = senderUserIDs
         data["groupID"] = groupID
         data["receiverUserIDs"] = receiverUserIDs
         data["confirmationStatus"] = confirmationStatus

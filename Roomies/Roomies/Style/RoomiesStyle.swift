@@ -82,6 +82,17 @@ struct GlobalFonts {
     static let captionFont: Font = .custom("CaptionFontName", size: 14)
 }
 
+
+struct RoomiesVStackStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(5)
+            .background(Color.pink.opacity(0.6)) // Light pink background
+            .cornerRadius(10)
+            .shadow(color: Color.pink.opacity(0.5), radius: 5, x: 0, y: 2)
+    }
+}
+
 extension View {
     
     func roomiesTextFieldStyle() -> some View {

@@ -3,29 +3,30 @@ import SwiftUI
 struct NavView: View {
   @State private var path = NavigationPath()
   @State private var selectedTab: Tab = .message
-  @State var homeNavigationStack: [HomeNavigation] = []
   var body: some View {
     TabView {
-      ForEach([Tab.message, Tab.people, Tab.dollarsign, Tab.person], id:
+      ForEach([Tab.message, Tab.people, Tab.person], id:
                 \.rawValue){ tab in
         NavigationStack (path: $path) {
+          Text("\(path.count)")
           VStack {
             switch tab {
               case .message:
-                Home(path: $homeNavigationStack)
+                Home(path: $path)
               case .plus:
-                  CreateNewPage()
+                CreateNewPage(path: $path)
               case .person:
                   Settings()
               case .dollarsign:
                   Settings()
               case .createGroup:
-                  CreateNewPage()
+                  ProgressView()
               case .people:
-                  PendingRequests()
+                ProgressView()
               }
             }
         }
+        
         .tabItem {
           Label(tab.title, systemImage: tab.imageName)
         }

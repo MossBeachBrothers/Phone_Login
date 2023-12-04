@@ -11,10 +11,10 @@ import FirebaseAuth
 import FirebaseCore
 
 struct CreateNewPage: View {
-
+    
     @State private var searchText: String = ""
     @State private var isSearching: Bool = false
-    
+    @Binding var path: NavigationPath
     var body: some View {
         VStack{
             HStack {
@@ -29,20 +29,35 @@ struct CreateNewPage: View {
                       height: 550)
             
             Spacer()
+//          Button({
+//            path.removeLst()
+//          }, label: <#T##() -> View#>)
         }
         .padding()
+        .navigationBarBackButtonHidden()
+        .toolbar {
+          ToolbarItem(placement: .navigationBarLeading) {
+            Button {
+              path.removeLast()
+            } label : {
+              Image(systemName: "chevron.left.circle")
+            }
+          }
+        }
         
     }
 }
 
 
 
-struct CreateNewPage_Previews: PreviewProvider {
-  static var previews: some View {
-    NavView()
-    
-  }
+// Preview for the SwiftUI canvas
+struct CreateNewPageView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+        .environmentObject(AuthViewModel())
+    }
 }
+
 
 
 

@@ -42,11 +42,5 @@ struct Group: Hashable {
         self.members = members
         self.timestamp = timestamp
         self.debtRequests = []
-//        // Assuming that your DebtRequest has a similar initializer that accepts a dictionary
-//        if let debtRequestsArray = dictionary["debtRequests"] as? [[String: Any]] {
-//            self.debtRequests = debtRequestsArray.compactMap { DebtRequest(dictionary: $0) }
-//        } else {
-//            self.debtRequests = []
-//        }
   }
 }

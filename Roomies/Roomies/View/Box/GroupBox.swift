@@ -39,9 +39,7 @@ struct GroupBox: View {
 
   var body : some View{
       
-    Button(action: {/* */
-      
-    }) {
+
       
       VStack(alignment:.leading){
         
@@ -56,9 +54,16 @@ struct GroupBox: View {
           .foregroundColor(.white)
           .padding()
       }
-    }
-    .buttonStyle(RoomiesButtonStyle(color: Color.pink, pad_top: 0,
-                    pad_bottom : 0, pad_left : 0, pad_right : 0))
+      .background(Color.pink)
+
+  }
+  
+  func MoveToGroupChat() -> Void{
+    
+    /*
+     
+     
+     */
   }
 
 }

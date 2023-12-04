@@ -11,7 +11,7 @@ import FirebaseCore
 import FirebaseFirestore
 
 struct Home: View {
-  @Binding var path: [HomeNavigation]
+@Binding var path: NavigationPath
 @State private var searchText: String = ""
 @State private var isSearching: Bool = false
 @EnvironmentObject var authViewModel: AuthViewModel
@@ -36,20 +36,16 @@ struct Home: View {
             
             Spacer() // To push items to opposite sides
             
-            // Right side: Image as a button to perform an action
-            Button(action: {
-                // Your action here
-                print("Image button tapped")
-            }) {
-                Image(systemName: "arrow.backward")
-                    .foregroundColor(.black)  // Customize color as needed
-            }
-            .padding(.trailing, 8)  // Adjust padding as needed
+            //Navigation Link to Create New page
+          NavigationLink(destination: CreateNewPage(path: $path)) {
+            Image(systemName: "plus.circle.fill")
+          }
+            
         }
         SearchBar(text: $searchText, isSearching: $isSearching, startingText: "Search Groups")
           .padding(.bottom, 25)
         Spacer()
-        ShadowBox(content: HomeScrollView(searchText: $searchText),
+        ShadowBox(content: HomeScrollView(searchText: $searchText, path: $path),
                     width: 300,
                     height: 550)
         

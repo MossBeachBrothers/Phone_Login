@@ -148,7 +148,7 @@ class AuthViewModel: ObservableObject {
     
   //MARK: Add Debt Request
   func addDebtRequest(
-      senderUserID: String,
+      senderUserIDs: [String],
       groupID: String,
       receiverUserIDs: [String],
       amount: Double,
@@ -162,7 +162,7 @@ class AuthViewModel: ObservableObject {
       }
 
       var newDebtRequest = DebtRequest(
-          senderUserID: senderUserID,
+          senderUserIDs: senderUserIDs,
           groupID: groupID,
           receiverUserIDs: receiverUserIDs,
           amount: amount,
@@ -475,35 +475,35 @@ class AuthViewModel: ObservableObject {
     }
   
     //MARK: Get all Group Meta Deta
-    func getAllGroupMetaData(completion: @escaping ([GroupMetaData]?, Error?) -> Void) {
-        Firestore.firestore().collection("groups").getDocuments { snapshot, error in
-            if let error = error {
-                completion(nil, error)
-            } else {
-                var groupMetaDataList: [GroupMetaData] = []
-
-                for document in snapshot?.documents ?? [] {
-                    let data = document.data()
-                    let group_id = document.documentID
-                    let group_name = data["groupName"] as? String ?? ""
-                    let group_members = data["members"] as? [String] ?? []
-                    let last_request = data["lastRequest"] as? String ?? ""
-                    let timestamp = data["timestamp"] as? String ?? ""
-
-                    let groupMetaData = GroupMetaData(group_id: group_id,
-                                                      group_name: group_name,
-                                                      group_members: group_members,
-                                                      last_request: last_request,
-                                                      timestamp: timestamp)
-
-                    groupMetaDataList.append(groupMetaData)
-                }
-
-                completion(groupMetaDataList, nil)
-            }
-        }
-    }
-  
+//    func getAllGroupMetaData(completion: @escaping ([GroupMetaData]?, Error?) -> Void) {
+//        Firestore.firestore().collection("groups").getDocuments { snapshot, error in
+//            if let error = error {
+//                completion(nil, error)
+//            } else {
+//                var groupMetaDataList: [GroupMetaData] = []
+//
+//                for document in snapshot?.documents ?? [] {
+//                    let data = document.data()
+//                    let group_id = document.documentID
+//                    let group_name = data["groupName"] as? String ?? ""
+//                    let group_members = data["members"] as? [String] ?? []
+//                    let last_request = data["lastRequest"] as? String ?? ""
+//                    let timestamp = data["timestamp"] as? String ?? ""
+//
+//                    let groupMetaData = GroupMetaData(group_id: group_id,
+//                                                      group_name: group_name,
+//                                                      group_members: group_members,
+//                                                      last_request: last_request,
+//                                                      timestamp: timestamp)
+//
+//                    groupMetaDataList.append(groupMetaData)
+//                }
+//
+//                completion(groupMetaDataList, nil)
+//            }
+//        }
+//    }
+//
     
     static func signUpWithPhoneNumber(phone: String, password: String, user: RoomiesUser, completion: @escaping (Error?) -> Void) {
         

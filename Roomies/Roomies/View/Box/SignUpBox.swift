@@ -21,7 +21,7 @@ struct SignUpBox : View {
     
     @State private var first_name : String = ""
     @State private var last_name : String = ""
-    
+    @State private var userName : String = ""
     @State private var input_type : InputType = .email
     
     @State private var email_or_phone : String = ""
@@ -30,7 +30,7 @@ struct SignUpBox : View {
     @State private var repeat_password : String = ""
     
     @State var isPasswordValid : Bool = false
-    
+    @State var userNameExists: Bool = false
     @State private var errorMessage : String = ""
     @State private var emailPhoneErrorMessage : String = ""
     @State private var highlightedFields: Set<Int> = []
@@ -51,12 +51,11 @@ struct SignUpBox : View {
             ScrollView(showsIndicators: true){
                 
                 VStack(alignment: .center) {
-                    
-                    Text("Sign Up")
-                        .foregroundColor(.gray)
-                        .font(GlobalFonts.titleFont)
-                        .fontWeight(.semibold)
-                    
+                  Text("Sign Up")
+                      .foregroundColor(.gray)
+                      .font(GlobalFonts.titleFont)
+                      .fontWeight(.semibold)
+                  Group {
                     CustomTextField(hint: "First Name", text: $first_name)
                         .modifier(HighlightModifier(index: 0,
                                                     errorMessages : [$errorMessage],
@@ -66,30 +65,36 @@ struct SignUpBox : View {
                         .modifier(HighlightModifier(index: 1,
                                                     errorMessages : [$errorMessage],
                                                     highlightedFields: $highlightedFields))
-                    
-                    
-                    CustomTextField(hint: "Email or Phone", text: $email_or_phone)
+                  
+                    CustomTextField(hint: "Email", text: $email_or_phone)
                         .modifier(HighlightModifier(index: 2,
                                                     errorMessages: [$errorMessage, $emailPhoneErrorMessage],
                                                     
                                                     highlightedFields: $highlightedFields))
+                  
+                    CustomTextField(hint: "Username", text: $userName)
+                      .modifier(HighlightModifier(index: 3,
+                                                  errorMessages: [$errorMessage],
+
+                                                  highlightedFields: $highlightedFields))
+                  
                     Text(emailPhoneErrorMessage)
                         .font(GlobalFonts.captionFont)
                         .foregroundColor(Color.red)
                     
                     PasswordField(hint: "Password", password: $password)
-                        .modifier(HighlightModifier(index: 3,
+                        .modifier(HighlightModifier(index: 4,
                                                     errorMessages : [$errorMessage],
                                                     highlightedFields: $highlightedFields))
                     
                     PasswordReqView(password : $password)
                     
                     PasswordField(hint: "Repeat Password", password: $repeat_password)
-                        .modifier(HighlightModifier(index: 4,
+                        .modifier(HighlightModifier(index: 5,
                                                     errorMessages : [$errorMessage],
                                                     highlightedFields: $highlightedFields))
                     
-                    HStack(spacing: 4) {
+                    HStack(spacing: 5) {
                         Text("- Passwords match")
                             .foregroundColor(passwordsMatch() ? .green : .red)
                             .font(GlobalFonts.captionFont)
@@ -150,6 +155,7 @@ struct SignUpBox : View {
                         .buttonStyle(RoomiesButtonStyle(color: Color.blue, pad_top: 0,
                                                         pad_bottom : 0, pad_left : 0, pad_right : 0))
                     }
+                  }
                 }
                 .padding()
                 
@@ -234,14 +240,17 @@ struct SignUpBox : View {
           }
         }
         
-        
+        if userNameExists {
+          highlightedFields.insert(5)
+          invalid_fields = true
+        }
         if !validpassword {
-            highlightedFields.insert(3)
+            highlightedFields.insert(4)
             invalid_fields = true
         }
         
         if !passwordsMatch() {
-            highlightedFields.insert(4)
+            highlightedFields.insert(5)
             invalid_fields = true
         }
                   
@@ -268,6 +277,7 @@ struct SignUpBox : View {
             firstName: first_name,
             lastName: last_name,
             phoneNumber: "",
+            userName: userName,
             friends: [],
             groups: []
         )
@@ -335,7 +345,6 @@ struct HighlightModifier: ViewModifier {
 struct  SignUpBox_Preview : PreviewProvider {
     
     static var previews: some View {
-        ContentView()
-            .environmentObject(AuthViewModel()) // Inject an instance of AuthViewModel for preview
+        SignUpBox() // Inject an instance of AuthViewModel for preview
     }
 }

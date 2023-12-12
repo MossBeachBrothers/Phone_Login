@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct Group: Hashable {
+struct RoomiesGroup: Hashable {
     
     var groupID: String
     var adminID: String
@@ -42,5 +42,23 @@ struct Group: Hashable {
         self.members = members
         self.timestamp = timestamp
         self.debtRequests = []
+  }
+  
+  func toFirestoreData() -> [String: Any] {
+          var data: [String: Any] = [:]
+          
+          data["groupID"] = groupID
+          data["adminID"] = adminID
+          data["groupName"] = groupName
+          data["groupImg"] = groupImg
+          data["groupTotalsUnconfirmed"] = groupTotalsUnconfirmed
+          data["groupTotalsConfirmed"] = groupTotalsConfirmed
+          data["members"] = members
+          data["timestamp"] = timestamp
+          
+          // Convert each DebtRequest to a Firestore-compatible format
+          data["debtRequests"] = debtRequests.map { $0.toFirestoreData() }
+
+          return data
   }
 }

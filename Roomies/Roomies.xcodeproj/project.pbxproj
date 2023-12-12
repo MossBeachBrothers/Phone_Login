@@ -13,6 +13,11 @@
 		031C29E42A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
 		031C29E52A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
 		031C29E62A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
+		0382CB392B27C3C400C517FA /* NavigationStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382CB382B27C3C400C517FA /* NavigationStateModel.swift */; };
+		0382CB3B2B27E59400C517FA /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382CB3A2B27E59400C517FA /* Link.swift */; };
+		0382CB3D2B27F01700C517FA /* FindFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382CB3C2B27F01700C517FA /* FindFriendsView.swift */; };
+		0382CB3F2B27F3BB00C517FA /* GroupFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382CB3E2B27F3BB00C517FA /* GroupFeedView.swift */; };
+		0382CB412B27F3C700C517FA /* GroupTotalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382CB402B27F3C700C517FA /* GroupTotalsView.swift */; };
 		0385A44B2A95205D003E7475 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0385A44A2A95205D003E7475 /* AuthViewModel.swift */; };
 		0385A44C2A95205D003E7475 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0385A44A2A95205D003E7475 /* AuthViewModel.swift */; };
 		0385A44D2A95205D003E7475 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0385A44A2A95205D003E7475 /* AuthViewModel.swift */; };
@@ -31,7 +36,7 @@
 		03A46EFD2AA67F4600AF1070 /* HomeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFC2AA67F4600AF1070 /* HomeScrollView.swift */; };
 		03A46EFF2AA684E900AF1070 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46EFE2AA684E900AF1070 /* SearchBar.swift */; };
 		03A46F022AAA405A00AF1070 /* DebtRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46F012AAA405A00AF1070 /* DebtRequest.swift */; };
-		03A46F062AAE756E00AF1070 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46F052AAE756E00AF1070 /* Group.swift */; };
+		03A46F062AAE756E00AF1070 /* RoomiesGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46F052AAE756E00AF1070 /* RoomiesGroup.swift */; };
 		03A46F082AAFBD9C00AF1070 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A46F072AAFBD9C00AF1070 /* Friend.swift */; };
 		03A7B8AC2AA4F37B0091AB0A /* GroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B8AB2AA4F37B0091AB0A /* GroupBox.swift */; };
 		03A9D4F12A93E34800A9407F /* RoomiesStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9D4F02A93E34800A9407F /* RoomiesStyle.swift */; };
@@ -44,9 +49,11 @@
 		03B1B3A22A930960004B6962 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 03B1B3A12A930960004B6962 /* GoogleSignIn */; };
 		03B1B3A42A930960004B6962 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03B1B3A32A930960004B6962 /* GoogleSignInSwift */; };
 		03B1B3A62A931224004B6962 /* ForgotPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1B3A52A931224004B6962 /* ForgotPasswordPage.swift */; };
+		03BB18A92B1E906A00E98348 /* CreateNewScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BB18A82B1E906A00E98348 /* CreateNewScrollView.swift */; };
+		03BB18AF2B1EB52F00E98348 /* PhotoCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BB18AE2B1EB52F00E98348 /* PhotoCircle.swift */; };
+		03BB18B22B1EC3A100E98348 /* NewGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BB18B12B1EC3A100E98348 /* NewGroupView.swift */; };
 		03C77B5C2B184B7400EA0932 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C77B5B2B184B7400EA0932 /* TabBarView.swift */; };
 		03C77B5F2B19169C00EA0932 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C77B5E2B19169C00EA0932 /* Tab.swift */; };
-		03C77B632B1997E800EA0932 /* CreateNewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C77B622B1997E800EA0932 /* CreateNewView.swift */; };
 		03C77B652B1D241B00EA0932 /* RequestBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C77B642B1D241B00EA0932 /* RequestBox.swift */; };
 		03C77B682B1D5C4400EA0932 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9D4F22A93F0CB00A9407F /* PasswordField.swift */; };
 		03C77B692B1D5C4400EA0932 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9D4F22A93F0CB00A9407F /* PasswordField.swift */; };
@@ -99,6 +106,11 @@
 		031C29E32A9038BA003CAE13 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0332273C2A90309600AAE99A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0332273D2A90313800AAE99A /* Roomies.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Roomies.entitlements; sourceTree = "<group>"; };
+		0382CB382B27C3C400C517FA /* NavigationStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStateModel.swift; sourceTree = "<group>"; };
+		0382CB3A2B27E59400C517FA /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		0382CB3C2B27F01700C517FA /* FindFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendsView.swift; sourceTree = "<group>"; };
+		0382CB3E2B27F3BB00C517FA /* GroupFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFeedView.swift; sourceTree = "<group>"; };
+		0382CB402B27F3C700C517FA /* GroupTotalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTotalsView.swift; sourceTree = "<group>"; };
 		0385A44A2A95205D003E7475 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		0385A44E2A9533ED003E7475 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		0385A4522A954C20003E7475 /* RoomiesUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomiesUser.swift; sourceTree = "<group>"; };
@@ -116,7 +128,7 @@
 		03A46EFE2AA684E900AF1070 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		03A46F002AA68C5600AF1070 /* editorconfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = editorconfig.xcconfig; sourceTree = "<group>"; };
 		03A46F012AAA405A00AF1070 /* DebtRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtRequest.swift; sourceTree = "<group>"; };
-		03A46F052AAE756E00AF1070 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		03A46F052AAE756E00AF1070 /* RoomiesGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomiesGroup.swift; sourceTree = "<group>"; };
 		03A46F072AAFBD9C00AF1070 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		03A7B8AB2AA4F37B0091AB0A /* GroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBox.swift; sourceTree = "<group>"; };
 		03A9D4F02A93E34800A9407F /* RoomiesStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomiesStyle.swift; sourceTree = "<group>"; };
@@ -127,9 +139,11 @@
 		03B1B39C2A92F73B004B6962 /* SignInPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPage.swift; sourceTree = "<group>"; };
 		03B1B39E2A92F769004B6962 /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
 		03B1B3A52A931224004B6962 /* ForgotPasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage.swift; sourceTree = "<group>"; };
+		03BB18A82B1E906A00E98348 /* CreateNewScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewScrollView.swift; sourceTree = "<group>"; };
+		03BB18AE2B1EB52F00E98348 /* PhotoCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCircle.swift; sourceTree = "<group>"; };
+		03BB18B12B1EC3A100E98348 /* NewGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupView.swift; sourceTree = "<group>"; };
 		03C77B5B2B184B7400EA0932 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		03C77B5E2B19169C00EA0932 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
-		03C77B622B1997E800EA0932 /* CreateNewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewView.swift; sourceTree = "<group>"; };
 		03C77B642B1D241B00EA0932 /* RequestBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBox.swift; sourceTree = "<group>"; };
 		03C77B6E2B1DAB5000EA0932 /* GroupSettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSettingsPage.swift; sourceTree = "<group>"; };
 		03C77B702B1DB00200EA0932 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
@@ -192,14 +206,11 @@
 				03C77B672B1D5C2F00EA0932 /* Components */,
 				03C77B662B1D5BF900EA0932 /* Box */,
 				03C77B6D2B1D5E4B00EA0932 /* Page */,
-				03A46EFC2AA67F4600AF1070 /* HomeScrollView.swift */,
 				03A3D8082AEB230A00412875 /* NavView.swift */,
 				0385A45E2A96E88D003E7475 /* PasswordReqView.swift */,
 				03A3D80A2AEB2AFC00412875 /* Settings.swift */,
 				03A3D8102AED94CA00412875 /* RecentRequests.swift */,
-				03A3D8122AF026D400412875 /* GroupChatView.swift */,
 				03C77B5B2B184B7400EA0932 /* TabBarView.swift */,
-				03C77B622B1997E800EA0932 /* CreateNewView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -209,14 +220,64 @@
 			children = (
 				031C29E32A9038BA003CAE13 /* LoginViewModel.swift */,
 				0385A44A2A95205D003E7475 /* AuthViewModel.swift */,
+				0382CB382B27C3C400C517FA /* NavigationStateModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		03BB18AA2B1EAF7A00E98348 /* CreateNew */ = {
+			isa = PBXGroup;
+			children = (
+				03BB18A82B1E906A00E98348 /* CreateNewScrollView.swift */,
+				03BB18B02B1EC38C00E98348 /* New */,
+				03A3D8042AEAB8A600412875 /* CreateNewPage.swift */,
+				0382CB3C2B27F01700C517FA /* FindFriendsView.swift */,
+			);
+			path = CreateNew;
+			sourceTree = "<group>";
+		};
+		03BB18AB2B1EAF9300E98348 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				03A46EFC2AA67F4600AF1070 /* HomeScrollView.swift */,
+				0385A44E2A9533ED003E7475 /* Home.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		03BB18AC2B1EAFAE00E98348 /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				03C77B6E2B1DAB5000EA0932 /* GroupSettingsPage.swift */,
+				03A3D8122AF026D400412875 /* GroupChatView.swift */,
+				0382CB3E2B27F3BB00C517FA /* GroupFeedView.swift */,
+				0382CB402B27F3C700C517FA /* GroupTotalsView.swift */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
+		03BB18AD2B1EAFBC00E98348 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				03B1B39C2A92F73B004B6962 /* SignInPage.swift */,
+				03B1B39E2A92F769004B6962 /* SignUpPage.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		03BB18B02B1EC38C00E98348 /* New */ = {
+			isa = PBXGroup;
+			children = (
+				03BB18B12B1EC3A100E98348 /* NewGroupView.swift */,
+			);
+			path = New;
 			sourceTree = "<group>";
 		};
 		03C77B5D2B19168300EA0932 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
 				03C77B5E2B19169C00EA0932 /* Tab.swift */,
+				0382CB3A2B27E59400C517FA /* Link.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -243,6 +304,7 @@
 				03A9D4F22A93F0CB00A9407F /* PasswordField.swift */,
 				031C29DF2A90366F003CAE13 /* CustomTextField.swift */,
 				03C77B702B1DB00200EA0932 /* BackButton.swift */,
+				03BB18AE2B1EB52F00E98348 /* PhotoCircle.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -250,7 +312,7 @@
 		03C77B6A2B1D5DF200EA0932 /* Struct */ = {
 			isa = PBXGroup;
 			children = (
-				03A46F052AAE756E00AF1070 /* Group.swift */,
+				03A46F052AAE756E00AF1070 /* RoomiesGroup.swift */,
 				03A46F072AAFBD9C00AF1070 /* Friend.swift */,
 				0385A4522A954C20003E7475 /* RoomiesUser.swift */,
 				03A46F012AAA405A00AF1070 /* DebtRequest.swift */,
@@ -269,13 +331,12 @@
 		03C77B6D2B1D5E4B00EA0932 /* Page */ = {
 			isa = PBXGroup;
 			children = (
+				03BB18AD2B1EAFBC00E98348 /* Auth */,
+				03BB18AC2B1EAFAE00E98348 /* Group */,
+				03BB18AB2B1EAF9300E98348 /* Home */,
 				03B1B3A52A931224004B6962 /* ForgotPasswordPage.swift */,
-				0385A44E2A9533ED003E7475 /* Home.swift */,
 				03A3D80E2AEB2D6400412875 /* ActiveRequestsPage.swift */,
-				03A3D8042AEAB8A600412875 /* CreateNewPage.swift */,
-				03B1B39E2A92F769004B6962 /* SignUpPage.swift */,
-				03B1B39C2A92F73B004B6962 /* SignInPage.swift */,
-				03C77B6E2B1DAB5000EA0932 /* GroupSettingsPage.swift */,
+				03BB18AA2B1EAF7A00E98348 /* CreateNew */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -499,22 +560,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0382CB3F2B27F3BB00C517FA /* GroupFeedView.swift in Sources */,
+				0382CB3B2B27E59400C517FA /* Link.swift in Sources */,
 				03A3D8092AEB230A00412875 /* NavView.swift in Sources */,
+				0382CB412B27F3C700C517FA /* GroupTotalsView.swift in Sources */,
 				03A3D8112AED94CA00412875 /* RecentRequests.swift in Sources */,
 				0385A45F2A96E88D003E7475 /* PasswordReqView.swift in Sources */,
 				03C77B652B1D241B00EA0932 /* RequestBox.swift in Sources */,
 				03A7B8AC2AA4F37B0091AB0A /* GroupBox.swift in Sources */,
 				03C77B5F2B19169C00EA0932 /* Tab.swift in Sources */,
 				03A46F022AAA405A00AF1070 /* DebtRequest.swift in Sources */,
-				03A46F062AAE756E00AF1070 /* Group.swift in Sources */,
+				03A46F062AAE756E00AF1070 /* RoomiesGroup.swift in Sources */,
 				031C29E02A90366F003CAE13 /* CustomTextField.swift in Sources */,
 				0385A45B2A956C5B003E7475 /* ResetPasswordBox.swift in Sources */,
 				03A46EFD2AA67F4600AF1070 /* HomeScrollView.swift in Sources */,
+				0382CB392B27C3C400C517FA /* NavigationStateModel.swift in Sources */,
 				03A3D80F2AEB2D6400412875 /* ActiveRequestsPage.swift in Sources */,
 				03A3D8132AF026D400412875 /* GroupChatView.swift in Sources */,
 				03B1B39F2A92F769004B6962 /* SignUpPage.swift in Sources */,
 				03B1B3992A92DE05004B6962 /* ShadowBox.swift in Sources */,
+				03BB18B22B1EC3A100E98348 /* NewGroupView.swift in Sources */,
 				0385A44F2A9533ED003E7475 /* Home.swift in Sources */,
+				0382CB3D2B27F01700C517FA /* FindFriendsView.swift in Sources */,
 				03B1B3A62A931224004B6962 /* ForgotPasswordPage.swift in Sources */,
 				03A46F082AAFBD9C00AF1070 /* Friend.swift in Sources */,
 				03A3D8052AEAB8A600412875 /* CreateNewPage.swift in Sources */,
@@ -533,9 +600,10 @@
 				03A3D80B2AEB2AFC00412875 /* Settings.swift in Sources */,
 				0385A4632A9A9F73003E7475 /* GetCodeBox.swift in Sources */,
 				03A9D4F32A93F0CB00A9407F /* PasswordField.swift in Sources */,
+				03BB18AF2B1EB52F00E98348 /* PhotoCircle.swift in Sources */,
 				CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */,
 				0385A4532A954C20003E7475 /* RoomiesUser.swift in Sources */,
-				03C77B632B1997E800EA0932 /* CreateNewView.swift in Sources */,
+				03BB18A92B1E906A00E98348 /* CreateNewScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

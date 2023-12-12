@@ -1,27 +1,23 @@
 import SwiftUI
 
 struct NavView: View {
-  @State private var path = NavigationPath()
+  @EnvironmentObject var navigationStateModel: NavigationStateModel
   @State private var selectedTab: Tab = .message
   var body: some View {
     TabView {
       ForEach([Tab.message, Tab.people, Tab.person], id:
                 \.rawValue){ tab in
-        NavigationStack (path: $path) {
-          Text("\(path.count)")
+        VStack {
+          Text("\(navigationStateModel.navPath.count)")
           VStack {
             switch tab {
               case .message:
-                Home(path: $path)
-              case .plus:
-                CreateNewPage(path: $path)
+                Home()
               case .person:
                   Settings()
-              case .dollarsign:
-                  Settings()
-              case .createGroup:
-                  ProgressView()
               case .people:
+                RecentRequests()
+              default:
                 ProgressView()
               }
             }
@@ -30,16 +26,27 @@ struct NavView: View {
         .tabItem {
           Label(tab.title, systemImage: tab.imageName)
         }
+        .foregroundColor(Color.gray)
       }
     }
     .onAppear() {
       UITabBar.appearance().barTintColor = UIColor(.pink)
       UITabBar.appearance().backgroundColor = .white
       UITabBar.appearance().unselectedItemTintColor = .darkGray
+      
     }
     
   }
 }
+
+/*
+ TabView {
+    ForEach([Tab.
+ 
+ 
+ }
+ 
+ */
 
 extension NavView {
   

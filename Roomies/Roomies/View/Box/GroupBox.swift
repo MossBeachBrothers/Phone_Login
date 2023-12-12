@@ -12,49 +12,39 @@ import FirebaseFirestore
 
 struct GroupBox: View {
       
-  @State var group : Group
-  @State var membersString : String
-  
-  init(group : Group) {
-    
-    self.group = group
-    //self.membersString = Array(group.members.keys).joined(separator: ", ")
-    
-    var membersString : String {
-      var result = ""
-            
-      for (_, data) in group.members {
-                if let name = data["Name"] {
-                    result += (result.isEmpty ? "" : ", ") + name
-                }
-            }
-            
-            return result
-        }
-    
-    self.membersString = membersString
-    
-    print(self.membersString)
-  }
+  @State var group: RoomiesGroup
+      @State var membersString: String
+      
+      init(group: RoomiesGroup) {
+          self.group = group
+          self.membersString = group.members.keys.joined(separator: ", ")
+      }
+
 
   var body : some View{
       
 
-      
-      VStack(alignment:.leading){
-        
-        Text(group.groupName)
-            .font(GlobalFonts.titleFont)
-            .foregroundColor(.white)
-            .padding()
-        
-
-        Text(membersString)
-          .font(GlobalFonts.titleFont)
-          .foregroundColor(.white)
-          .padding()
+    HStack{
+      PhotoCircle()
+      VStack(alignment: .leading, spacing: 5) {
+          Text(group.groupName)
+              .font(.headline)
+              .foregroundColor(.black)
+          Text(membersString)
+              .font(.subheadline)
+              .foregroundColor(.gray)
+              .lineLimit(1)
       }
-      .background(Color.pink)
+      Spacer()
+    }
+    .padding()
+            .background(Color.white)
+            .cornerRadius(15)
+            .shadow(radius: 5)
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.pink, lineWidth: 2)
+    )
 
   }
   

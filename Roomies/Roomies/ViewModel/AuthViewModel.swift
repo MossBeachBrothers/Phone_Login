@@ -19,7 +19,6 @@ class AuthViewModel: ObservableObject {
     init() {
         // Check if a user is already logged in
         self.isLoggedIn = Auth.auth().currentUser != nil
-        
         // If a user is already logged in, initialize the currentUser property
         if let user = Auth.auth().currentUser {
           self.currentUser = RoomiesUser(uid: user.uid,
@@ -27,6 +26,7 @@ class AuthViewModel: ObservableObject {
                                          firstName: "",
                                          lastName: "",
                                          phoneNumber: "",
+                                         userName: "",
                                          friends: [],
                                          groups : [])
         }
@@ -43,6 +43,7 @@ class AuthViewModel: ObservableObject {
                                              firstName: "",
                                              lastName: "",
                                              phoneNumber: "",
+                                             userName: "",
                                              friends: [],
                                              groups : [])
             } else {
@@ -153,6 +154,8 @@ class AuthViewModel: ObservableObject {
       receiverUserIDs: [String],
       amount: Double,
       requestDescription: String,
+      amountPerReceiver: [String: Int],
+      amountPerSender: [String: Int],
       completion: @escaping (Result<Void, Error>) -> Void
   ) {
       var confirmationStatus: [String: Bool] = [:]
@@ -166,7 +169,9 @@ class AuthViewModel: ObservableObject {
           groupID: groupID,
           receiverUserIDs: receiverUserIDs,
           amount: amount,
-          requestDescription: requestDescription
+          requestDescription: requestDescription,
+          amountPerReceiver: amountPerReceiver,
+          amountPerSender: amountPerSender
       )
 
       // Add the debt request to the global requests collection
@@ -202,7 +207,7 @@ class AuthViewModel: ObservableObject {
     
   //MARK: Create Group
   func createGroup(adminID: String, memberIDs: [String], groupName: String) {
-    
+      
       //    var groupID: String
       //    var adminID: String
       //    var groupName: String
@@ -427,7 +432,7 @@ class AuthViewModel: ObservableObject {
                 completion(error)
                 
             } else {
-                print("Sucesss")
+                
             }
         }
          
@@ -460,7 +465,8 @@ class AuthViewModel: ObservableObject {
                         "email": user.email,
                         "firstName": user.firstName,
                         "lastName": user.lastName,
-                        "phoneNumber": user.phoneNumber
+                        "phoneNumber": user.phoneNumber,
+                        "userName" : user.userName
                     ]
                     
 //                     Save user data to Firestore
@@ -473,37 +479,7 @@ class AuthViewModel: ObservableObject {
         
         //Auth.auth().createUser(withEmail: email, password: password)
     }
-  
-    //MARK: Get all Group Meta Deta
-//    func getAllGroupMetaData(completion: @escaping ([GroupMetaData]?, Error?) -> Void) {
-//        Firestore.firestore().collection("groups").getDocuments { snapshot, error in
-//            if let error = error {
-//                completion(nil, error)
-//            } else {
-//                var groupMetaDataList: [GroupMetaData] = []
-//
-//                for document in snapshot?.documents ?? [] {
-//                    let data = document.data()
-//                    let group_id = document.documentID
-//                    let group_name = data["groupName"] as? String ?? ""
-//                    let group_members = data["members"] as? [String] ?? []
-//                    let last_request = data["lastRequest"] as? String ?? ""
-//                    let timestamp = data["timestamp"] as? String ?? ""
-//
-//                    let groupMetaData = GroupMetaData(group_id: group_id,
-//                                                      group_name: group_name,
-//                                                      group_members: group_members,
-//                                                      last_request: last_request,
-//                                                      timestamp: timestamp)
-//
-//                    groupMetaDataList.append(groupMetaData)
-//                }
-//
-//                completion(groupMetaDataList, nil)
-//            }
-//        }
-//    }
-//
+
     
     static func signUpWithPhoneNumber(phone: String, password: String, user: RoomiesUser, completion: @escaping (Error?) -> Void) {
         
@@ -532,6 +508,7 @@ class AuthViewModel: ObservableObject {
                                                  firstName: firstName,
                                                  lastName: lastName,
                                                  phoneNumber: data["phoneNumber"] as? String ?? "",
+                                                  userName: "",
                                                   friends: [],
                                                   groups : [])
                     completion(.success(fetchedUser))

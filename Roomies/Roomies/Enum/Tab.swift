@@ -8,12 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum GroupLink {
-  case chatView(Group)
-  case chatSettings(Group)
-  
-  
-}
+
 
 enum Tab: String, CaseIterable {
   case message
@@ -22,7 +17,8 @@ enum Tab: String, CaseIterable {
   case person
   case people
   case createGroup
-  
+  case groupFeed
+  case groupTotals
   
   
   var title: String {
@@ -39,6 +35,10 @@ enum Tab: String, CaseIterable {
         return "Get Money"
       case .people:
         return "Pending"
+      case .groupFeed:
+        return "Requests"
+      case .groupTotals:
+        return "Totals"
     }
   }
   
@@ -56,6 +56,10 @@ enum Tab: String, CaseIterable {
         return "createGroup.image"
       case .people:
         return "person.2"
+      case .groupTotals:
+        return "figure.2.circle.fill"
+      case .groupFeed:
+        return "plus.bubble"
     }
   }
   

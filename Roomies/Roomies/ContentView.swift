@@ -8,19 +8,34 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
-    
+    @StateObject var authViewModel: AuthViewModel = AuthViewModel()
+    @StateObject var navigationStateModel: NavigationStateModel = NavigationStateModel()
+    @State var loggedIn = false
     var body: some View {
-      
-
-            if (authViewModel.isLoggedIn){
-                NavView()
-                Spacer()
-            } else {
-                SignInPage()
+          
+          NavigationStack (path: $navigationStateModel.navPath){
+            Group {
+              if (loggedIn){
+                  NavView()
+                  Spacer()
+              } else {
+                  SignInPage()
+              }
             }
-        
+          }
+          .environmentObject(navigationStateModel)
+          .environmentObject(authViewModel)
+          .onAppear {
+              // Initialize loggedIn state when the view appears
+              loggedIn = authViewModel.isLoggedIn
+          }
+          .onChange(of: authViewModel.isLoggedIn) { _ in
+              // Update loggedIn when isLoggedIn changes
+            loggedIn.toggle()
+          }
     }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -28,6 +43,8 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
 
             ContentView()
-                .environmentObject(AuthViewModel()) // Inject an instance of 
+              
+                
+      
     }
 }

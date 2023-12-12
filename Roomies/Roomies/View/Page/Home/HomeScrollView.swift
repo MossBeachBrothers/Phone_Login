@@ -1,14 +1,13 @@
 import SwiftUI
 
 struct HomeScrollView: View {
-    @Binding var path: NavigationPath
     @EnvironmentObject var authViewModel: AuthViewModel
     @Binding var searchText: String
-    @State private var userGroups: [Group] = []
-    @State private var selectedGroup: Group?
+    @State private var userGroups: [RoomiesGroup] = []
+    @State private var selectedGroup: RoomiesGroup?
     @State private var isGroupSelected = false
 
-    var filteredGroups: [Group] {
+    var filteredGroups: [RoomiesGroup] {
         if searchText.isEmpty {
             return userGroups
         } else {
@@ -16,36 +15,28 @@ struct HomeScrollView: View {
         }
     }
 
-  init(searchText: Binding<String>, path: Binding<NavigationPath>) {
+  init(searchText: Binding<String>) {
         _searchText = searchText
-        _path = path
     }
 
     var body: some View {
       ScrollView {
           LazyVStack {
-              Button(action: {
-                  if let currentUser = authViewModel.currentUser {
-                      authViewModel.createGroup(adminID: currentUser.uid, memberIDs: [], groupName: "Test Group")
-                  }
-              }, label: {
-                  Text("Create Group")
-              })
-
               ForEach(filteredGroups, id: \.self) { group in
-                    NavigationLink(value: group) {
+                NavigationLink(value: GroupLink.chatView(group)) {
                         GroupBox(group: group)
                     }
-
               }
           }
           .padding()
 
       }
       .onAppear(perform: fetchGroups)
-      .navigationDestination(for: Group.self) { group in
-          GroupChatView(group: group, path: $path)
-            .toolbar(.hidden, for: .tabBar)
+      .navigationDestination(for: GroupLink.self) { screen in
+        switch screen {
+          case .chatView(let group): GroupChatView(group: group)
+          case .chatSettings(let group): GroupSettingsPage(group: group)
+        }
       }
 
     }
@@ -64,7 +55,7 @@ struct HomeScrollView: View {
 
             self.userGroups = groupSnapshots.compactMap { snapshot in
                 guard let groupData = snapshot.data() else { return nil }
-                return Group(dictionary: groupData, id: snapshot.documentID)
+                return RoomiesGroup(dictionary: groupData, id: snapshot.documentID)
             }
         }
     }

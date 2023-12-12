@@ -19,6 +19,8 @@ struct DebtRequest: Identifiable, Codable, Hashable {
     var confirmationStatus: [String: Bool] // Stores whether each user has confirmed or not
     var allConfirmed: Bool // Tracks whether all users have confirmed the request
     var amount: Double // Amount of the request
+    var amountPerReceiver: [String: Int] //Stores how much money each user owes in this transaction
+    var amountPerSender: [String: Int] //Stores how much money ecah sender pays in the transaction (if only one sender this is euqal to amount
     var requestDescription: String // Description of the request
     var timestamp: Date // Timestamp for when the request was created
 
@@ -27,7 +29,9 @@ struct DebtRequest: Identifiable, Codable, Hashable {
         groupID: String,
         receiverUserIDs: [String],
         amount: Double,
-        requestDescription: String
+        requestDescription: String,
+        amountPerReceiver: [String: Int],
+        amountPerSender: [String: Int]
     ) {
         self.senderUserIDs = senderUserIDs
         self.groupID = groupID
@@ -35,6 +39,8 @@ struct DebtRequest: Identifiable, Codable, Hashable {
         self.confirmationStatus = [:] // Initialize confirmation status
         self.allConfirmed = false // Initialize allConfirmed as false
         self.amount = amount
+        self.amountPerReceiver = amountPerReceiver
+        self.amountPerSender = amountPerSender
         self.requestDescription = requestDescription
         self.timestamp = Date() // Set the current timestamp
     }
@@ -51,6 +57,8 @@ struct DebtRequest: Identifiable, Codable, Hashable {
         data["amount"] = amount
         data["requestDescription"] = requestDescription
         data["timestamp"] = timestamp
+        data["amountPerReceiver"] = amountPerReceiver
+        data["amountPerSender"] = amountPerSender
 
         return data
     }

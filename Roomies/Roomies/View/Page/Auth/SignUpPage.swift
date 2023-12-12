@@ -25,6 +25,12 @@ struct SignUpPage: View {
                           height: 550)
             }
             .padding()
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+              ToolbarItem(placement: .navigationBarLeading) {
+                BackButton()
+              }
+            }
                 
         }
 }

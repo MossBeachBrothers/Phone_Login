@@ -11,7 +11,6 @@ import FirebaseCore
 import FirebaseFirestore
 
 struct Home: View {
-@Binding var path: NavigationPath
 @State private var searchText: String = ""
 @State private var isSearching: Bool = false
 @EnvironmentObject var authViewModel: AuthViewModel
@@ -30,27 +29,34 @@ struct Home: View {
               }
             }) {
                 Text("Edit")
-                    .foregroundColor(.blue) // Color to indicate interactivity
+                    .foregroundColor(.pink) // Color to indicate interactivity
             }
             .padding(.leading, 8) // Adjust padding as needed
             
             Spacer() // To push items to opposite sides
             
             //Navigation Link to Create New page
-          NavigationLink(destination: CreateNewPage(path: $path)) {
-            Image(systemName: "plus.circle.fill")
+          NavigationLink(value: HomeLink.createNewPage){
+            Image(systemName: "plus.circle")
+              .foregroundColor(Color.pink)
           }
-            
+
         }
         SearchBar(text: $searchText, isSearching: $isSearching, startingText: "Search Groups")
           .padding(.bottom, 25)
         Spacer()
-        ShadowBox(content: HomeScrollView(searchText: $searchText, path: $path),
-                    width: 300,
+        ShadowBox(content: HomeScrollView(searchText: $searchText),
+                    width: 350,
                     height: 550)
         
        Spacer()
 
+      }
+      
+      .navigationDestination(for: HomeLink.self){ screen in
+        switch screen {
+          case .createNewPage: CreateNewPage()
+        }
       }
       .padding()
 

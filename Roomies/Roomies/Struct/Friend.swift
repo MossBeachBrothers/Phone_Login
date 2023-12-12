@@ -14,4 +14,7 @@ struct Friend{
   var confirmed : Bool
   var timeStamp : String
   
+  func toDictionary() -> [String: Any] {
+          return ["userID": userID, "confirmed": confirmed, "timeStamp": timeStamp]
+  }
 }

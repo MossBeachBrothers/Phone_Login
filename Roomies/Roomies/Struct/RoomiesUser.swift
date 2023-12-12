@@ -16,8 +16,8 @@ struct RoomiesUser {
   var firstName: String
   var lastName: String
   var phoneNumber: String
-  
+  var userName : String
   var friends : [Friend]
   
-  var groups : [Group]
+  var groups : [RoomiesGroup]
 }

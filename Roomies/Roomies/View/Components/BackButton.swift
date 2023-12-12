@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct BackButton: View {
+  @EnvironmentObject var navigationStateModel: NavigationStateModel
     var body: some View {
-      VStack {
-        Image(systemName: "chevron.left.circle")
-          .font(GlobalFonts.titleFont.bold())
-          .foregroundColor(Color.white)
-          
+      Button {
+        navigationStateModel.goBack()
+      } label : {
+        Image(systemName: "arrow.backward")
       }
-      .modifier(RoomiesVStackStyle())
-      
-      
+      .foregroundColor(Color.pink)
     }
 }
 

@@ -20,4 +20,17 @@ struct RoomiesUser {
   var friends : [Friend]
   
   var groups : [RoomiesGroup]
+  
+  func toFirestoreData() -> [String: Any] {
+          return [
+              "uid": uid,
+              "email": email,
+              "firstName": firstName,
+              "lastName": lastName,
+              "phoneNumber": phoneNumber,
+              "userName": userName,
+              "friends": friends.map { $0.toDictionary() },
+              "groups": groups
+          ]
+      }
 }

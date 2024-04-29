@@ -1,39 +1,29 @@
-//
-//  Group.swift
-//  Roomies
-//
-//  Created by Akhi Nair on 9/10/23.
-//
+import Foundation
+import FirebaseFirestore
 
-import SwiftUI
-
-
-struct RoomiesGroup: Hashable {
-    
+struct RoomiesGroup : Hashable {
     var groupID: String
     var adminID: String
     var groupName: String
-    var groupImg: Bool = false
-    var groupTotalsUnconfirmed: [String: Int] // UserID : Int
-    var groupTotalsConfirmed: [String: Int] // UserID : Int
-    var members: [String : [String : String]] // UserID : [Role : String, Timstamp : String, Name : String]
-    var timestamp: String // Time of group creation
+    var groupImg: Bool
+    var groupTotalsUnconfirmed: [String: Int]
+    var groupTotalsConfirmed: [String: Int]
+    var members: [String: [String: String]] // Assuming this is the format for members
+    var timestamp: String
     var debtRequests: [DebtRequest]
-    
-  init?(dictionary: [String: Any], id: String) {
-        guard let groupID = id as? String,
-              let adminID = dictionary["adminID"] as? String,
+
+    init?(dictionary: [String: Any], id: String) {
+        guard let adminID = dictionary["adminID"] as? String,
               let groupName = dictionary["groupName"] as? String,
               let groupImg = dictionary["groupImg"] as? Bool,
               let groupTotalsUnconfirmed = dictionary["groupTotalsUnconfirmed"] as? [String: Int],
               let groupTotalsConfirmed = dictionary["groupTotalsConfirmed"] as? [String: Int],
               let members = dictionary["members"] as? [String: [String: String]],
-              let timestamp = dictionary["timestamp"] as? String
-        else {
+              let timestamp = dictionary["timestamp"] as? String else {
             return nil
         }
-        
-        self.groupID = groupID
+
+        self.groupID = id
         self.adminID = adminID
         self.groupName = groupName
         self.groupImg = groupImg
@@ -41,24 +31,39 @@ struct RoomiesGroup: Hashable {
         self.groupTotalsConfirmed = groupTotalsConfirmed
         self.members = members
         self.timestamp = timestamp
-        self.debtRequests = []
-  }
-  
-  func toFirestoreData() -> [String: Any] {
-          var data: [String: Any] = [:]
-          
-          data["groupID"] = groupID
-          data["adminID"] = adminID
-          data["groupName"] = groupName
-          data["groupImg"] = groupImg
-          data["groupTotalsUnconfirmed"] = groupTotalsUnconfirmed
-          data["groupTotalsConfirmed"] = groupTotalsConfirmed
-          data["members"] = members
-          data["timestamp"] = timestamp
-          
-          // Convert each DebtRequest to a Firestore-compatible format
-          data["debtRequests"] = debtRequests.map { $0.toFirestoreData() }
 
-          return data
-  }
+        // Initialize debtRequests
+        if let debtRequestsData = dictionary["debtRequests"] as? [[String: Any]] {
+            self.debtRequests = debtRequestsData.compactMap { data in
+                // Convert each dictionary into a DebtRequest object
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: data)
+                    return try JSONDecoder().decode(DebtRequest.self, from: jsonData)
+                } catch {
+                    print("Error decoding DebtRequest data: \(error)")
+                    return nil
+                }
+            }
+        } else {
+            self.debtRequests = []
+        }
+    }
+  
+    func toFirestoreData() -> [String: Any] {
+            var data: [String: Any] = [:]
+            
+            data["groupID"] = groupID
+            data["adminID"] = adminID
+            data["groupName"] = groupName
+            data["groupImg"] = groupImg
+            data["groupTotalsUnconfirmed"] = groupTotalsUnconfirmed
+            data["groupTotalsConfirmed"] = groupTotalsConfirmed
+            data["members"] = members
+            data["timestamp"] = timestamp
+
+            // Convert each DebtRequest to a Firestore-compatible format
+            data["debtRequests"] = debtRequests.map { $0.toFirestoreData() }
+
+            return data
+    }
 }

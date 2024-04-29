@@ -57,7 +57,7 @@ enum Tab: String, CaseIterable {
       case .people:
         return "person.2"
       case .groupTotals:
-        return "figure.2.circle.fill"
+        return "person.line.dotted.person"
       case .groupFeed:
         return "plus.bubble"
     }

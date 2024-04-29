@@ -15,7 +15,7 @@ class AuthViewModel: ObservableObject {
     @Published var currentUser: RoomiesUser?
     // Published property to track the user's login status
     @Published var isLoggedIn = false
-    
+    //MARK: Constructor, adds Event Listener to Auth State to manage user being logged in and out
     init() {
         // Check if a user is already logged in
         self.isLoggedIn = Auth.auth().currentUser != nil
@@ -76,7 +76,6 @@ class AuthViewModel: ObservableObject {
     }
     
     
-    // Fetch users and groups functions
        // ...
        //MARK: Add a Friend
     func addFriend(userID: String) {
@@ -365,6 +364,7 @@ class AuthViewModel: ObservableObject {
            }
   }
 
+    //MARK: Get all Groups for User: userID, completion: Groups
   func getAllGroupsForUser(userID: String, completion: @escaping ([DocumentSnapshot]?) -> Void) {
       // Reference to the Firestore database
       let db = Firestore.firestore()
@@ -414,13 +414,233 @@ class AuthViewModel: ObservableObject {
           }
       }
   }
+  
+  //MARK: Add User to Group : GroupID, userID
+  func addUserToGroup(userID: String, groupID: String, completion: @escaping (Result<Void, Error>) -> Void) {
+          let db = Firestore.firestore()
+          
+          // Reference to the group document and members subcollection
+          let groupRef = db.collection("groups").document(groupID)
+          let groupMembersRef = groupRef.collection("members")
 
+          // Reference to the user's groups subcollection
+          let userGroupsRef = db.collection("users").document(userID).collection("groups")
 
+          // Firestore batch to ensure atomicity of the operation
+          let batch = db.batch()
 
+          // Step 1: Add the user to the group's members subcollection
+          let memberData: [String: Any] = ["role": "member", "timestamp": FieldValue.serverTimestamp()]
+          let newMemberRef = groupMembersRef.document(userID)
+          batch.setData(memberData, forDocument: newMemberRef)
 
+          // Step 2: Initialize user's totals in groupTotalsUnconfirmed and groupTotalsConfirmed
+          let userTotalKeyUnconfirmed = "groupTotalsUnconfirmed.\(userID)"
+          let userTotalKeyConfirmed = "groupTotalsConfirmed.\(userID)"
+          batch.updateData([userTotalKeyUnconfirmed: 0, userTotalKeyConfirmed: 0], forDocument: groupRef)
 
+          // Step 3: Add the group to the user's groups subcollection
+          let userGroupData: [String: Any] = ["groupID": groupID, "timestamp": FieldValue.serverTimestamp()]
+          let userGroupRef = userGroupsRef.document(groupID)
+          batch.setData(userGroupData, forDocument: userGroupRef)
 
+          // Commit the batch
+          batch.commit { error in
+              if let error = error {
+                  completion(.failure(error))
+              } else {
+                  completion(.success(()))
+              }
+          }
+    }
 
+  //MARK: Get All Users in a Group : groupID, completion: RoomiesUser
+  func getAllUsersInGroupExceptCurrentUser(groupID: String, completion: @escaping (Result<[RoomiesUser], Error>) -> Void) {
+          guard let currentUserID = currentUser?.uid else {
+              completion(.failure(NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user not found."])))
+              return
+          }
+
+          let db = Firestore.firestore()
+          let groupMembersRef = db.collection("groups").document(groupID).collection("members")
+
+          groupMembersRef.getDocuments { snapshot, error in
+              if let error = error {
+                  completion(.failure(error))
+                  return
+              }
+
+              guard let documents = snapshot?.documents else {
+                  completion(.success([]))
+                  return
+              }
+
+              let memberIDs = documents.map { $0.documentID }.filter { $0 != currentUserID }
+              var users: [RoomiesUser] = []
+
+              let dispatchGroup = DispatchGroup()
+
+              for memberID in memberIDs {
+                  dispatchGroup.enter()
+                  db.collection("users").document(memberID).getDocument { userSnapshot, error in
+                      if let document = userSnapshot, document.exists, let data = document.data() {
+                          // Handle 'friends' field
+                          var friends: [Friend] = []
+                          if let friendsData = data["friends"] as? [[String: Any]] {
+                              for friendDict in friendsData {
+                                  if let userID = friendDict["userID"] as? String,
+                                     let confirmed = friendDict["confirmed"] as? Bool,
+                                     let timeStamp = friendDict["timeStamp"] as? String {
+                                      let friend = Friend(userID: userID, confirmed: confirmed, timeStamp: timeStamp)
+                                      friends.append(friend)
+                                  }
+                              }
+                          }
+
+                          // Create a RoomiesUser object
+                          let roomiesUser = RoomiesUser(
+                              uid: memberID,
+                              email: data["email"] as? String ?? "",
+                              firstName: data["firstName"] as? String ?? "",
+                              lastName: data["lastName"] as? String ?? "",
+                              phoneNumber: data["phoneNumber"] as? String ?? "",
+                              userName: data["userName"] as? String ?? "",
+                              friends: friends,
+                              groups: [] // You'll need to handle group data similarly if required
+                          )
+                          users.append(roomiesUser)
+                      } else if let error = error {
+                          print("Error fetching user data: \(error)")
+                      }
+                      dispatchGroup.leave()
+                  }
+              }
+
+              dispatchGroup.notify(queue: .main) {
+                  completion(.success(users))
+              }
+            
+            for user in users {
+                            print("User ID: \(user.uid)")
+                            print("Email: \(user.email)")
+                            print("First Name: \(user.firstName)")
+                            print("Last Name: \(user.lastName)")
+                            print("Phone Number: \(user.phoneNumber)")
+                            print("User Name: \(user.userName)")
+                            print("Friends: \(user.friends.map { "\($0.userID) (Confirmed: \($0.confirmed), Timestamp: \($0.timeStamp))" })")
+                            // Add more fields if necessary
+                            print("-------------")
+                        }
+          }
+      }
+
+  //Function to Generate Dummy Users
+  func generateAndAddDummyUsers() {
+          let db = Firestore.firestore()
+          
+          for _ in 1...5 {
+              let dummyUser = createDummyUser()
+
+              db.collection("users").document(dummyUser.uid).setData(dummyUser.toFirestoreData()) { error in
+                  if let error = error {
+                      print("Error adding dummy user: \(error.localizedDescription)")
+                  } else {
+                      print("Dummy user added successfully: \(dummyUser.uid)")
+                  }
+              }
+          }
+      }
+
+      // Helper function to create a dummy user
+  private func createDummyUser() -> RoomiesUser {
+        // Generate dummy data. Adjust as per your RoomiesUser struct fields.
+        let uid = UUID().uuidString
+        let email = "dummy\(uid.prefix(5))@example.com"
+        let firstName = "Dummy"
+        let lastName = "User"
+        let phoneNumber = "1234567890"
+        let userName = "dummyUser\(uid.prefix(5))"
+
+        return RoomiesUser(uid: uid, email: email, firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, userName: userName, friends: [], groups: [])
+    }
+  
+
+  func fetchGroupByID(groupID: String, completion: @escaping (Result<RoomiesGroup, Error>) -> Void) {
+          let db = Firestore.firestore()
+          let groupRef = db.collection("groups").document(groupID)
+
+          groupRef.getDocument { documentSnapshot, error in
+              if let error = error {
+                  // Handle the error, e.g., group not found or network issues
+                  completion(.failure(error))
+                  return
+              }
+
+              guard let document = documentSnapshot, document.exists, let data = document.data() else {
+                  // Handle the case where the document does not exist
+                  completion(.failure(NSError(domain: "Firestore", code: 0, userInfo: [NSLocalizedDescriptionKey: "Group document does not exist"])))
+                  return
+              }
+
+              if let roomiesGroup = RoomiesGroup(dictionary: data, id: document.documentID) {
+                  completion(.success(roomiesGroup))
+              } else {
+                  // Handle the error if the document cannot be converted to RoomiesGroup
+                  completion(.failure(NSError(domain: "DataConversion", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unable to convert document to RoomiesGroup"])))
+              }
+          }
+    }
+
+  
+  func getGroupMetadataForUser(userID: String, completion: @escaping (Result<[RoomiesGroupMetaData], Error>) -> Void) {
+      let db = Firestore.firestore()
+      let userGroupsRef = db.collection("Users").document(userID).collection("Groups")
+      let groupsRef = db.collection("groups")
+
+      userGroupsRef.getDocuments { snapshot, error in
+          if let error = error {
+              completion(.failure(error))
+              return
+          }
+
+          guard let documents = snapshot?.documents else {
+              completion(.success([]))
+              return
+          }
+
+          var groupMetadata: [RoomiesGroupMetaData] = []
+          let dispatchGroup = DispatchGroup()
+
+          for document in documents {
+              dispatchGroup.enter()
+              let groupID = document.documentID
+
+              groupsRef.document(groupID).getDocument { groupSnapshot, error in
+                  if let error = error {
+                      print("Error fetching group details: \(error)")
+                      dispatchGroup.leave()
+                      return
+                  }
+
+                  if let groupDoc = groupSnapshot, groupDoc.exists, let groupData = groupDoc.data() {
+                      let groupName = groupData["groupName"] as? String ?? "Unknown Group"
+                      let groupImg = groupData["groupImg"] as? Bool ?? false
+                      let members = groupData["members"] as? [String: [String: String]] ?? [:]
+                      let timestamp = document.get("Timestamp") as? Timestamp ?? Timestamp(date: Date())
+
+                      let metaData = RoomiesGroupMetaData(groupID: groupID, groupName: groupName, groupImg: groupImg, members: members, timestamp: timestamp.dateValue())
+                      groupMetadata.append(metaData)
+                  }
+
+                  dispatchGroup.leave()
+              }
+          }
+
+          dispatchGroup.notify(queue: .main) {
+              completion(.success(groupMetadata))
+          }
+      }
+  }
 
   //MARK:  Sign In With Email
     static func signInWithEmail(email: String, password: String, completion: @escaping (Error?) -> Void) {

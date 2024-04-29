@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GroupFeedView: View {
+  @State var group: RoomiesGroup?
   @State var debtRequests: [DebtRequest] = [
       DebtRequest(
           senderUserIDs: ["user123"],
@@ -94,20 +95,24 @@ struct GroupFeedView: View {
       DebtRequest(
           senderUserIDs: ["user345"],
           groupID: "group456",
-          receiverUserIDs: ["user234", "user123"],
+          receiverUserIDs: ["user234", "user123","user236", "user127"],
           amount: 110.0,
           requestDescription: "House Party",
-          amountPerReceiver: ["user234": 55, "user123": 55],
-          amountPerSender: ["user345": 110]
+          amountPerReceiver: ["user234": 55, "user123": 55,"user236": 55, "user127": 55],
+          amountPerSender: ["user345": 220]
       )
   ]
     var body: some View {
         ScrollView {
             VStack {
                 ForEach(self.debtRequests, id: \.self) { debtRequest in
+                    Spacer()
                     NavigationLink(value: debtRequest) {
                         RequestBox(debtRequest: debtRequest)
+                        .padding(.leading)
+                        .padding(.trailing)
                     }
+                    Spacer()
                 }
             }
         }

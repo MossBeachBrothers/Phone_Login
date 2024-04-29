@@ -14,8 +14,14 @@ enum AuthLink: Hashable {
 }
 
 enum GroupLink : Hashable {
-  case chatView(RoomiesGroup)
   case chatSettings(RoomiesGroup)
+  case createNewRequest(RoomiesGroup)
+  case chatFeedView(RoomiesGroup)
+  case chatTotalsView(RoomiesGroup)
+}
+
+enum GroupMetaDataLink : Hashable {
+  case chatView(RoomiesGroupMetaData)
 }
 
 enum HomeLink: Hashable {

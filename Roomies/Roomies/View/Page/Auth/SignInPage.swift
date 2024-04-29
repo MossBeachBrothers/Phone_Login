@@ -19,7 +19,6 @@ struct SignInPage: View {
                 //.font(.system(size: 30))
                 //.foregroundColor(.indigo)
             
-      NavigationStack {
         VStack(alignment: .center) {
             
             LogoBox()
@@ -37,23 +36,21 @@ struct SignInPage: View {
                 Text("New to Roomies?")
                     .font(.subheadline)
                 //Spacer()
-              NavigationLink(value: AuthLink.signInView){
+              NavigationLink(value: AuthLink.signUpView){
                 Text("Sign Up")
               }
                 
             }
             .padding()
-                            
-        }
-        .padding()
-        .navigationBarBackButtonHidden(true)
-        .navigationDestination(for: AuthLink.self){ screen in
-          switch screen {
-            case .signInView : SignInPage()
-            case .signUpView : SignUpPage()
-            case .navigationView: NavView()
-          }
-        }
+            .padding()
+            .navigationBarBackButtonHidden(true)
+            .navigationDestination(for: AuthLink.self){ screen in
+              switch screen {
+                case .signInView : SignInPage()
+                case .signUpView : SignUpPage()
+                case .navigationView: NavView()
+              }
+            }
       }
     }
 }

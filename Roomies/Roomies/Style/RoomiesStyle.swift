@@ -120,6 +120,30 @@ struct RoomiesVStackStyle: ViewModifier {
     }
 }
 
+struct RoomiesLabelStyle: LabelStyle {
+    
+    func makeBody(configuration: Configuration) -> some View {
+        Label {
+            configuration.title
+                .foregroundColor(Color.black)
+                .font(GlobalFonts.bodyFont)
+                .padding()
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(10)
+        } icon: {
+            configuration.icon
+        }
+    }
+}
+
+extension View {
+    
+    func roomiesLabelStyle() -> some View {
+        self.labelStyle(RoomiesLabelStyle())
+    }
+    
+}
+
 extension View {
     
     func roomiesTextFieldStyle() -> some View {

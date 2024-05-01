@@ -20,6 +20,7 @@ struct CreateNewScrollView: View {
           switch screen {
             case .createNewGroup: NewGroupView()
             case .createNewFriend: FindFriendsView()
+            case .createNewRequest: NewRequestView()
             default:
               EmptyView()       
           }

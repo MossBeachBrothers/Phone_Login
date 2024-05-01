@@ -22,7 +22,34 @@ struct DebtRequest: Identifiable, Codable, Hashable {
     var amountPerReceiver: [String: Int] //Stores how much money each user owes in this transaction
     var amountPerSender: [String: Int] //Stores how much money ecah sender pays in the transaction (if only one sender this is euqal to amount
     var requestDescription: String // Description of the request
-    var timestamp: Date // Timestamp for when the request was created
+    var timestamp: String// Timestamp for when the request was created
+
+    init?(dictionary: [String: Any], id: String) {
+        guard let groupID = dictionary["groupID"] as? String,
+              let senderUserIDs = dictionary["senderUserIDs"] as? [String],
+              let receiverUserIDs = dictionary["receiverUserIDs"] as? [String],
+              let amount = dictionary["amount"] as? Double,
+              let requestDescription = dictionary["requestDescription"] as? String,
+              let amountPerReceiver = dictionary["amountPerReceiver"] as? [String: Int],
+              let amountPerSender = dictionary["amountPerSender"] as? [String: Int],
+              let confirmationStatus = dictionary["confirmationStatus"] as? [String: Bool],
+              let allConfirmed = dictionary["allConfirmed"] as? Bool,
+              let timestamp = dictionary["timestamp"] as? String
+        else {
+            return nil
+        }
+
+        self.groupID = groupID
+        self.senderUserIDs = senderUserIDs
+        self.receiverUserIDs = receiverUserIDs
+        self.amount = amount
+        self.requestDescription = requestDescription
+        self.amountPerReceiver = amountPerReceiver
+        self.amountPerSender = amountPerSender
+        self.confirmationStatus = confirmationStatus
+        self.allConfirmed = allConfirmed
+        self.timestamp = timestamp
+    }
 
     init(
         senderUserIDs: [String],
@@ -31,7 +58,9 @@ struct DebtRequest: Identifiable, Codable, Hashable {
         amount: Double,
         requestDescription: String,
         amountPerReceiver: [String: Int],
-        amountPerSender: [String: Int]
+        amountPerSender: [String: Int],
+        timestamp: String
+
     ) {
         self.senderUserIDs = senderUserIDs
         self.groupID = groupID
@@ -42,7 +71,7 @@ struct DebtRequest: Identifiable, Codable, Hashable {
         self.amountPerReceiver = amountPerReceiver
         self.amountPerSender = amountPerSender
         self.requestDescription = requestDescription
-        self.timestamp = Date() // Set the current timestamp
+        self.timestamp = timestamp // Set the current timestamp
     }
 
     // Convert DebtRequest to Firestore data (dictionary)

@@ -14,9 +14,73 @@
             filePath = "Roomies/ViewModel/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "createGroup(adminID:memberIDs:groupName:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2CCF483F-A9FB-48B2-88D5-F0F5D093DA11"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Roomies/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "2CCF483F-A9FB-48B2-88D5-F0F5D093DA11 - 739e5ae7484d9847"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Roomies.ContentView.body.getter : some"
+                  moduleName = "Roomies"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akhinair/Documents/Phone_Login/Roomies/Roomies/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "700">
+               </Location>
+               <Location
+                  uuid = "2CCF483F-A9FB-48B2-88D5-F0F5D093DA11 - 8565d1c380d1e5af"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.Group&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(Roomies.NavView, SwiftUI.Spacer)&gt;, Roomies.SignInPage&gt;&gt; in Roomies.ContentView.body.getter : some"
+                  moduleName = "Roomies"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akhinair/Documents/Phone_Login/Roomies/Roomies/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "188">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E4567BC9-3725-4AC7-8AC3-5F8D46ADE303"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Roomies/ViewModel/AuthViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "541"
+            endingLineNumber = "541"
+            landmarkName = "signUpWithPhoneNumber(phone:password:user:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

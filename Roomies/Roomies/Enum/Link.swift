@@ -25,6 +25,7 @@ enum HomeLink: Hashable {
 enum CreateNewLink: Hashable {
   case createNewFriend
   case createNewGroup
+  case createNewRequest
   
   static func linkType(for option: String) -> CreateNewLink? {
       switch option {
@@ -33,6 +34,8 @@ enum CreateNewLink: Hashable {
       case "New Group":
           return .createNewGroup
       // ... handle other cases
+        case "New Request":
+          return .createNewRequest
       default:
           return nil
       }

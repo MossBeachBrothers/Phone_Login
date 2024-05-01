@@ -15,7 +15,12 @@ class AuthViewModel: ObservableObject {
     @Published var currentUser: RoomiesUser?
     // Published property to track the user's login status
     @Published var isLoggedIn = false
-    
+  let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    return formatter
+  }()
+  private var database = Firestore.firestore()
     init() {
         // Check if a user is already logged in
         self.isLoggedIn = Auth.auth().currentUser != nil
@@ -54,7 +59,7 @@ class AuthViewModel: ObservableObject {
   
       
     
-    //MARK: Log Out
+    //MARK: Log Out User
     func logOut() {
         do {
             try Auth.auth().signOut()
@@ -67,7 +72,6 @@ class AuthViewModel: ObservableObject {
         }
     }
   
-  // Firestore references and collections
   
     
     //MARK: Sign in With Google
@@ -88,13 +92,13 @@ class AuthViewModel: ObservableObject {
 
     }
     
-  //MARK: Reconcile Group
+    //MARK: Reconcile Group
     func reconcileGroup(){
         //set all debts to zero
         
    }
     
-  //MARK: Confirm Debt Request
+    //MARK: Confirm Debt Request
     func confirmDebtRequest(
         for user_id: String,
         debtRequest_id: String,
@@ -147,177 +151,178 @@ class AuthViewModel: ObservableObject {
       }
   }
     
-  //MARK: Add Debt Request
-  func addDebtRequest(
-      senderUserIDs: [String],
-      groupID: String,
-      receiverUserIDs: [String],
-      amount: Double,
-      requestDescription: String,
-      amountPerReceiver: [String: Int],
-      amountPerSender: [String: Int],
-      completion: @escaping (Result<Void, Error>) -> Void
-  ) {
-      var confirmationStatus: [String: Bool] = [:]
-      for userID in receiverUserIDs {
-          // Initialize confirmation status for each receiver as false
-          confirmationStatus[userID] = false
-      }
+    //MARK: Add Debt Request
+    func addDebtRequest(
+        senderUserIDs: [String],
+        groupID: String,
+        receiverUserIDs: [String],
+        amount: Double,
+        requestDescription: String,
+        amountPerReceiver: [String: Int],
+        amountPerSender: [String: Int],
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        var confirmationStatus: [String: Bool] = [:]
+        for userID in receiverUserIDs {
+            // Initialize confirmation status for each receiver as false
+            confirmationStatus[userID] = false
+        }
 
-      var newDebtRequest = DebtRequest(
-          senderUserIDs: senderUserIDs,
-          groupID: groupID,
-          receiverUserIDs: receiverUserIDs,
-          amount: amount,
-          requestDescription: requestDescription,
-          amountPerReceiver: amountPerReceiver,
-          amountPerSender: amountPerSender
-      )
+        var newDebtRequest = DebtRequest(
+            senderUserIDs: senderUserIDs,
+            groupID: groupID,
+            receiverUserIDs: receiverUserIDs,
+            amount: amount,
+            requestDescription: requestDescription,
+            amountPerReceiver: amountPerReceiver,
+            amountPerSender: amountPerSender,
+            timestamp: Date().description
+        )
 
-      // Add the debt request to the global requests collection
-      let globalRequestsRef = Firestore.firestore().collection("requests")
-      globalRequestsRef.addDocument(data: newDebtRequest.toFirestoreData()) { error in
-          if let error = error {
-              //handle error in completion
-              completion(.failure(error))
-          } else {
-              // Add the same request to the group's requests collection
-              let groupRequestsRef = Firestore.firestore().collection("groups").document(groupID).collection("requests")
-              groupRequestsRef.addDocument(data: newDebtRequest.toFirestoreData()) { error in
-                  if let error = error {
-                    //handle error in completion
-                      completion(.failure(error))
-                  } else {
-                      // Update allConfirmed if all confirmationStatus values are true
-                      if confirmationStatus.values.allSatisfy({ $0 == true }) {
-                          newDebtRequest.allConfirmed = true
-                      }
+        // Add the debt request to the global requests collection
+        let globalRequestsRef = Firestore.firestore().collection("requests")
+        globalRequestsRef.addDocument(data: newDebtRequest.toFirestoreData()) { error in
+            if let error = error {
+                //handle error in completion
+                completion(.failure(error))
+            } else {
+                // Add the same request to the group's requests collection
+                let groupRequestsRef = Firestore.firestore().collection("groups").document(groupID).collection("requests")
+                groupRequestsRef.addDocument(data: newDebtRequest.toFirestoreData()) { error in
+                    if let error = error {
+                      //handle error in completion
+                        completion(.failure(error))
+                    } else {
+                        // Update allConfirmed if all confirmationStatus values are true
+                        if confirmationStatus.values.allSatisfy({ $0 == true }) {
+                            newDebtRequest.allConfirmed = true
+                        }
 
-                      // Update the allConfirmed field in Firestore
-                      groupRequestsRef.document(newDebtRequest.id ?? "").updateData(["allConfirmed": newDebtRequest.allConfirmed])
-                      
-                      //handle success in completion
-                      completion(.success(()))
-                  }
-              }
-          }
-      }
-  }
+                        // Update the allConfirmed field in Firestore
+                        groupRequestsRef.document(newDebtRequest.id ?? "").updateData(["allConfirmed": newDebtRequest.allConfirmed])
+                        
+                        //handle success in completion
+                        completion(.success(()))
+                    }
+                }
+            }
+        }
+    }
     
     
-  //MARK: Create Group
-  func createGroup(adminID: String, memberIDs: [String], groupName: String) {
+    //MARK: Create Group
+    func createGroup(adminID: String, memberIDs: [String], groupName: String) {
+        
+        //    var groupID: String
+        //    var adminID: String
+        //    var groupName: String
+        //    var groupImg: Bool = false
+        //    var groupTotalsUnconfirmed: [String: Int] // UserID : Int
+        //    var groupTotalsConfirmed: [String: Int] // UserID : Int
+        //    var members: [String : [String : String]] // UserID : [Role : String, Timstamp : String, Name : String]
+        //    var timestamp: String // Time of group creation
+        //    var debtRequests: [DebtRequest]
+        // Create a reference to the "groups" collection
+        let db = Firestore.firestore()
+        let timestamp = Timestamp()
+        let groupData: [String: Any] = [
+            "groupID": "group_001",
+            "adminID": "admin_001",
+            "groupName": "Vacation Trip",
+            "groupImg": false,
+            "groupTotalsUnconfirmed": [
+                "user_001": 100,
+                "user_002": 50
+            ],
+            "groupTotalsConfirmed": [
+                "user_001": 80,
+                "user_002": 40
+            ],
+            "members": [
+                "user_001": [
+                    "Role": "Admin",
+                    "Timestamp": "2023-10-31 14:00:00",
+                    "Name": "Alice"
+                ],
+                "user_002": [
+                    "Role": "Member",
+                    "Timestamp": "2023-10-31 14:05:00",
+                    "Name": "Bob"
+                ]
+            ],
+            "timestamp": "2023-10-31 13:55:00",
+            "debtRequests": []
+        ]
+      var groupRef: DocumentReference? = nil
+        groupRef = db.collection("groups").addDocument(data: groupData) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else if let groupID = groupRef?.documentID {
+                print("Document added with ID: \(groupID)")
+                
+                // Adding the admin to the memberIDs array
+                var allMemberIDs = memberIDs
+                allMemberIDs.append(adminID)
+                
+                for userID in allMemberIDs {
+                    // Determine the role
+                    let role = (userID == adminID) ? "admin" : "member"
+                    
+                    // Define the user group data
+                    let userGroupData: [String: Any] = [
+                        "GroupID": groupID,
+                        "Role": role,
+                        "Timestamp": timestamp
+                    ]
+                    
+                    // Add the group info to each user's Groups sub-collection
+                    db.collection("Users").document(userID).collection("Groups").document(groupID).setData(userGroupData) { err in
+                        if let err = err {
+                            print("Error adding group to user's groups: \(err)")
+                        } else {
+                            print("Successfully added group to user's groups.")
+                        }
+                    }
+                }
+            }
+        }
       
-      //    var groupID: String
-      //    var adminID: String
-      //    var groupName: String
-      //    var groupImg: Bool = false
-      //    var groupTotalsUnconfirmed: [String: Int] // UserID : Int
-      //    var groupTotalsConfirmed: [String: Int] // UserID : Int
-      //    var members: [String : [String : String]] // UserID : [Role : String, Timstamp : String, Name : String]
-      //    var timestamp: String // Time of group creation
-      //    var debtRequests: [DebtRequest]
-      // Create a reference to the "groups" collection
-      let db = Firestore.firestore()
-      let timestamp = Timestamp()
-      let groupData: [String: Any] = [
-          "groupID": "group_001",
-          "adminID": "admin_001",
-          "groupName": "Vacation Trip",
-          "groupImg": false,
-          "groupTotalsUnconfirmed": [
-              "user_001": 100,
-              "user_002": 50
-          ],
-          "groupTotalsConfirmed": [
-              "user_001": 80,
-              "user_002": 40
-          ],
-          "members": [
-              "user_001": [
-                  "Role": "Admin",
-                  "Timestamp": "2023-10-31 14:00:00",
-                  "Name": "Alice"
-              ],
-              "user_002": [
-                  "Role": "Member",
-                  "Timestamp": "2023-10-31 14:05:00", 
-                  "Name": "Bob"
-              ]
-          ],
-          "timestamp": "2023-10-31 13:55:00",
-          "debtRequests": []
-      ]
-    var groupRef: DocumentReference? = nil
-       groupRef = db.collection("groups").addDocument(data: groupData) { err in
-           if let err = err {
-               print("Error adding document: \(err)")
-           } else if let groupID = groupRef?.documentID {
-               print("Document added with ID: \(groupID)")
-               
-               // Adding the admin to the memberIDs array
-               var allMemberIDs = memberIDs
-               allMemberIDs.append(adminID)
-               
-               for userID in allMemberIDs {
-                   // Determine the role
-                   let role = (userID == adminID) ? "admin" : "member"
-                   
-                   // Define the user group data
-                   let userGroupData: [String: Any] = [
-                       "GroupID": groupID,
-                       "Role": role,
-                       "Timestamp": timestamp
-                   ]
-                   
-                   // Add the group info to each user's Groups sub-collection
-                   db.collection("Users").document(userID).collection("Groups").document(groupID).setData(userGroupData) { err in
-                       if let err = err {
-                           print("Error adding group to user's groups: \(err)")
-                       } else {
-                           print("Successfully added group to user's groups.")
-                       }
-                   }
-               }
-           }
-       }
-    
-    
-  
-      // Add the group to the "groups" collection
-//      let newGroupRef = groupsCollection.addDocument(data: groupData) { (error) in
-//          if let error = error {
-//              print("Error creating group: \(error.localizedDescription)")
-//          } else {
-//              print("Group created successfully!")
-//              // Get the ID of the newly created group
-//          }
-//      }
       
-//      if !newGroupRef.documentID.isEmpty {
-//          let groupID = newGroupRef.documentID
-//          self.addGroupIDToUser(adminID: adminID, groupID: groupID)
-//      } else {
-//          // Handle the case when newGroupRef.documentID is empty
-//      }
-  }
+    
+        // Add the group to the "groups" collection
+  //      let newGroupRef = groupsCollection.addDocument(data: groupData) { (error) in
+  //          if let error = error {
+  //              print("Error creating group: \(error.localizedDescription)")
+  //          } else {
+  //              print("Group created successfully!")
+  //              // Get the ID of the newly created group
+  //          }
+  //      }
+        
+  //      if !newGroupRef.documentID.isEmpty {
+  //          let groupID = newGroupRef.documentID
+  //          self.addGroupIDToUser(adminID: adminID, groupID: groupID)
+  //      } else {
+  //          // Handle the case when newGroupRef.documentID is empty
+  //      }
+    }
 
-  //MARK: Add Group ID to User
-  func addGroupIDToUser(adminID: String, groupID: String) {
-      // Create a reference to the user's document in the "users" collection
-      let userDocument = Firestore.firestore().collection("users").document(adminID)
-      
-      // Update the "groups" array field to add the new group ID
-      userDocument.updateData([
-          "groups": FieldValue.arrayUnion([groupID])
-      ]) { error in
-          if let error = error {
-              print("Error adding group ID to user: \(error.localizedDescription)")
-          } else {
-              print("Group ID added to the user's document successfully!")
-          }
-      }
-  }
+    //MARK: Add Group ID to User
+    func addGroupIDToUser(adminID: String, groupID: String) {
+        // Create a reference to the user's document in the "users" collection
+        let userDocument = Firestore.firestore().collection("users").document(adminID)
+        
+        // Update the "groups" array field to add the new group ID
+        userDocument.updateData([
+            "groups": FieldValue.arrayUnion([groupID])
+        ]) { error in
+            if let error = error {
+                print("Error adding group ID to user: \(error.localizedDescription)")
+            } else {
+                print("Group ID added to the user's document successfully!")
+            }
+        }
+    }
 
     //MARK: Fetch Newly Created Group ID
     private func fetchNewlyCreatedGroupID(adminID: String, memberIDs: [String], groupName: String) {
@@ -365,7 +370,8 @@ class AuthViewModel: ObservableObject {
            }
   }
 
-  func getAllGroupsForUser(userID: String, completion: @escaping ([DocumentSnapshot]?) -> Void) {
+    //MARK: Get All the Groups Of Users
+    func getAllGroupsForUser(userID: String, completion: @escaping ([DocumentSnapshot]?) -> Void) {
       // Reference to the Firestore database
       let db = Firestore.firestore()
 
@@ -416,13 +422,64 @@ class AuthViewModel: ObservableObject {
   }
 
 
+    //MARK: Get All Requests for Group
+  func fetchRequestsForGroup(groupID: String, completion: @escaping([DocumentSnapshot]?) -> Void) {
+   
+    //create reference to requests collection
+    let requestsRef = database.collection("Groups").document(groupID).collection("Requests")
+    
+    //get all documents from collection
+    requestsRef.getDocuments { (userRequestsSnapshot, error) in
+      //if requests is null, return error
+      guard let userRequestsDocuments = userRequestsSnapshot?.documents, error == nil else {
+        print("Error getting group requests", error?.localizedDescription ?? "")
+        completion(nil)
+        return
+      }
+      //if requests is empty, return empty completion
+      guard !userRequestsDocuments.isEmpty else {
+        completion([])
+        return
+      }
+      
+      let requestIDs = userRequestsDocuments.map{ $0.documentID}
+      
+      //group to manage multiple asynchronous calls
+      let dispatchGroup = DispatchGroup()
+      
+      var requestDocs: [DocumentSnapshot] = []
+      
+      //fetch each group individually
+      for requestID in requestIDs {
+        dispatchGroup.enter()
+        requestsRef.document(requestID).getDocument { (document, error) in
+          if let document = document, document.exists {
+            //if document exists, append it
+            requestDocs.append(document)
+            print("request appended to RequestDocs")
+          } else {
+            print("Error fetching group document:", error?.localizedDescription ?? "")
+          }
+          dispatchGroup.leave()
+        }
+      }
+      
+      
+      
+      //Handle Completion after all documents are fetched asynchronously
+      dispatchGroup.notify(queue: .main){
+        completion(requestDocs)
+
+      }
+    }
+  }
 
 
 
 
 
 
-  //MARK:  Sign In With Email
+    //MARK:  Sign In With Email
     static func signInWithEmail(email: String, password: String, completion: @escaping (Error?) -> Void) {
         
         // completion: @escaping (Bool) -> Void
@@ -439,14 +496,14 @@ class AuthViewModel: ObservableObject {
         //Auth.auth().signIn(withEmail: email, password: password)
     }
     
-  //MARK: Sign in with Phone Number
+    //MARK: Sign in with Phone Number
     static func signInWithPhoneNumber(phone: String, password: String) {
         
         // completion: @escaping (Bool) -> Void
         
     }
 
-  //MARK: Sign up with Email
+    //MARK: Sign up with Email
     static func signUpWithEmail(email: String, password: String, user: RoomiesUser, completion: @escaping (Error?) -> Void){
         
     
@@ -494,7 +551,7 @@ class AuthViewModel: ObservableObject {
         print("Sending OTP Through Phone")
     }
     
-
+    //MARK: Fetch User Data on Login
     func fetchUserData(for uid: String, completion: @escaping (Result<RoomiesUser, Error>) -> Void) {
         
             Firestore.firestore().collection("users").document(uid).getDocument { snapshot, error in
@@ -518,11 +575,12 @@ class AuthViewModel: ObservableObject {
             }
         }
     
+    //MARK: Create A Group
     func createGroup(){
         
     }
     
-
+    
     func checkIfUserExists(email: String = "", phone: String = "", completion: @escaping (Bool) -> Void) {
         
         if !email.isEmpty{

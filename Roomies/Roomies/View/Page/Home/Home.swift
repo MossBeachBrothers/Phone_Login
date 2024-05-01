@@ -35,11 +35,13 @@ struct Home: View {
             
             Spacer() // To push items to opposite sides
             
-            //Navigation Link to Create New page
-          NavigationLink(value: HomeLink.createNewPage){
-            Image(systemName: "plus.circle")
-              .foregroundColor(Color.pink)
-          }
+          //Navigation Link to Create New page
+        NavigationLink(value: HomeLink.createNewPage){
+          Image(systemName: Tab.plus.imageName)
+            .resizable()
+            .foregroundColor(RoomiesStyle().color)
+            .frame(width: 45, height: 45)
+        }
 
         }
         SearchBar(text: $searchText, isSearching: $isSearching, startingText: "Search Groups")
@@ -63,20 +65,6 @@ struct Home: View {
     }
     
 }
-
-/*
-struct CreateNewPage: View {
-    var body: some View {
-        Text("Create New Page")
-    }
-}
-
-struct SettingsView: View {
-    var body: some View {
-        Text("Settings Page")
-    }
-}
- */
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {

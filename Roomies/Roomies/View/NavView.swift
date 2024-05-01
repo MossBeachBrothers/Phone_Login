@@ -39,18 +39,6 @@ struct NavView: View {
   }
 }
 
-/*
- TabView {
-    ForEach([Tab.
- 
- 
- }
- 
- */
-
-extension NavView {
-  
-}
 
 // Preview for the SwiftUI canvas
 struct NavView_Previews: PreviewProvider {

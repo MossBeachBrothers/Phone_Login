@@ -10,9 +10,6 @@
 		031C29E02A90366F003CAE13 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29DF2A90366F003CAE13 /* CustomTextField.swift */; };
 		031C29E12A90366F003CAE13 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29DF2A90366F003CAE13 /* CustomTextField.swift */; };
 		031C29E22A90366F003CAE13 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29DF2A90366F003CAE13 /* CustomTextField.swift */; };
-		031C29E42A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
-		031C29E52A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
-		031C29E62A9038BA003CAE13 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C29E32A9038BA003CAE13 /* LoginViewModel.swift */; };
 		0382CB392B27C3C400C517FA /* NavigationStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382CB382B27C3C400C517FA /* NavigationStateModel.swift */; };
 		0382CB3B2B27E59400C517FA /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382CB3A2B27E59400C517FA /* Link.swift */; };
 		0382CB3D2B27F01700C517FA /* FindFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382CB3C2B27F01700C517FA /* FindFriendsView.swift */; };
@@ -59,6 +56,7 @@
 		03C77B692B1D5C4400EA0932 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9D4F22A93F0CB00A9407F /* PasswordField.swift */; };
 		03C77B6F2B1DAB5000EA0932 /* GroupSettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C77B6E2B1DAB5000EA0932 /* GroupSettingsPage.swift */; };
 		03C77B712B1DB00200EA0932 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C77B702B1DB00200EA0932 /* BackButton.swift */; };
+		03CE2B4E2BE2DA8E00DA5C22 /* NewRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CE2B4D2BE2DA8E00DA5C22 /* NewRequestView.swift */; };
 		CD21906C2A8FDEEF00E35B8C /* RoomiesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */; };
 		CD21906E2A8FDEEF00E35B8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21906D2A8FDEEF00E35B8C /* ContentView.swift */; };
 		CD2190702A8FDEEF00E35B8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD21906F2A8FDEEF00E35B8C /* Assets.xcassets */; };
@@ -103,7 +101,6 @@
 
 /* Begin PBXFileReference section */
 		031C29DF2A90366F003CAE13 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		031C29E32A9038BA003CAE13 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0332273C2A90309600AAE99A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0332273D2A90313800AAE99A /* Roomies.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Roomies.entitlements; sourceTree = "<group>"; };
 		0382CB382B27C3C400C517FA /* NavigationStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStateModel.swift; sourceTree = "<group>"; };
@@ -147,6 +144,7 @@
 		03C77B642B1D241B00EA0932 /* RequestBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBox.swift; sourceTree = "<group>"; };
 		03C77B6E2B1DAB5000EA0932 /* GroupSettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSettingsPage.swift; sourceTree = "<group>"; };
 		03C77B702B1DB00200EA0932 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		03CE2B4D2BE2DA8E00DA5C22 /* NewRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRequestView.swift; sourceTree = "<group>"; };
 		CD2190682A8FDEEF00E35B8C /* Roomies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roomies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD21906B2A8FDEEF00E35B8C /* RoomiesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomiesApp.swift; sourceTree = "<group>"; };
 		CD21906D2A8FDEEF00E35B8C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -200,17 +198,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0332273F2A9031DD00AAE99A /* View */ = {
+		0301A1012BE175A7005094B5 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				03C77B672B1D5C2F00EA0932 /* Components */,
-				03C77B662B1D5BF900EA0932 /* Box */,
-				03C77B6D2B1D5E4B00EA0932 /* Page */,
-				03A3D8082AEB230A00412875 /* NavView.swift */,
 				0385A45E2A96E88D003E7475 /* PasswordReqView.swift */,
 				03A3D80A2AEB2AFC00412875 /* Settings.swift */,
 				03A3D8102AED94CA00412875 /* RecentRequests.swift */,
 				03C77B5B2B184B7400EA0932 /* TabBarView.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		0332273F2A9031DD00AAE99A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				03A3D8082AEB230A00412875 /* NavView.swift */,
+				0301A1012BE175A7005094B5 /* Other */,
+				03C77B672B1D5C2F00EA0932 /* Components */,
+				03C77B662B1D5BF900EA0932 /* Box */,
+				03C77B6D2B1D5E4B00EA0932 /* Page */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -218,7 +224,6 @@
 		033227402A9031E900AAE99A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				031C29E32A9038BA003CAE13 /* LoginViewModel.swift */,
 				0385A44A2A95205D003E7475 /* AuthViewModel.swift */,
 				0382CB382B27C3C400C517FA /* NavigationStateModel.swift */,
 			);
@@ -232,6 +237,7 @@
 				03BB18B02B1EC38C00E98348 /* New */,
 				03A3D8042AEAB8A600412875 /* CreateNewPage.swift */,
 				0382CB3C2B27F01700C517FA /* FindFriendsView.swift */,
+				03CE2B4D2BE2DA8E00DA5C22 /* NewRequestView.swift */,
 			);
 			path = CreateNew;
 			sourceTree = "<group>";
@@ -569,6 +575,7 @@
 				03C77B652B1D241B00EA0932 /* RequestBox.swift in Sources */,
 				03A7B8AC2AA4F37B0091AB0A /* GroupBox.swift in Sources */,
 				03C77B5F2B19169C00EA0932 /* Tab.swift in Sources */,
+				03CE2B4E2BE2DA8E00DA5C22 /* NewRequestView.swift in Sources */,
 				03A46F022AAA405A00AF1070 /* DebtRequest.swift in Sources */,
 				03A46F062AAE756E00AF1070 /* RoomiesGroup.swift in Sources */,
 				031C29E02A90366F003CAE13 /* CustomTextField.swift in Sources */,
@@ -593,7 +600,6 @@
 				03C77B5C2B184B7400EA0932 /* TabBarView.swift in Sources */,
 				03C77B6F2B1DAB5000EA0932 /* GroupSettingsPage.swift in Sources */,
 				03B1B39D2A92F73B004B6962 /* SignInPage.swift in Sources */,
-				031C29E42A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				03A9D4F52A9408C800A9407F /* SignUpBox.swift in Sources */,
 				03C77B712B1DB00200EA0932 /* BackButton.swift in Sources */,
 				03A9D4F12A93E34800A9407F /* RoomiesStyle.swift in Sources */,
@@ -612,7 +618,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0385A44C2A95205D003E7475 /* AuthViewModel.swift in Sources */,
-				031C29E52A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				CD21907D2A8FDEF000E35B8C /* RoomiesTests.swift in Sources */,
 				03C77B682B1D5C4400EA0932 /* PasswordField.swift in Sources */,
 				031C29E12A90366F003CAE13 /* CustomTextField.swift in Sources */,
@@ -627,7 +632,6 @@
 				0385A44D2A95205D003E7475 /* AuthViewModel.swift in Sources */,
 				CD2190872A8FDEF000E35B8C /* RoomiesUITests.swift in Sources */,
 				03C77B692B1D5C4400EA0932 /* PasswordField.swift in Sources */,
-				031C29E62A9038BA003CAE13 /* LoginViewModel.swift in Sources */,
 				CD2190892A8FDEF000E35B8C /* RoomiesUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

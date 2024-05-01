@@ -47,7 +47,7 @@ enum Tab: String, CaseIterable {
       case .message:
         return "message"
       case .plus:
-        return "plus.circle"
+        return "plus.rectangle.on.rectangle"
       case .person:
         return "person"
       case .dollarsign:
@@ -57,9 +57,9 @@ enum Tab: String, CaseIterable {
       case .people:
         return "person.2"
       case .groupTotals:
-        return "figure.2.circle.fill"
+        return "doc.text.fill"
       case .groupFeed:
-        return "plus.bubble"
+        return "plus.forwardslash.minus"
     }
   }
   

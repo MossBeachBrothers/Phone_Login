@@ -151,63 +151,83 @@ class AuthViewModel: ObservableObject {
       }
   }
     
-    //MARK: Add Debt Request
-    func addDebtRequest(
-        senderUserIDs: [String],
-        groupID: String,
-        receiverUserIDs: [String],
-        amount: Double,
-        requestDescription: String,
-        amountPerReceiver: [String: Int],
-        amountPerSender: [String: Int],
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        var confirmationStatus: [String: Bool] = [:]
-        for userID in receiverUserIDs {
-            // Initialize confirmation status for each receiver as false
-            confirmationStatus[userID] = false
-        }
+  //MARK: Add Debt Request
+  func addDebtRequest(
+      requestData: [String: Any],
+      completion: @escaping (Result<Void, Error>) -> Void
+  ) {
+      guard let senderUserIDs = requestData["senderUserIDs"] as? [String],
+            let groupID = requestData["groupID"] as? String,
+            let receiverUserIDs = requestData["receiverUserIDs"] as? [String],
+            let amount = requestData["amount"] as? Double,
+            let requestDescription = requestData["requestDescription"] as? String,
+            let amountPerReceiver = requestData["amountPerReceiver"] as? [String: Int],
+            let amountPerSender = requestData["amountPerSender"] as? [String: Int] else {
+          completion(.failure(NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid data format"])))
+          return
+      }
+      
+      let confirmationStatus = Dictionary(uniqueKeysWithValues: receiverUserIDs.map { ($0, false) })
+      let allUserIDs = Set(senderUserIDs + receiverUserIDs)
+      
+      var newDebtRequest = DebtRequest(
+          senderUserIDs: senderUserIDs,
+          groupID: groupID,
+          receiverUserIDs: receiverUserIDs,
+          amount: amount,
+          requestDescription: requestDescription,
+          amountPerReceiver: amountPerReceiver,
+          amountPerSender: amountPerSender,
+          timestamp: Date().description
+      )
+      
+      let firestore = Firestore.firestore()
+      let dispatchGroup = DispatchGroup()
+      
+  //    // Adding to each user's personal collection
+  //    for userID in allUserIDs {
+  //        dispatchGroup.enter()
+  //        let userRequestsRef = firestore.collection("users").document(userID).collection("requests")
+  //        userRequestsRef.addDocument(data: newDebtRequest.toFirestoreData()) { error in
+  //            defer { dispatchGroup.leave() }
+  //            if let error = error {
+  //                completion(.failure(error))
+  //                return
+  //            }
+  //        }
+  //    }
 
-        var newDebtRequest = DebtRequest(
-            senderUserIDs: senderUserIDs,
-            groupID: groupID,
-            receiverUserIDs: receiverUserIDs,
-            amount: amount,
-            requestDescription: requestDescription,
-            amountPerReceiver: amountPerReceiver,
-            amountPerSender: amountPerSender,
-            timestamp: Date().description
-        )
+      // Adding to the group's collection
+      dispatchGroup.enter()
+      let groupRequestsRef = firestore.collection("groups").document(groupID).collection("requests")
+      groupRequestsRef.addDocument(data: newDebtRequest.toFirestoreData()) { error in
+          defer { dispatchGroup.leave() }
+          if let error = error {
+              completion(.failure(error))
+              return
+          }
+      }
 
-        // Add the debt request to the global requests collection
-        let globalRequestsRef = Firestore.firestore().collection("requests")
-        globalRequestsRef.addDocument(data: newDebtRequest.toFirestoreData()) { error in
-            if let error = error {
-                //handle error in completion
-                completion(.failure(error))
-            } else {
-                // Add the same request to the group's requests collection
-                let groupRequestsRef = Firestore.firestore().collection("groups").document(groupID).collection("requests")
-                groupRequestsRef.addDocument(data: newDebtRequest.toFirestoreData()) { error in
-                    if let error = error {
-                      //handle error in completion
-                        completion(.failure(error))
-                    } else {
-                        // Update allConfirmed if all confirmationStatus values are true
-                        if confirmationStatus.values.allSatisfy({ $0 == true }) {
-                            newDebtRequest.allConfirmed = true
-                        }
+      dispatchGroup.notify(queue: .main) {
+          // Check if all confirmations are true (simplified)
+          if confirmationStatus.values.allSatisfy({ $0 }) {
+              newDebtRequest.allConfirmed = true
+              // Assume we only update this in the group's document for simplicity
+              groupRequestsRef.document(newDebtRequest.id ?? "").updateData(["allConfirmed": newDebtRequest.allConfirmed]) { error in
+                  if let error = error {
+                      completion(.failure(error))
+                  } else {
+                      completion(.success(()))
+                  }
+              }
+          } else {
+              completion(.success(()))
+          }
+      }
+  }
 
-                        // Update the allConfirmed field in Firestore
-                        groupRequestsRef.document(newDebtRequest.id ?? "").updateData(["allConfirmed": newDebtRequest.allConfirmed])
-                        
-                        //handle success in completion
-                        completion(.success(()))
-                    }
-                }
-            }
-        }
-    }
+
+
     
     
     //MARK: Create Group

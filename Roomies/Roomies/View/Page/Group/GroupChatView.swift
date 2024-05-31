@@ -51,7 +51,7 @@ struct GroupChatView: View {
         }
       })
       .navigationBarItems(trailing: HStack {
-        NavigationLink(value: HomeLink.createNewPage){
+        NavigationLink(value: HomeLink.newRequestPage){
           Image(systemName: Tab.plus.imageName)
             .resizable()
             .foregroundColor(RoomiesStyle().color)

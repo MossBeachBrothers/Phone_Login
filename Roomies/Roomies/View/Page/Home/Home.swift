@@ -58,6 +58,7 @@ struct Home: View {
       .navigationDestination(for: HomeLink.self){ screen in
         switch screen {
           case .createNewPage: CreateNewPage()
+          case .newRequestPage: NewRequestView()
         }
       }
       .padding()

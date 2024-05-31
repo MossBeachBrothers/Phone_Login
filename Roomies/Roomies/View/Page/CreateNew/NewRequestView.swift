@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NewRequestView: View {
+  @EnvironmentObject var authViewModel: AuthViewModel
   @State private var amount: String = ""
   @State private var description: String = ""
   @State private var requestMembers: [String] = ["Userx", "User Y"]
@@ -67,7 +68,7 @@ struct NewRequestView: View {
                         .cornerRadius(10)
                 }
                 
-                Button(action: sendMoney) {
+                Button(action: requestMoney) {
                     Text("Pay")
                         .foregroundColor(.white)
                         .frame(minWidth: 0, maxWidth: .infinity)
@@ -81,15 +82,42 @@ struct NewRequestView: View {
         .padding()
     }
     
-    func requestMoney() {
-        // Implement the functionality to request money
-        print("Requesting $\(amount) for \(description)")
-    }
-    
-    func sendMoney() {
-        // Implement the functionality to send money
-        print("Sending $\(amount) for \(description)")
-    }
+  func requestMoney() {
+      guard let amountDouble = Double(amount) else {
+          print("Invalid amount")
+          return
+      }
+      var senderIDs: [String] = []  // This could be fetched from a logged-in user session or similar.
+
+      if let currentUser = authViewModel.currentUser {
+          senderIDs.append(currentUser.uid)
+      }
+
+      let receiverIDs = requestMembers.filter { $0 != "user1" }  // Assuming 'user1' is the sender.
+      let groupID = "group123"  // This should be dynamically determined based on the context.
+
+      let newDebtRequest = DebtRequest(
+          senderUserIDs: senderIDs,
+          groupID: groupID,
+          receiverUserIDs: receiverIDs,
+          amount: amountDouble,
+          requestDescription: description,
+          amountPerReceiver: receiverIDs.reduce(into: [:]) { $0[$1] = Int(amountDouble) / receiverIDs.count },
+          amountPerSender: [senderIDs.first!: Int(amountDouble)],
+          timestamp: Date().description
+      )
+
+      // Assuming `AuthViewModel` has a method `addDebtRequest` which takes a `DebtRequest` and a completion handler
+    authViewModel.addDebtRequest(requestData: newDebtRequest.toFirestoreData()) { result in
+          switch result {
+          case .success():
+              print("Request successfully added.")
+          case .failure(let error):
+              print("Error adding request: \(error.localizedDescription)")
+          }
+      }
+  }
+
   
 }
 

@@ -20,6 +20,7 @@ enum GroupLink : Hashable {
 
 enum HomeLink: Hashable {
   case createNewPage
+  case newRequestPage
 }
 
 enum CreateNewLink: Hashable {

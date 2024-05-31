@@ -14,8 +14,8 @@
             filePath = "Roomies/ViewModel/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "createGroup(adminID:memberIDs:groupName:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "Roomies/ViewModel/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "541"
-            endingLineNumber = "541"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
             landmarkName = "signUpWithPhoneNumber(phone:password:user:completion:)"
             landmarkType = "7">
          </BreakpointContent>
